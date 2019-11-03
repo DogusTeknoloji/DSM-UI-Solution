@@ -199,7 +199,7 @@
          Exception type: NullReferenceException
 
           Exception message: Object reference not set to an instance of an object.
-         at vw2015_CmsBridge.GetHandler.ProcessRequest(HttpContext context)
+         at GetHandler.ProcessRequest(HttpContext context)
          at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
          at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
       
@@ -209,7 +209,7 @@
 
           Request information:
 
-              Request URL: https://binekarac2.vw.com.tr:443/get/vendor?subdomain=ahlatciapp1
+              Request URL: https://d-Teknoloji.com.tr
 
               Request path: /get/vendor
 
@@ -221,7 +221,7 @@
 
               Authentication Type: 
 
-              Thread account name: IIS APPPOOL\binekarac.vw.com.tr
+              Thread account name: IIS APPPOOL\d-teknoloji.com.tr.com.tr
 
 
 
@@ -229,11 +229,11 @@
 
               Thread ID: 6
 
-              Thread account name: IIS APPPOOL\binekarac.vw.com.tr
+              Thread account name: IIS APPPOOL\d-teknoloji.com.tr
 
               Is impersonating: False
 
-              Stack trace:    at vw2015_CmsBridge.GetHandler.ProcessRequest(HttpContext context)
+              Stack trace:    at GetHandler.ProcessRequest(HttpContext context)
              at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
              at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
 
@@ -268,43 +268,8 @@ export default {
     return {
       detailVisible: false,
       solutionVisible: false,
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-02",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-04",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-01",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-08",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-06",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        },
-        {
-          date: "2016-05-07",
-          name: "Tom",
-          address: "No. 189, Grove St, Los Angeles"
-        }
-      ],
+     
+     
       textarea: ""
     };
   }
