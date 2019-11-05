@@ -396,7 +396,6 @@
       title="Details"
       :visible.sync="detailVisible"
       width="50%"
-      :before-close="handleClose"
     >
       <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="20">
        Exception information:
@@ -451,7 +450,6 @@
       title="Solution Details"
       :visible.sync="solutionVisible"
       width="50%"
-      :before-close="handleClose"
     >
         <div class="form-group">
           <label for="inputEmail4">Solution</label>

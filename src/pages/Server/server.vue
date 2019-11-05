@@ -187,76 +187,7 @@
       </div>
     </b-col>
 
-    <el-dialog
-      title="Details"
-      :visible.sync="detailVisible"
-      width="50%"
-      :before-close="handleClose"
-    >
-      <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="20">
-       Exception information:
-
-         Exception type: NullReferenceException
-
-          Exception message: Object reference not set to an instance of an object.
-         at GetHandler.ProcessRequest(HttpContext context)
-         at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-         at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-      
-
-
-
-
-          Request information:
-
-              Request URL: https://d-Teknoloji.com.tr
-
-              Request path: /get/vendor
-
-              User host address: 192.168.75.250
-
-              User: 
-
-              Is authenticated: False
-
-              Authentication Type: 
-
-              Thread account name: IIS APPPOOL\d-teknoloji.com.tr.com.tr
-
-
-
-          Thread information:
-
-              Thread ID: 6
-
-              Thread account name: IIS APPPOOL\d-teknoloji.com.tr
-
-              Is impersonating: False
-
-              Stack trace:    at GetHandler.ProcessRequest(HttpContext context)
-             at System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
-             at System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
-
-     </textarea>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="detailVisible = false">Close</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog
-      title="Solution Details"
-      :visible.sync="solutionVisible"
-      width="50%"
-      :before-close="handleClose"
-    >
-      <div class="form-group">
-        <label for="inputEmail4">Solution</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-      </div>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="default" @click="solutionVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="solutionVisible = false">Resolve</el-button>
-      </span>
-    </el-dialog>
+   
   </div>
 </template>
 
@@ -266,11 +197,7 @@ export default {
   components: {},
   data() {
     return {
-      detailVisible: false,
-      solutionVisible: false,
-     
-     
-      textarea: ""
+      
     };
   }
 };
