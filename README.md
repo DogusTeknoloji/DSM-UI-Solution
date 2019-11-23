@@ -2,8 +2,16 @@
 ![Product Gif](./dsm-logo.png)
 
 ## About DSM
+###### Build Status 
+
 [![Build Status](https://dtalm.visualstudio.com/DUY%20Self%20Service/_apis/build/status/DogusTeknoloji.DSM-UI-Solution?branchName=master)](https://dtalm.visualstudio.com/DUY%20Self%20Service/_build/latest?definitionId=762&branchName=master)
 
+###### Test Servers  
+
+![Deployment StatusT](https://dtalm.vsrm.visualstudio.com/_apis/public/Release/badge/5d43f3a2-14a4-4558-9b9c-a90e7cf36c5f/5/5)
+###### Production Servers  
+
+![Deployment StatusP](https://dtalm.vsrm.visualstudio.com/_apis/public/Release/badge/5d43f3a2-14a4-4558-9b9c-a90e7cf36c5f/5/6)
 
 **DSM** is an middleware management and reporting tool designed to be strong and simple. It is build with C#. It can be used to collect IIS Site info,bindings,logs,site backends and more...
 
