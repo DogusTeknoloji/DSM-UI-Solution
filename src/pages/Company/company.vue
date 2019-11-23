@@ -151,7 +151,7 @@ export default {
 };
 </script>
 
-    <style lang="scss" scoped>
+    <style lang="scss">
 .site-link {
   color: #196eff;
 }

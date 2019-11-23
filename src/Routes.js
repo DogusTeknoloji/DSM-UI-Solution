@@ -8,6 +8,9 @@ import Login from '@/pages/Login/Login';
 import ErrorPage from '@/pages/Error/Error';
 import Server from '@/pages/Server/server'
 import Company from '@/pages/Company/company'
+import  ServerOwnershipStatus  from "@/pages/Reports/ServerOwnershipStatus";
+import  MostCalledUrls  from "@/pages/Reports/MostCalledUrls";
+import  LongestResponseTime  from "@/pages/Reports/LongestResponseTime";
 
 Vue.use(Router);
 
@@ -49,8 +52,22 @@ export default new Router({
           name: 'Company',
           component: Company,
         },
-      
-
+        {
+          path: 'reports/server-ownership-status',
+          name: 'ServerOwnershipStatus',
+          component: ServerOwnershipStatus,
+        },
+        //MostCalledUrls
+        {
+          path: 'reports/most-called-urls',
+          name: 'MostCalledUrls',
+          component: MostCalledUrls,
+        },
+        {
+          path: 'reports/longest-response-time',
+          name: 'LongestResponseTime',
+          component: LongestResponseTime,
+        },
     
       ],
     },
