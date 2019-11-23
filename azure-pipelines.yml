@@ -25,8 +25,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '/dist/'
-    Contents: '**'
+    Contents: '**/dist/**'
     TargetFolder: '$(build.artifactstagingdirectory)'
     CleanTargetFolder: true
     OverWrite: true
