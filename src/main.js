@@ -5,7 +5,6 @@ import 'expose-loader?$!jquery' // eslint-disable-line
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import VCalendar from 'v-calendar';
-import * as VueGoogleMaps from 'vue2-google-maps';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 

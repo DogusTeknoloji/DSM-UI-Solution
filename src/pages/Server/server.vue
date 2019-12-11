@@ -4,9 +4,9 @@
       <div class="site-header">
         <div style="display:flex">
           <div>
-            <h1 class="page-title" style="margin:0">TestServer &nbsp;</h1>
+            <h1 class="page-title" style="margin:0">{{header.serverName}} &nbsp;</h1>
             <div style="display:inline">
-              <h5>Doğuş Teknoloji</h5>
+              <h5 style="cursor:pointer"  @click="$router.push('/app/company/'+header.companyId)">{{header.companyName}}</h5>
             </div>
           </div>
         </div>
@@ -17,14 +17,14 @@
           </div>
 
           <div class="site-status-text">
-            <h4 style="font-family:Roboto; display:block;margin-top:12px">Running</h4>
+            <h4 style="font-family:Roboto; display:block;margin-top:12px">{{header.availability}}</h4>
           </div>
         </div>
       </div>
 
       <div class="col-md-12">
-        <el-tabs>
-          <el-tab-pane label="General">
+        <el-tabs v-model="activeName" @tab-click="handleTabClick()">
+          <el-tab-pane label="General" name="general">
             <div class="row general-info">
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
@@ -32,47 +32,46 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Domain:</td>
-                      <td class="general-info-table-value">fw.lorem.com.tr</td>
+                      <td class="general-info-table-value">{{detail.domain}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">IP Address:</td>
-                      <td class="general-info-table-value">0.0.0.0</td>
+                      <td class="general-info-table-value">{{detail.ipAddress}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Web Server:</td>
-                      <td class="general-info-table-value">IIS 8</td>
+                      <td class="general-info-table-value">{{detail.webServer}}</td>
                     </tr>
 
                     <tr>
                       <td class="general-info-table-title">Operation System:</td>
-                      <td class="general-info-table-value">Windows Server 2008</td>
+                      <td class="general-info-table-value">{{detail.operatingSystem}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">CPU:</td>
-                      <td class="general-info-table-value">Intel Xeon E5 2.6 GHZ (6 Processors)</td>
+                      <td class="general-info-table-value">{{detail.cpu}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Memory:</td>
-                      <td class="general-info-table-value">48 GB</td>
+                      <td class="general-info-table-value">{{detail.memory}}</td>
                     </tr>
 
                     <tr>
                       <td class="general-info-table-title">Last Backup:</td>
-                      <td class="general-info-table-value">19.10.2019 21:30:42</td>
+                      <td class="general-info-table-value">{{detail.lastBackup}}</td>
                     </tr>
-                       <tr>
+                    <tr>
                       <td class="general-info-table-title">Site Count:</td>
-                      <td class="general-info-table-value">100</td>
+                      <td class="general-info-table-value">{{detail.siteCount}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Online Site Count</td>
-                      <td class="general-info-table-value">70</td>
+                      <td class="general-info-table-value">{{detail.onlineSiteCount}}</td>
                     </tr>
-            
                   </table>
                 </div>
               </div>
-               <div class="col-md-4">
+              <div class="col-md-4">
                 <div class="col-md-12 info-card">
                   <h5 class="general-info-header">Disk Details</h5>
 
@@ -94,14 +93,11 @@
                       <td class="general-info-table-value">20 min ago</td>
                     </tr>
                   </table>
-
-                 
                 </div>
               </div>
               <!-- Web Config - Other -->
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
-                  
                   <h5 class="general-info-header">Volume Details</h5>
                   <table class="table">
                     <tr>
@@ -110,19 +106,18 @@
                       <td>80 GB</td>
                       <td class="general-info-table-value">100 GB ( 20% free)</td>
                     </tr>
-                         <tr>
+                    <tr>
                       <td class="general-info-table-title">D:\</td>
-                      <td class=" text-danger">3 GB</td>
-                      <td class=" text-danger">97 GB</td>
+                      <td class="text-danger">3 GB</td>
+                      <td class="text-danger">97 GB</td>
                       <td class="general-info-table-value text-danger">100 GB ( 3% free)</td>
                     </tr>
-                         <tr>
+                    <tr>
                       <td class="general-info-table-title">F:\</td>
-                       <td>20 GB</td>
+                      <td>20 GB</td>
                       <td>80 GB</td>
                       <td class="general-info-table-value">100 GB ( 20% free)</td>
                     </tr>
-                  
                   </table>
                 </div>
               </div>
@@ -139,11 +134,11 @@
 
             -->
           </el-tab-pane>
-          <el-tab-pane label="Sites">
+          <el-tab-pane label="Sites" name="sites" :disabled="detail.siteCount==0">
             <h4 class="fw-semi-bold">Sites</h4>
             <br />
             <div class="col-md-12 table-card">
-              <table class="table table-striped">
+              <table class="table table-responsive table-striped">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -154,58 +149,78 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td><router-link class="site-link" to="/app/site">lorem.lorem.com.tr</router-link> </td>
+                  <tr v-for="(s, i) in this.sites" :key="i">
+                    <th scope="row">{{++i}}</th>
+                    <td>
+                      <router-link class="site-link" :to="{ name: 'Site', params: { id: s.siteId }}">{{s.siteName}}</router-link>
+                    </td>
 
-                    <td>A:\...\...</td>
-                    <td>lorem.lorem.com.tr</td>
-                    <td>Started</td>
+                    <td>{{s.physicalPath}}</td>
+                    <td>{{s.domains}}</td>
+                    <td>{{s.state}}</td>
                   </tr>
 
-                  <tr>
-                    <th scope="row">2</th>
-                    <td><router-link class="site-link" to="/app/site">lorem.lorem.com.tr</router-link> </td>
-                    <td>A:\...\...</td>
-                    <td>lorem.lorem.com.tr</td>
-                    <td>Started</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td><router-link class="site-link" to="/app/site">lorem.lorem.com.tr</router-link> </td>
-                    <td>A:\...\...</td>
-                    <td>lorem.lorem.com.tr</td>
-                    <td>Started</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
           </el-tab-pane>
-      
-          <el-tab-pane label="Statistics ">Task</el-tab-pane>
+
+          <el-tab-pane label="Statistics" :disabled="true" name="statistic">Task</el-tab-pane>
         </el-tabs>
       </div>
     </b-col>
-
-   
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "Site",
+  name: "Server",
   components: {},
   data() {
     return {
-      
+      activeName: "general"
     };
+  },
+  mounted(){
+    this.fetch_detail(this.$route.params.id);
+    this.fetch_header(this.$route.params.id);
+  },
+  computed: {
+    ...mapGetters({
+      detail: "server/GET_SERVER_DETAILS",
+      header: "server/GET_SERVER_HEADER",
+      sites: "server/GET_SERVER_SITES"
+    })
+  },
+  methods: {
+    ...mapActions({
+      fetch_detail: "server/action_getServerDetails",
+      fetch_header: "server/action_getServerHeader",
+      fetch_sites: "server/action_getServerSites"
+    }),
+    handleTabClick() {
+      console.log(this.activeName);
+      switch (this.activeName) {
+        case "general":
+          this.fetch_site(this.$route.params.id);
+          break;
+        case "sites":
+          this.fetch_sites(this.$route.params.id);
+          break;
+     
+
+        default:
+          break;
+      }
+    }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.site-link{
-    color:#196eff;
+.site-link {
+  color: #196eff;
 }
 .el-dialog__wrapper {
   overflow: auto;

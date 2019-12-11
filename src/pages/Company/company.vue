@@ -4,7 +4,7 @@
       <div class="site-header">
         <div style="display:flex">
           <div>
-            <h1 class="page-title" style="margin:0">Doğuş Otomotiv A.Ş. &nbsp;</h1>
+            <h1 class="page-title" style="margin:0">{{header.companyName}} &nbsp;</h1>
             <div style="display:inline">
               <!-- <h5>Doğuş Otomotiv A.Ş.</h5> -->
             </div>
@@ -13,8 +13,8 @@
       </div>
 
       <div class="col-md-12">
-        <el-tabs>
-          <el-tab-pane label="Servers">
+        <el-tabs v-model="activeName" @tab-click="handleTabClick()">
+          <el-tab-pane label="Servers" name="servers">
             <h4 class="fw-semi-bold">Servers</h4>
             <br />
             <div class="col-md-12 table-card">
@@ -35,56 +35,27 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
+                  <tr v-for="(s, i) in this.servers" :key="i">
+                    <th scope="row">{{++i}}</th>
                     <td>
-                      <router-link class="site-link" to="/app/server">lorem.lorem.com.tr</router-link>
+                      <router-link class="site-link" :to="{ name: 'Server', params: { id: s.serverId }}">{{s.serverName}}</router-link>
                     </td>
 
-                    <td>fw.lorem.com.tr</td>
-                    <td>0.0.0.0</td>
-                    <td>Microsoft Windows Server 2016 (64-bit)</td>
-                    <td>Production</td>
-                    <td>IIS8</td>
-                    <td>DT Uygulama Yönetimi</td>
-                    <td>DT Uygulama Yönetimi</td>
-                    <td>30.10.2019 13:04:02</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>
-                      <router-link class="site-link" to="/app/server">lorem.lorem.com.tr</router-link>
-                    </td>
-                    <td>fw.lorem.com.tr</td>
-                    <td>0.0.0.0</td>
-                    <td>Microsoft Windows Server 2016 (64-bit)</td>
-                    <td>Pre-Prod</td>
-                    <td>IIS8</td>
-                    <td>DT Uygulama Yönetimi</td>
-                    <td>DT Uygulama Yönetimi</td>
-                    <td>30.10.2019 13:04:02</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>
-                      <router-link class="site-link" to="/app/server">lorem.lorem.com.tr</router-link>
-                    </td>
-                    <td>fw.lorem.com.tr</td>
-
-                    <td>0.0.0.0</td>
-                    <td>Microsoft Windows Server 2016 (64-bit)</td>
-                    <td>Test</td>
-                    <td>IIS8</td>
-                    <td>DT Uygulama Yönetimi</td>
-                    <td>DT Uygulama Yönetimi</td>
-                    <td>30.10.2019 13:04:02</td>
+                    <td>{{s.fullName}}</td>
+                    <td>{{s.ipAddress}}</td>
+                    <td>{{s.operatingSystem}}</td>
+                    <td>{{s.environments}}</td>
+                    <td>{{s.applicationType}}</td>
+                    <td>{{s.owner}}</td>
+                    <td>{{s.contact}}</td>
+                    <td>{{s.lastBackupDate}}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
           </el-tab-pane>
 
-          <el-tab-pane label="Sites">
+          <el-tab-pane label="Sites" name="sites">
             <h4 class="fw-semi-bold">Sites</h4>
             <br />
             <div class="col-md-12 table-card">
@@ -99,40 +70,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
+                  <tr v-for="(s, i) in this.sites" :key="i">
+                    <th scope="row">{{++i}}</th>
                     <td>
-                      <router-link class="site-link" to="/app/site">lorem.lorem.com.tr</router-link>
+                      <router-link class="site-link" :to="{ name: 'Site', params: { id: s.siteId }}">{{s.siteName}}</router-link>
                     </td>
 
-                    <td>A:\...\...</td>
-                    <td>lorem.lorem.com.tr</td>
-                    <td>Started</td>
+                    <td>{{s.physicalPath}}</td>
+                    <td>{{s.domains}}</td>
+                    <td>{{s.state}}</td>
                   </tr>
 
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>
-                      <router-link class="site-link" to="/app/site">lorem.lorem.com.tr</router-link>
-                    </td>
-                    <td>A:\...\...</td>
-                    <td>lorem.lorem.com.tr</td>
-                    <td>Started</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>
-                      <router-link class="site-link" to="/app/site">lorem.lorem.com.tr</router-link>
-                    </td>
-                    <td>A:\...\...</td>
-                    <td>lorem.lorem.com.tr</td>
-                    <td>Started</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="Statistics ">Task</el-tab-pane>
+          <el-tab-pane label="Statistics " :disabled="true">Task</el-tab-pane>
         </el-tabs>
       </div>
     </b-col>
@@ -140,14 +93,47 @@
 </template>
 
     <script>
+import { mapGetters, mapActions } from "vuex";
 export default {
-  name: "Site",
+  name: "Company",
   components: {},
   data() {
     return {
+      activeName: "servers"
    
     };
-  }
+  },
+   mounted(){
+    this.fetch_servers(this.$route.params.id);
+    this.fetch_header(this.$route.params.id);
+  },
+    computed: {
+    ...mapGetters({
+      servers: "company/GET_COMPANY_SERVERS",
+      header: "company/GET_COMPANY_HEADER",
+      sites: "company/GET_COMPANY_SITES"
+    })
+    },
+  methods: {
+    ...mapActions({
+      fetch_servers: "company/action_getCompanyServers",
+      fetch_header: "company/action_getCompanyHeader",
+      fetch_sites: "company/action_getCompanySites"
+    }),
+    handleTabClick() {
+      console.log(this.activeName);
+      switch (this.activeName) {
+        case "servers":
+          this.fetch_servers(this.$route.params.id);
+          break;
+        case "sites":
+          this.fetch_sites(this.$route.params.id);
+          break;
+     
+      }
+      }
+    }
+  
 };
 </script>
 

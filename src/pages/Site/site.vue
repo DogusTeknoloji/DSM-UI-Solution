@@ -4,12 +4,12 @@
       <div class="site-header">
         <div style="display:flex">
           <div>
-            <h1 class="page-title" style="margin:0">d-teknoloji.com.tr &nbsp;</h1>
+            <h1 class="page-title" style="margin:0">{{header.siteName}} &nbsp;</h1>
             <div style="display:inline">
-              <h5>Doğuş Teknoloji</h5>
+              <h5 style="cursor:pointer"  @click="$router.push('/app/company/'+header.companyId)">{{header.companyName}}</h5>
             </div>
           </div>
-          <p class="server-tag">TestServer</p>
+          <p class="server-tag" @click="$router.push('/app/server/'+header.machineId)">{{header.machineName}}</p>
         </div>
         <div class="site-status status-running">
           <div style="align-self: center;">
@@ -18,17 +18,17 @@
           </div>
 
           <div class="site-status-text">
-            <h5 style="font-family:Roboto; font-weight: 900; display:block;margin-top:5px">STARTED</h5>
+            <h5 style="font-family:Roboto; font-weight: 900; display:block;margin-top:5px">{{header.state}}</h5>
 
-            <h5 style="margin-top:-7px">Available</h5>
-            <h6 style="margin-top:-7px">Last Check - 5 min ago</h6>
+            <h5 style="margin-top:-7px">{{header.availability}}</h5>
+            <h6 style="margin-top:-7px">Last Check - {{header.lastUpdated}}</h6>
           </div>
         </div>
       </div>
 
       <div class="col-md-12">
-        <el-tabs>
-          <el-tab-pane label="General">
+        <el-tabs v-model="activeName" @tab-click="handleTabClick()">
+          <el-tab-pane label="General" name="general">
             <div class="row general-info">
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
@@ -36,31 +36,31 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Machine Name:</td>
-                      <td class="general-info-table-value">TestServer</td>
+                      <td class="general-info-table-value">{{site.machineName}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Name:</td>
-                      <td class="general-info-table-value">d-teknoloji.com.tr/</td>
+                      <td class="general-info-table-value">{{site.name}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Application Pool Name:</td>
-                      <td class="general-info-table-value">d-teknoloji.com.tr/</td>
+                      <td class="general-info-table-value">{{site.applicationPoolName}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Physical Path:</td>
-                      <td class="general-info-table-value">A:\...</td>
+                      <td class="general-info-table-value">{{site.physicalPath}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Enabled Protocols:</td>
-                      <td class="general-info-table-value">http, https</td>
+                      <td class="general-info-table-value">{{site.enabledProtocols}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Max Band With:</td>
-                      <td class="general-info-table-value">4294967295</td>
+                      <td class="general-info-table-value">{{site.maxBandwidth}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Max Connections:</td>
-                      <td class="general-info-table-value">4294967295</td>
+                      <td class="general-info-table-value">{{site.maxConnections}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title"></td>
@@ -81,35 +81,44 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Log File Enabled:</td>
-                      <td class="general-info-table-value" style="color:green">Yes</td>
+                      <td
+                        class="general-info-table-value"
+                        style="color:green"
+                      >{{site.logFileEnabled}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Log File Directory:</td>
-                      <td class="general-info-table-value">A:\...</td>
+                      <td class="general-info-table-value">{{site.logFileDirectory}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Log Format:</td>
-                      <td class="general-info-table-value">W3c</td>
+                      <td class="general-info-table-value">{{site.logFormat}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Log Period:</td>
-                      <td class="general-info-table-value">Daily</td>
+                      <td class="general-info-table-value">{{site.logPeriod}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Server Auto Start</td>
-                      <td class="general-info-table-value" style="color:green">Yes</td>
+                      <td
+                        class="general-info-table-value"
+                        style="color:green"
+                      >{{site.serverAutoStart}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Trace Failed Requests Logging Enabled:</td>
-                      <td class="general-info-table-value" style="color:red">No</td>
+                      <td
+                        class="general-info-table-value"
+                        style="color:red"
+                      >{{site.traceFailedRequestsLoggingEnabled}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Last Updated:</td>
-                      <td class="general-info-table-value">18/10/2019 13:00</td>
+                      <td class="general-info-table-value">{{site.lastUpdated}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Date Deleted:</td>
-                      <td class="general-info-table-value">18/10/2019 13:00</td>
+                      <td class="general-info-table-value">{{site.dateDeleted}}</td>
                     </tr>
                   </table>
                 </div>
@@ -122,11 +131,11 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Web Config Last Backup Date:</td>
-                      <td class="general-info-table-value">18.10.2019 14:00</td>
+                      <td class="general-info-table-value">{{site.webConfigLastBackupDate}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Web Config Backup Directory</td>
-                      <td class="general-info-table-value">A\...</td>
+                      <td class="general-info-table-value">{{site.webcConfigBackupDirectory}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title"></td>
@@ -139,15 +148,18 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Net Framework Version:</td>
-                      <td class="general-info-table-value">4.1.1</td>
+                      <td class="general-info-table-value">{{site.netFrameworkVersion}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Send Alert Mail When Unavailable</td>
-                      <td class="general-info-table-value" style="color:green">Yes</td>
+                      <td
+                        class="general-info-table-value"
+                        style="color:green"
+                      >{{site.sendAlertMAilWhenUnavailable}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">App Type:</td>
-                      <td class="general-info-table-value">Root</td>
+                      <td class="general-info-table-value">{{site.appType}}</td>
                     </tr>
                   </table>
                 </div>
@@ -165,10 +177,10 @@
 
             -->
           </el-tab-pane>
-          <el-tab-pane label="Bindings">
+          <el-tab-pane label="Bindings" name="bindings">
             <h4 class="fw-semi-bold">Bindings</h4>
             <br />
-            <div class="col-md-12 table-card">
+            <div class="col-md-12 table-card" v-if="this.bindings.length>0">
               <table class="table table-striped">
                 <thead>
                   <tr>
@@ -181,36 +193,20 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>0.0.0.0</td>
-                    <td>InterNetwork</td>
-                    <td>80</td>
-                    <td>d-teknoloji.com.tr</td>
-                    <td>http</td>
+                  <tr v-for="(b, i) in this.bindings" :key="i">
+                    <th scope="row" >{{++i}}</th>
+                    <td>{{b.ipAddress}}</td>
+                    <td>{{b.ipAddressFamily}}</td>
+                    <td>{{b.ports}}</td>
+                    <td>{{b.host}}</td>
+                    <td>{{b.protocols}}</td>
                   </tr>
 
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>192.168.75.135</td>
-                    <td>InterNetwork</td>
-                    <td>443</td>
-                    <td>d-teknoloji.com.tr</td>
-                    <td>https</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>0.0.0.0</td>
-                    <td>InterNetwork</td>
-                    <td>80</td>
-                    <td>d-teknoloji.com.tr</td>
-                    <td>http</td>
-                  </tr>
                 </tbody>
               </table>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="Backend Sevices">
+          <el-tab-pane label="Backend Sevices" name="backend">
             <h4 class="fw-semi-bold">Endpoints</h4>
             <br />
             <div class="col-md-12 table-card">
@@ -226,25 +222,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(e,i) in this.endpoints" :key="i">
                     <th scope="row">1</th>
                     <td>TestServiceSoap</td>
-                    <td>80</td>
-                    <td>http://lorem/services/lorem/lorem.asmx</td>
-                    <td>Yes</td>
-                    <td>18.10.2019 - 14:20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>TestServiceSoap12</td>
-                    <td>80</td>
-                    <td>http://lorem/services/lorem/lorem.asmx</td>
-                    <td>Yes</td>
-                    <td>18.10.2019 - 14:20</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>TestService</td>
                     <td>80</td>
                     <td>http://lorem/services/lorem/lorem.asmx</td>
                     <td>Yes</td>
@@ -270,7 +250,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(d,i) in this.db_connections">
                     <th scope="row">1</th>
                     <td>10.0.1.2</td>
                     <td>mckdbnm</td>
@@ -278,29 +258,14 @@
                     <td>mckusr</td>
                     <td>data source=10.0.1.2,1433;initial catalog=mckdbnm;User ID=mckusr;Password=0;MultipleActiveResultSets=True;Connect Timeout=10;Integrated Security=false</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>MCKSRVNM</td>
-                    <td>mckdbnm</td>
-                    <td>1433</td>
-                    <td>mckusr</td>
-                    <td>data source=MCKSRVNM,1433;initial catalog=mckdbnm;persist security info=True;user id=mckusr;password=0;MultipleActiveResultSets=True</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>mcksrvnm.database.windows.net</td>
-                    <td>mckdbnm</td>
-                    <td>1433</td>
-                    <td>mckusr</td>
-                    <td>data source=mcksrvnm.database.windows.net;initial catalog=mckdbnm;persist security info=True;user id=mckusr;password=0;multipleactiveresultsets=True;application name=EntityFramework</td>
-                  </tr>
+                 
                 </tbody>
               </table>
             </div>
 
             <div class="col-md-12"></div>
           </el-tab-pane>
-          <el-tab-pane label="Packages">
+          <el-tab-pane label="Packages" name="packages">
             <h4 class="fw-semi-bold">Packages</h4>
             <br />
             <div class="col-md-12 table-card">
@@ -313,26 +278,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>NetFrameworkVersion</td>
-                    <td>4.5.1</td>
+                  <tr v-for="(p,i) in this.packages" :key="i">
+                    <th scope="row">{{++i}}</th>
+                    <td>{{p.name}}</td>
+                    <td>{{p.version}}</td>
                   </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>FluentValidation</td>
-                    <td>3.4.0.0</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Autofac</td>
-                    <td>3.5.0.0</td>
-                  </tr>
+                
                 </tbody>
               </table>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="Event Tracking">
+          <el-tab-pane label="Event Tracking" :disabled="true" name="event">
             <h4 class="fw-semi-bold">Events</h4>
             <br />
             <div class="col-md-12 table-card">
@@ -387,25 +343,16 @@
               </table>
             </div>
           </el-tab-pane>
-          <el-tab-pane label="Statistics ">
-               <Widget
-          title="<h6>Weekly Request</h6>"
-          refresh
-          close
-          customHeader
-        >
-        <line-chart :chart-data="lineChartData" />
-        </Widget>
+          <el-tab-pane label="Statistics" :disabled="true" name="statistics">
+            <Widget title="<h6>Weekly Request</h6>" refresh close customHeader>
+              <!-- <line-chart :chart-data="this.lineChartData" /> -->
+            </Widget>
           </el-tab-pane>
         </el-tabs>
       </div>
     </b-col>
 
-    <el-dialog
-      title="Details"
-      :visible.sync="detailVisible"
-      width="50%"
-    >
+    <el-dialog title="Details" :visible.sync="detailVisible" width="50%">
       <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="20">
        Exception information:
 
@@ -455,15 +402,11 @@
         <el-button type="primary" @click="detailVisible = false">Close</el-button>
       </span>
     </el-dialog>
-    <el-dialog
-      title="Solution Details"
-      :visible.sync="solutionVisible"
-      width="50%"
-    >
-        <div class="form-group">
-          <label for="inputEmail4">Solution</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-        </div>
+    <el-dialog title="Solution Details" :visible.sync="solutionVisible" width="50%">
+      <div class="form-group">
+        <label for="inputEmail4">Solution</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button type="default" @click="solutionVisible = false">Cancel</el-button>
         <el-button type="primary" @click="solutionVisible = false">Resolve</el-button>
@@ -474,24 +417,8 @@
 
 <script>
 import Widget from "@/components/Widget/Widget";
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
-}
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "Site",
   components: {
@@ -500,11 +427,63 @@ export default {
   data() {
     return {
       detailVisible: false,
-      solutionVisible:false,
-     
-    
+      solutionVisible: false,
+      activeName: "general",
       textarea: ""
     };
+  },
+  mounted() {
+    // this.getSiteList();
+          this.fetch_header(this.$route.params.id);
+          this.fetch_site(this.$route.params.id);
+  },
+  computed: {
+    //    GET_SELECTED_SITE () {
+    //   return this.$store.getters.site/GET_SELECTED_SITE
+    // }
+    ...mapGetters({
+      // map `this.doneCount` to `this.$store.getters.doneTodosCount`
+      site: "site/GET_SELECTED_SITE",
+      bindings:"site/GET_SELECTED_SITE_BINDINGS",
+      endpoints:"site/GET_SELECTED_SITE_BACKEND_SERVICES_ENDPOİNTS",
+      db_connections:"site/GET_SELECTED_SITE_BACKEND_SERVICES_DIRECT_DB_CONNECTION",
+      packages:"site/GET_SELECTED_SITE_PACKAGES",
+      header:"site/GET_SELECTED_SITE_HEADER"
+      })
+  },
+  methods: {
+    ...mapActions({
+      fetch_site:"site/action_getSite",
+      fetch_bindings: "site/action_SELECTED_SITE_BINDINGS",
+      fetch_endpoints:"site/action_SELECTED_SITE_BACKEND_SERVICES_ENDPOİNTS",
+      fetch_db_connections:"site/action_SELECTED_SITE_BACKEND_SERVICES_DIRECT_DB_CONNECTION",
+      fetch_packages:"site/action_SELECTED_SITE_PACKAGES",
+      fetch_header:"site/action_getSiteHeader"
+    }),
+    handleTabClick() {
+      console.log(this.activeName);
+      switch (this.activeName) {
+        case "general":
+          this.fetch_site(this.$route.params.id);
+          break;
+        case "bindings":
+          this.fetch_bindings(this.$route.params.id);
+          break;
+        case "backend":
+          this.fetch_endpoints(this.$route.params.id);
+          this.fetch_db_connections(this.$route.params.id);
+          break;
+        case "packages":
+          this.fetch_packages(this.$route.params.id);
+          break;
+        case "event":
+          break;
+        
+
+        default:
+          break;
+      }
+    }
   }
 };
 </script>

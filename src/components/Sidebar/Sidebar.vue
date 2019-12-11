@@ -17,22 +17,22 @@
         />
         <h5 class="navTitle">PAGES</h5>
         <NavLink
-          header="Site"
-          link="/app/site"
+          header="Sites"
+          link="/app/sitelist"
           iconName="glyphicon glyphicon-globe"
-          index="site"
+          index="siteList"
           isHeader
         />
         <NavLink
-          header="Server"
-          link="/app/server"
+          header="Servers"
+          link="/app/serverlist"
           iconName="glyphicon glyphicon-tasks"
           index="server"
           isHeader
         />
         <NavLink
-          header="Company"
-          link="/app/company"
+          header="Companys"
+          link="/app/companylist"
           iconName="fa fa-sitemap"
           index="company"
           isHeader
@@ -44,6 +44,7 @@
           link="/app/reports"
           iconName="glyphicon glyphicon-file"
           index="reports"
+          :disabled="true"
           :childrenLinks="[
           { header: 'Server Ownership', link: '/app/reports/server-ownership-status' },
           { header: 'Most Called Urls', link: '/app/reports/most-called-urls' },
