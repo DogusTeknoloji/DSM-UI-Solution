@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <h4 class="fw-semi-bold">Companyies</h4>
+      <h4 class="fw-semi-bold">Companies</h4>
       <div class="page-letters"></div>
     </div>
     <br />

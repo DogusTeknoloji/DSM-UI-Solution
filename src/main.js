@@ -21,6 +21,18 @@ Vue.use(VCalendar, {
 });
 
 Vue.config.productionTip = false;
+router.beforeEach((to, from, next) => {
+  // if (!isAuthenticated) next('/login')
+  // else next()
+
+  if (to.fullPath == "/login")
+    next();
+  else
+    if (window.localStorage.getItem('authenticated') === 'false')
+      next('/login');
+    else
+      next();
+})
 
 /* eslint-disable no-new */
 new Vue({

@@ -44,7 +44,7 @@
                     </tr>
 
                     <tr>
-                      <td class="general-info-table-title">Operation System:</td>
+                      <td class="general-info-table-title">Operating System:</td>
                       <td class="general-info-table-value">{{detail.operatingSystem}}</td>
                     </tr>
                     <tr>
@@ -78,19 +78,19 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Volumes:</td>
-                      <td class="general-info-table-value">C:\, D:\, F:\</td>
+                      <td class="general-info-table-value">{{detail.volumes}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Total Capacity</td>
-                      <td class="general-info-table-value">200 GB</td>
+                      <td class="general-info-table-value">{{detail.totalCapacity}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Percent Free</td>
-                      <td class="general-info-table-value">20 %</td>
+                      <td class="general-info-table-value">{{detail.percentFree}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Last Check Date</td>
-                      <td class="general-info-table-value">20 min ago</td>
+                      <td class="general-info-table-value">{{detail.lastCheckDate}}</td>
                     </tr>
                   </table>
                 </div>
@@ -99,25 +99,15 @@
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
                   <h5 class="general-info-header">Volume Details</h5>
-                  <table class="table">
-                    <tr>
+                  <table class="table text-center">
+                    unknown-data
+                    <!-- <tr>
                       <td class="general-info-table-title">C:\</td>
                       <td>20 GB</td>
                       <td>80 GB</td>
                       <td class="general-info-table-value">100 GB ( 20% free)</td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title">D:\</td>
-                      <td class="text-danger">3 GB</td>
-                      <td class="text-danger">97 GB</td>
-                      <td class="general-info-table-value text-danger">100 GB ( 3% free)</td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title">F:\</td>
-                      <td>20 GB</td>
-                      <td>80 GB</td>
-                      <td class="general-info-table-value">100 GB ( 20% free)</td>
-                    </tr>
+                    </tr> -->
+               
                   </table>
                 </div>
               </div>

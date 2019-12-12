@@ -31,7 +31,7 @@
           isHeader
         />
         <NavLink
-          header="Companys"
+          header="Companies"
           link="/app/companylist"
           iconName="fa fa-sitemap"
           index="company"

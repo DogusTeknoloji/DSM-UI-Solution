@@ -46,8 +46,11 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (response.status !== 200) {
         console.log(response);
-        if (response.status !== 401) 
-        this.$router.push('/login');
+        if (response.status !== 401) {
+          
+        window.localStorage.setItem("authenticated", false);  this.$router.push('/login');
+    
+        }
           
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       // if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
@@ -71,7 +74,11 @@ service.interceptors.response.use(
   error => {
     console.log('err' + error) // for debug
     if(error=="Error: Request failed with status code 401")
-    this.$router.push('/login');
+    {
+      
+      window.localStorage.setItem("authenticated", false);
+      this.$router.push('/login');
+    }
 
     return Promise.reject(error)
   }

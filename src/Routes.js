@@ -34,6 +34,7 @@ export default new Router({
       path: '/app',
       name: 'Layout',
       component: Layout,
+      
       children: [
         {
           path: 'dashboard',
