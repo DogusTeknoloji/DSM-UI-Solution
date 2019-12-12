@@ -17,7 +17,7 @@ steps:
 
 - task: replacetokens@3
   inputs:
-    targetFiles: '**/ src/settings.json'
+    targetFiles: '**/settings.json'
     encoding: 'auto'
     writeBOM: true
     actionOnMissing: 'warn'
