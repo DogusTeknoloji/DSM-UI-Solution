@@ -221,23 +221,25 @@
                     <th scope="col">Last Check Date</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody  v-if="!forbidden_endpoint">
                   <tr v-for="(e,i) in this.endpoints" :key="i">
-                    <th scope="row">1</th>
-                    <td>TestServiceSoap</td>
-                    <td>80</td>
-                    <td>http://lorem/services/lorem/lorem.asmx</td>
-                    <td>Yes</td>
-                    <td>18.10.2019 - 14:20</td>
+                    <th scope="row">{{++i}}</th>
+                    <td>{{e.endpointName}}</td>
+                    <td>{{e.port}}</td>
+                    <td>{{e.endpointUrl}}</td>
+                    <td>{{e.isAvailable}}</td>
+                    <td>{{e.lastCheckDate}}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+            <div class="col-md-12 table-card text-center" v-if="forbidden_endpoint">
+               <h5> This Operation is requires elevated permissions.</h5>
+            </div>
 
             <h4 class="mt-5 fw-semi-bold">Direct DB Connection</h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
 
-            <div class="col-md-12 table-card">
+            <div class="col-md-12 table-card" >
               <table class="table table-striped" style="width:100%">
                 <thead>
                   <tr>
@@ -249,18 +251,21 @@
                     <th scope="col">Raw Connection String</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr v-for="(d,i) in this.db_connections">
-                    <th scope="row">1</th>
-                    <td>10.0.1.2</td>
-                    <td>mckdbnm</td>
-                    <td>1433</td>
-                    <td>mckusr</td>
-                    <td>data source=10.0.1.2,1433;initial catalog=mckdbnm;User ID=mckusr;Password=0;MultipleActiveResultSets=True;Connect Timeout=10;Integrated Security=false</td>
+                <tbody v-if="!forbidden_db_conneciton">
+                  <tr v-for="(d,i) in this.db_connections" :key="i">
+                    <th scope="row">{{++i}}</th>
+                    <td>{{d.databaseName}}</td>
+                    <td>{{d.databaseName}}</td>
+                    <td>{{d.port}}</td>
+                    <td>{{d.username}}</td>
+                    <td>{{d.connectioString}}</td>
                   </tr>
                  
                 </tbody>
               </table>
+            </div>
+            <div class="col-md-12 table-card text-center" v-if="forbidden_db_conneciton">
+               <h5> This Operation is requires elevated permissions.</h5>
             </div>
 
             <div class="col-md-12"></div>
@@ -429,7 +434,10 @@ export default {
       detailVisible: false,
       solutionVisible: false,
       activeName: "general",
-      textarea: ""
+      textarea: "",
+      forbidden_db_conneciton:false,
+      
+      forbidden_endpoint:false
     };
   },
   mounted() {
@@ -470,8 +478,16 @@ export default {
           this.fetch_bindings(this.$route.params.id);
           break;
         case "backend":
-          this.fetch_endpoints(this.$route.params.id);
-          this.fetch_db_connections(this.$route.params.id);
+          this.fetch_endpoints(this.$route.params.id).catch(err=>{
+            if(err==403)
+              this.forbidden_endpoint=true;
+          });;
+          this.fetch_db_connections(this.$route.params.id).then(res=>{
+            console.log(res);
+          }).catch(err=>{
+            if(err==403)
+              this.forbidden_db_conneciton=true;
+          });
           break;
         case "packages":
           this.fetch_packages(this.$route.params.id);

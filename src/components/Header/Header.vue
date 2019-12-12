@@ -14,7 +14,7 @@
           <b-input class="input-transparent" id="search-input" placeholder="Search Dashboard" />
         </b-input-group>
       </b-nav-form>
-      <b-nav-item-dropdown right extra-menu-classes="py-0">
+      <b-nav-item-dropdown right extra-menu-classes="py-0" disabled="true">
         <template slot="button-content">
           <span class="avatar thumb-sm float-left mr-2">
             <img class="rounded-circle" src="../../assets/people/a5.jpg" alt="..." />
@@ -24,15 +24,15 @@
           </span>
           <span
             class="ml-2 circle bg-warning text-white fw-bold d-md-down-none d-lg-inline-block"
-          >13</span>
+          >0</span>
         </template>
         <notifications />
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown no-caret right extra-menu-classes="dropdown-menu-messages">
+      <b-nav-item-dropdown no-caret right extra-menu-classes="dropdown-menu-messages" disabled="true">
         <template slot="button-content">
           <i class="la la-comment px-2" />
         </template>
-        <b-dropdown-item>
+        <!-- <b-dropdown-item>
           <span class="avatar thumb-sm float-left mr-3">
             <img class="rounded-circle" src="../../assets/people/a1.jpg" alt="..." />
           </span>
@@ -65,7 +65,7 @@
         <b-dropdown-item-button class="text-center">
           See all messages
           <i class="fa fa-arrow-right ml-1"></i>
-        </b-dropdown-item-button>
+        </b-dropdown-item-button> -->
       </b-nav-item-dropdown>
       <b-nav-item class="divider"></b-nav-item>
       <b-nav-item-dropdown no-caret right>
@@ -86,7 +86,7 @@
           <i class="la la-sign-out" /> Log Out
         </b-dropdown-item-button>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown no-caret right class="d-md-down-none">
+      <b-nav-item-dropdown no-caret right class="d-md-down-none" disabled="true">
         <template slot="button-content">
           <i class="la la-globe px-2" />
         </template>

@@ -106,6 +106,8 @@ export default {
           console.log(res);
           commit("SET_SELECTED_SITE_BACKEND_SERVICES_ENDPOİNTS", res);
           resolve(res);
+        }).catch(err=>{
+          reject(err);
         })
       })
     },
@@ -115,6 +117,8 @@ export default {
           console.log(res);
           commit("SET_SELECTED_SITE_BACKEND_SERVICES_DIRECT_DB_CONNECTION", res);
           resolve(res);
+        }).catch(err=>{
+          reject(err);
         })
       })
     },

@@ -44,6 +44,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
+    console.log(response.status);
     if (response.status !== 200) {
         console.log(response);
         if (response.status !== 401) {
@@ -72,14 +73,15 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
-    if(error=="Error: Request failed with status code 401")
-    {
-      
+    if(error.response.status==403)
+    return Promise.reject(error.response.status)
+    if(error.response.status==401)
+    {      
       window.localStorage.setItem("authenticated", false);
       this.$router.push('/login');
     }
-
+    else
+    
     return Promise.reject(error)
   }
 )
