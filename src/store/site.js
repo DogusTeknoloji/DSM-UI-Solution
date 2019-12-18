@@ -2,6 +2,8 @@ import { getSiteList, getSiteDetails,getSiteBindings,getSitePackages,getSiteEndp
 export default {
   namespaced: true,
   state: {
+    list:[],
+    page:1,
     selected_site_id: -1,
     selected_site: {},
     selected_site_header:{},
@@ -33,6 +35,12 @@ export default {
     GET_SELECTED_SITE_PACKAGES(state) {
       return state.selected_site_packages;
     },
+    GET_SITE_LIST(state){
+      return state.list;
+    },
+    GET_PAGE(state){
+      return state.page;
+    }
   },
   mutations: {
     SET_SELECT_SITE_ID(state, id) {
@@ -55,6 +63,15 @@ export default {
     },
     SET_SELECTED_SITE_PACKAGES(state,data) {
       state.selected_site_packages=data;
+    },
+    SET_LIST(state,data){
+      state.list=data;
+    },
+    PUSH_LIST(state,data){
+      state.list.push.apply(state.list, data);
+    },
+    SET_PAGE(state,data){
+      state.page=data;
     },
     
   },

@@ -6,6 +6,7 @@ import site from './site';
 import server from './server';
 import user from './user';
 import company from './company';
+import search from './search';
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     site,
     server,
     company,
-    user
+    user,
+    search
   },
 });

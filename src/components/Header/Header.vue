@@ -6,15 +6,16 @@
             <i class="fa fa-info-circle mr-1"></i> Check out Light Blue Settings on the right!
         </b-alert>-->
       </b-nav-text>
-      <b-nav-form class="d-sm-down-none mr-3">
+      <b-nav-form @submit.prevent.native='search' class="d-sm-down-none mr-3">
         <b-input-group class="input-group-transparent">
           <b-input-group-text slot="prepend">
             <i class="la la-search"></i>
           </b-input-group-text>
-          <b-input class="input-transparent" id="search-input" placeholder="Search Dashboard" />
+          <b-input class="input-transparent" id="search-input" v-model="searchText" v-on:keyup.enter="search" placeholder="Search Dashboard" />
         </b-input-group>
+        <a style="margin-left:7px;background:none;border:none;color:black" @click="cancelSearch" v-show="isSearch">Vazgeç</a>
       </b-nav-form>
-      <b-nav-item-dropdown right extra-menu-classes="py-0" disabled="true">
+      <b-nav-item-dropdown right extra-menu-classes="py-0" :disabled="true">
         <template slot="button-content">
           <span class="avatar thumb-sm float-left mr-2">
             <img class="rounded-circle" src="../../assets/people/a5.jpg" alt="..." />
@@ -28,7 +29,7 @@
         </template>
         <notifications />
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown no-caret right extra-menu-classes="dropdown-menu-messages" disabled="true">
+      <b-nav-item-dropdown no-caret right extra-menu-classes="dropdown-menu-messages" :disabled="true">
         <template slot="button-content">
           <i class="la la-comment px-2" />
         </template>
@@ -86,7 +87,7 @@
           <i class="la la-sign-out" /> Log Out
         </b-dropdown-item-button>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown no-caret right class="d-md-down-none" disabled="true">
+      <b-nav-item-dropdown no-caret right class="d-md-down-none" :disabled="true">
         <template slot="button-content">
           <i class="la la-globe px-2" />
         </template>
@@ -148,7 +149,8 @@ export default {
       sidebarStatic: state => state.sidebarStatic
     }),
     ...mapGetters({
-      username: "user/GET_USERNAME"
+      username: "user/GET_USERNAME",
+      isSearch:"search/Get_ISSEARCH"
     })
   },
   methods: {
@@ -169,6 +171,31 @@ export default {
         this.changeSidebarActive(paths.join("/"));
       }
     },
+    getModule(){
+        let moduleName="";
+      switch (this.$route.name) {
+        case "SiteList":
+          moduleName="site";
+          break;
+      
+        default:
+          break;
+      }
+      return moduleName;
+    },
+    search(){
+      console.log("search")
+      let moduleName=this.getModule();
+      this.$store.dispatch("search/action_search",{moduleName,text:this.searchText});
+
+    },
+    cancelSearch(){
+      console.log("cancel")
+      this.searchText="";
+      let moduleName=this.getModule();
+      this.$store.dispatch("search/action_cancel",{moduleName});
+
+    },
     logout() {
       this.$store.dispatch("user/action_logout").then(res => {
         window.localStorage.setItem("authenticated", false);
@@ -177,9 +204,12 @@ export default {
     }
   },
   created() {},
+
   data() {
     return {
-      showNavbarAlert: true
+      showNavbarAlert: false,
+      searchText:""
+
     };
   }
 };
