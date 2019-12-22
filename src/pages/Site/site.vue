@@ -83,7 +83,7 @@
                       <td class="general-info-table-title">Log File Enabled:</td>
                       <td
                         class="general-info-table-value"
-                        style="color:green"
+                        v-bind:class="{ 'text-yes': site.logFileEnabled=='Yes', 'text-danger': site.logFileEnabled=='No' }"
                       >{{site.logFileEnabled}}</td>
                     </tr>
                     <tr>
@@ -102,14 +102,14 @@
                       <td class="general-info-table-title">Server Auto Start</td>
                       <td
                         class="general-info-table-value"
-                        style="color:green"
+                        v-bind:class="{ 'text-yes': site.serverAutoStart=='Yes', 'text-danger': site.serverAutoStart=='No' }"
                       >{{site.serverAutoStart}}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Trace Failed Requests Logging Enabled:</td>
                       <td
                         class="general-info-table-value"
-                        style="color:red"
+                        v-bind:class="{ 'text-yes': site.traceFailedRequestsLoggingEnabled=='Yes', 'text-danger': site.traceFailedRequestsLoggingEnabled=='No' }"
                       >{{site.traceFailedRequestsLoggingEnabled}}</td>
                     </tr>
                     <tr>
@@ -154,7 +154,7 @@
                       <td class="general-info-table-title">Send Alert Mail When Unavailable</td>
                       <td
                         class="general-info-table-value"
-                        style="color:green"
+                        v-bind:class="{ 'text-yes': site.sendAlertMAilWhenUnavailable=='Yes', 'text-danger': site.sendAlertMAilWhenUnavailable=='No' }"
                       >{{site.sendAlertMAilWhenUnavailable}}</td>
                     </tr>
                     <tr>
@@ -505,6 +505,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.text-yes{
+  color:green;
+}
 .el-dialog__wrapper {
   overflow: auto;
 }
