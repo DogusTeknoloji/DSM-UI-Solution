@@ -1,76 +1,63 @@
 <template>
   <div class="row">
-    <div class="col-md-12">
-      <h4 class="fw-semi-bold">Servers</h4>
-      <div class="page-letters"></div>
-    </div>
-    <br />
-
-    <div class="col-md-12 table-card">
-      <table class="table table-responsive table-hover table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Server Name</th>
-            <th scope="col">Ip Address</th>
-            <th scope="col">DNS Name</th>
-            <th scope="col">Company</th>
-            <th scope="col">Operatin System</th>
-            <th scope="col">Responsible</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
-            <th scope="row">{{i+1}}</th>
-            <td>{{s.machineName}}</td>
-            <td>{{s.ipAddress}}</td>
-            <td>{{s.dnsName}}</td>
-            <td>{{s.companyName}}</td>
-            <td>{{s.operatingSystem}}</td>
-            <td>{{s.responsible}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-12 text-center" v-if="this.isLoading">
-      <img src="@/assets/svg/loading.svg" />
-    </div>
+    <Grid
+      :title="'Servers'"
+      :thList="thList"
+      :isLoading="isLoading"
+      :list="list"
+      :navigate="{url:'/app/server',id:'serverId'}"
+    ></Grid>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions,mapMutations } from "vuex";
 import Widget from "@/components/Widget/Widget";
+import Grid from "@/components/Grid/Grid";
 
 export default {
   name: "ServerList",
   components: {
-    Widget
+    Widget,
+    Grid
   },
   data() {
     return {
       detailVisible: false,
       solutionVisible: false,
-      page: 1,
-
       textarea: "",
-      list: [],
-      isLoading: true
+      isLoading: true,
+      thList: [
+        { name: "machineName", title: "Server Name" },
+        { name: "ipAddress", title: "Ip Address" },
+        { name: "dnsName", title: "DNS Name" },
+        { name: "operatingSystem", title: "Operating System" },
+        { name: "responsible", title: "Responsible" }
+      ]
     };
   },
   created() {
-    this.page = 1;
-    this.list = [];
     window.addEventListener("scroll", this.handleScroll);
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      list: "server/GET_LIST",
+      page: "server/GET_PAGE"
+    })
+  },
   mounted() {
     this.getServerList();
   },
   methods: {
+    ...mapMutations({
+      increase_page: "server/INCREASE_PAGE"
+
+    }),
+    ...mapActions({
+    }),
     handleScroll(event) {
       let bottomOfWindow =
         Math.max(
@@ -82,17 +69,14 @@ export default {
         document.documentElement.offsetHeight;
 
       if (bottomOfWindow) {
+        this.increase_page();
         this.getServerList();
       }
     },
     getServerList() {
       this.isLoading = true;
-      this.$store.dispatch("server/action_getServerList", this.page).then(
+      this.$store.dispatch("server/action_getList").then(
         res => {
-          this.list.push.apply(this.list, res);
-
-          this.page++;
-
           this.isLoading = false;
         },
         err => {

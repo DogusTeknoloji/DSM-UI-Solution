@@ -35,7 +35,7 @@ export default {
     GET_SELECTED_SITE_PACKAGES(state) {
       return state.selected_site_packages;
     },
-    GET_SITE_LIST(state){
+    GET_LIST(state){
       return state.list;
     },
     GET_PAGE(state){
@@ -76,10 +76,10 @@ export default {
     
   },
   actions: {
-    action_getSiteList({ commit }, data) {
+    action_getList({ commit,state }) {
       return new Promise((resolve, reject) => {
-        getSiteList(data).then(res => {
-
+        getSiteList(state.page).then(res => {
+          commit("PUSH_LIST",res);
           console.log(res);
           resolve(res)
         }).catch(error => {

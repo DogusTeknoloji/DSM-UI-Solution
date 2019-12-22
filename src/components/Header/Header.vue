@@ -177,6 +177,9 @@ export default {
         case "SiteList":
           moduleName="site";
           break;
+       case "ServerList":
+          moduleName="server";
+          break;
       
         default:
           break;

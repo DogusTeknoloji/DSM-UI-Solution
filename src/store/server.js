@@ -2,16 +2,17 @@ import { getServerList, getServerDetails,getServerSites,getServerHeader } from '
 export default {
   namespaced: true,
   state: {
-    server_list: [],
+    list: [],
     server_details: {},
     server_header:{},
     server_sites: [],
+    page:1,
     
 
   },
   getters: {
-    GET_SERVER_LIST(state){
-        return state.server_list;
+    GET_LIST(state){
+        return state.list;
     },
     GET_SERVER_DETAILS(state) {
       return state.server_details;
@@ -22,10 +23,12 @@ export default {
     GET_SERVER_SITES(state) {
       return state.server_sites;
     },
+    GET_PAGE(state){
+      return state.page;
+    }
   
   },
   mutations: {
-
     SET_SERVER_DETAIL(state, site) {
       state.server_details = site;
     },
@@ -35,14 +38,26 @@ export default {
     SET_SERVER_SITES(state,data) {
       state.server_sites=data;
     },
+    SET_LIST(state,data){
+      state.list=data;
+    },
+    PUSH_LIST(state,data){
+      state.list.push.apply(state.list, data);
+    },
+    SET_PAGE(state,data){
+      state.page=data;
+    },
+    INCREASE_PAGE(state){
+      state.page=state.page+1;
+    },
  
     
   },
   actions: {
-    action_getServerList({ commit }, data) {
+    action_getList({ commit,state }) {
       return new Promise((resolve, reject) => {
-        getServerList(data).then(res => {
-
+        getServerList(state.page).then(res => {
+          commit("PUSH_LIST",res);
           console.log(res);
           resolve(res)
         }).catch(error => {

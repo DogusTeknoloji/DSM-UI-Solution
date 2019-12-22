@@ -26,7 +26,9 @@
                             type="password"
                             v-model="form.Password"
                             required
-                            placeholder="Your Password" />
+                            placeholder="Your Password"
+                            v-on:keyup.enter="login"
+                             />
             </b-input-group>
           </b-form-group>
           <div class="widget-middle-overflow bg-widget mt-4 px-4 py-3">
@@ -64,6 +66,7 @@ export default {
   methods: {
       
     login() {
+      console.log("login")
       const username = this.form.Username;
       const password = this.form.Password;
 
@@ -73,6 +76,9 @@ export default {
        window.localStorage.setItem('authenticated', true);
         this.$router.push('/app/dashboard');
           }
+        }).catch(err=>{
+          if(err==400)
+          this.errorMessage="Username or password is incorrect"
         });
  
       }

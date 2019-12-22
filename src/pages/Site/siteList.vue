@@ -7,7 +7,7 @@
     <br />
 
     <div class="col-md-12 table-card">
-      <table class="table table-responsive table-hover table-striped">
+      <table class="table table-hover table-striped">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -46,7 +46,7 @@
 
 <script>
 import Widget from "@/components/Widget/Widget";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "SiteList",
@@ -57,7 +57,6 @@ export default {
     return {
       detailVisible: false,
       solutionVisible: false,
-      page: 1,
 
       textarea: "",
       isLoading: true
@@ -65,12 +64,11 @@ export default {
   },
   computed: {
     ...mapGetters({
-      list: "site/GET_SITE_LIST"
+      list: "site/GET_LIST",
+      page: "site/GET_PAGE"
     })
   },
   created() {
-    this.page = 1;
-
     this.$store.commit("site/SET_LIST", []);
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -81,6 +79,10 @@ export default {
     this.getSiteList();
   },
   methods: {
+        ...mapMutations({
+      increase_page: "server/INCREASE_PAGE"
+
+    }),
     handleScroll(event) {
       let bottomOfWindow =
         Math.max(
@@ -91,15 +93,14 @@ export default {
           window.innerHeight ===
         document.documentElement.offsetHeight;
       if (bottomOfWindow) {
-        this.page++;
+        this.increase_page();
         this.getSiteList();
       }
     },
     getSiteList() {
       this.isLoading = true;
-      this.$store.dispatch("site/action_getSiteList", this.page).then(
+      this.$store.dispatch("site/action_getList").then(
         res => {
-          this.$store.commit("site/PUSH_LIST", res);
           this.isLoading = false;
         },
         err => {

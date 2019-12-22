@@ -38,12 +38,12 @@ export default {
     },
     action_cancel({ commit,dispatch }, {moduleName}) {
       commit(moduleName+"/SET_LIST",[],{ root: true });
+      commit(moduleName+"/SET_PAGE",1,{ root: true });
     return new Promise((resolve, reject) => {
         commit("SET_ISSEARCH",false)
-       
-        dispatch(moduleName+"/action_getSiteList", 1,{ root: true }).then(
+        commit(moduleName+"/SET_PAGE",1,{root:true})
+        dispatch(moduleName+"/action_getList", 1,{ root: true }).then(
           res => {
-            commit(moduleName+"/SET_LIST",res,{ root: true });
             
           },
           err => {

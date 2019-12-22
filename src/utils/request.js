@@ -73,10 +73,14 @@ service.interceptors.response.use(
     }
   },
   error => {
+    console.log(error)
     if(error.response.status==403)
+    return Promise.reject(error.response.status)
+    if(error.response.status==400)
     return Promise.reject(error.response.status)
     if(error.response.status==401)
     {      
+      console.log("401")
       window.localStorage.setItem("authenticated", false);
       this.$router.push('/login');
     }
