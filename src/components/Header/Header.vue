@@ -177,10 +177,12 @@ export default {
         case "SiteList":
           moduleName="site";
           break;
-       case "ServerList":
+        case "ServerList":
           moduleName="server";
           break;
-      
+        case "CompanyList":
+          moduleName="company";
+          break;
         default:
           break;
       }

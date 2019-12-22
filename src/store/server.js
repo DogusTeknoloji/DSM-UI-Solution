@@ -7,13 +7,12 @@ export default {
     server_header:{},
     server_sites: [],
     page:1,
+    isLast: false
     
 
   },
   getters: {
-    GET_LIST(state){
-        return state.list;
-    },
+
     GET_SERVER_DETAILS(state) {
       return state.server_details;
     },
@@ -25,8 +24,13 @@ export default {
     },
     GET_PAGE(state){
       return state.page;
-    }
-  
+    },
+    GET_LIST(state){
+      return state.list;
+  },
+  GET_ISLAST(state) {
+    return state.isLast;
+  },
   },
   mutations: {
     SET_SERVER_DETAIL(state, site) {
@@ -57,6 +61,8 @@ export default {
     action_getList({ commit,state }) {
       return new Promise((resolve, reject) => {
         getServerList(state.page).then(res => {
+          if(res.length==0)
+          {state.isLast= true;}
           commit("PUSH_LIST",res);
           console.log(res);
           resolve(res)

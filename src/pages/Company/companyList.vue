@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions,mapMutations  } from "vuex";
 import Widget from "@/components/Widget/Widget";
 
 export default {
@@ -41,26 +41,33 @@ export default {
     return {
       detailVisible: false,
       solutionVisible: false,
-      page: 1,
 
       textarea: "",
-      list: [],
+      
       isLoading: true
     };
   },
   created() {
-    this.page = 1;
-    this.list = [];
     window.addEventListener("scroll", this.handleScroll);
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-  computed: {},
+  computed: {
+    ...mapGetters({
+      list: "company/GET_LIST",
+      page: "company/GET_PAGE",
+      isLast: "company/GET_ISLAST"
+    })
+  },
   mounted() {
     this.getServerList();
   },
   methods: {
+   ...mapMutations({
+      increase_page: "company/INCREASE_PAGE"
+
+    }),
     handleScroll(event) {
       let bottomOfWindow =
         Math.max(
@@ -71,17 +78,16 @@ export default {
           window.innerHeight ===
         document.documentElement.offsetHeight;
 
-      if (bottomOfWindow) {
+      if (bottomOfWindow && !this.isLast) {
+        console.log(this.isLast);
+        this.increase_page();
         this.getServerList();
       }
     },
     getServerList() {
       this.isLoading = true;
-      this.$store.dispatch("company/action_getCompanyList", this.page).then(
+      this.$store.dispatch("company/action_getList").then(
         res => {
-          this.list.push.apply(this.list, res);
-
-          this.page++;
 
           this.isLoading = false;
         },

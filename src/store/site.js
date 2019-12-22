@@ -11,6 +11,7 @@ export default {
     selected_site_backend_services_endpoints: [],
     selected_site_backend_services_direct_db_connection: [],
     selected_site_packages: [],
+    isLast: false
 
   },
   getters: {
@@ -40,7 +41,10 @@ export default {
     },
     GET_PAGE(state){
       return state.page;
-    }
+    },
+    GET_ISLAST(state) {
+      return state.isLast;
+    },
   },
   mutations: {
     SET_SELECT_SITE_ID(state, id) {
@@ -79,6 +83,8 @@ export default {
     action_getList({ commit,state }) {
       return new Promise((resolve, reject) => {
         getSiteList(state.page).then(res => {
+          if(res.length==0)
+          {state.isLast= true;}
           commit("PUSH_LIST",res);
           console.log(res);
           resolve(res)

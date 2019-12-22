@@ -65,7 +65,8 @@ export default {
   computed: {
     ...mapGetters({
       list: "site/GET_LIST",
-      page: "site/GET_PAGE"
+      page: "site/GET_PAGE",
+      isLast: "site/GET_ISLAST"
     })
   },
   created() {
@@ -92,7 +93,7 @@ export default {
         ) +
           window.innerHeight ===
         document.documentElement.offsetHeight;
-      if (bottomOfWindow) {
+      if (bottomOfWindow && !this.isLast) {
         this.increase_page();
         this.getSiteList();
       }
