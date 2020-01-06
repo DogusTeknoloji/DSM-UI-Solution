@@ -7,15 +7,13 @@
             Oops, it seems this page does not exist.
         </p>
         <p class="errorHelp mb-3">
-            If you are sure there must be a page, search for it.
+            
         </p>
         <b-form>
-          <b-form-group>
-            <b-form-input class="input-transparent" size="lg" type="text" placeholder="Search Pages" />
-          </b-form-group>
+      
           <router-link tag="a" to="/app/dashboard">
             <b-button class="errorBtn" type="submit" variant="inverse">
-                Search <i class="fa fa-search ml-xs" />
+            <i class="fa fa-home ml-xl" />   Go Home 
             </b-button>
           </router-link>
         </b-form>

@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
-import { getToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth';
+import router from '../Routes';
 
 const settings=require("../settings.json");
 // create an axios instance
@@ -49,7 +50,8 @@ service.interceptors.response.use(
         console.log(response);
         if (response.status !== 401) {
           
-        window.localStorage.setItem("authenticated", false);  this.$router.push('/login');
+        window.localStorage.setItem("authenticated", false);  
+        router.push('/login');
     
         }
           
@@ -77,7 +79,7 @@ service.interceptors.response.use(
     if(error.response.status==403)
     return Promise.reject(error.response.status)
     if(error.response.status==400)
-    return Promise.reject(error.response.status)
+    return router.push('/error')
     if(error.response.status==401)
     {      
       console.log("401")
