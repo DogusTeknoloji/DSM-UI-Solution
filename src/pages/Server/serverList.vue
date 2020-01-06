@@ -46,7 +46,8 @@ export default {
     ...mapGetters({
       list: "server/GET_LIST",
       page: "server/GET_PAGE",
-      isLast: "server/GET_ISLAST"
+      isLast: "server/GET_ISLAST",
+      isSearch:"search/Get_ISSEARCH"
     })
   },
   mounted() {
@@ -69,7 +70,7 @@ export default {
           window.innerHeight ===
         document.documentElement.offsetHeight;
 
-      if (bottomOfWindow && !this.isLast) {
+      if (bottomOfWindow && !this.isLast  && !this.isSearch) {
         this.increase_page();
         this.getServerList();
       }

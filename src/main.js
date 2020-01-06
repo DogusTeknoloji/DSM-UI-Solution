@@ -30,8 +30,11 @@ router.beforeEach((to, from, next) => {
   else
     if (window.localStorage.getItem('authenticated') === 'false')
       next('/login');
-    else
+    else {
+
+      store.dispatch("search/action_change_page");
       next();
+    }
 })
 
 /* eslint-disable no-new */

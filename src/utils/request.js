@@ -6,7 +6,7 @@ const settings=require("../settings.json");
 // create an axios instance
 const service = axios.create({
   baseURL: settings.apiURL,
-  timeout: 5000 
+  timeout: 10000 
 })
 
 // request interceptor

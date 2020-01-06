@@ -6,14 +6,24 @@
             <i class="fa fa-info-circle mr-1"></i> Check out Light Blue Settings on the right!
         </b-alert>-->
       </b-nav-text>
-      <b-nav-form @submit.prevent.native='search' class="d-sm-down-none mr-3">
+      <b-nav-form @submit.prevent.native="search" class="d-sm-down-none mr-3">
         <b-input-group class="input-group-transparent">
           <b-input-group-text slot="prepend">
             <i class="la la-search"></i>
           </b-input-group-text>
-          <b-input class="input-transparent" id="search-input" v-model="searchText" v-on:keyup.enter="search" placeholder="Search Dashboard" />
+          <b-input
+            class="input-transparent"
+            id="search-input"
+            v-model="text"
+            v-on:keyup.enter="search"
+            placeholder="Search Dashboard"
+          />
         </b-input-group>
-        <a style="margin-left:7px;background:none;border:none;color:black" @click="cancelSearch" v-show="isSearch">Vazgeç</a>
+        <a
+          style="margin-left:7px;background:none;border:none;color:black"
+          @click="cancelSearch"
+          v-show="isSearch"
+        >Vazgeç</a>
       </b-nav-form>
       <b-nav-item-dropdown right extra-menu-classes="py-0" :disabled="true">
         <template slot="button-content">
@@ -23,13 +33,16 @@
           <span class="d-md-down-none d-lg-inline">
             <span class="fw-semi-bold">{{this.username}}</span>
           </span>
-          <span
-            class="ml-2 circle bg-warning text-white fw-bold d-md-down-none d-lg-inline-block"
-          >0</span>
+          <span class="ml-2 circle bg-warning text-white fw-bold d-md-down-none d-lg-inline-block">0</span>
         </template>
         <notifications />
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown no-caret right extra-menu-classes="dropdown-menu-messages" :disabled="true">
+      <b-nav-item-dropdown
+        no-caret
+        right
+        extra-menu-classes="dropdown-menu-messages"
+        :disabled="true"
+      >
         <template slot="button-content">
           <i class="la la-comment px-2" />
         </template>
@@ -66,7 +79,7 @@
         <b-dropdown-item-button class="text-center">
           See all messages
           <i class="fa fa-arrow-right ml-1"></i>
-        </b-dropdown-item-button> -->
+        </b-dropdown-item-button>-->
       </b-nav-item-dropdown>
       <b-nav-item class="divider"></b-nav-item>
       <b-nav-item-dropdown no-caret right>
@@ -150,8 +163,17 @@ export default {
     }),
     ...mapGetters({
       username: "user/GET_USERNAME",
-      isSearch:"search/Get_ISSEARCH"
-    })
+      isSearch: "search/Get_ISSEARCH",
+     
+    }),
+    text: {
+      get() {
+        return this.$store.state.search.search_text;
+      },
+      set(value) {
+        this.$store.commit("search/SET_TEXT", value);
+      }
+    }
   },
   methods: {
     ...mapActions("layout", [
@@ -171,35 +193,36 @@ export default {
         this.changeSidebarActive(paths.join("/"));
       }
     },
-    getModule(){
-        let moduleName="";
+
+    getModule() {
+      let moduleName = "";
       switch (this.$route.name) {
         case "SiteList":
-          moduleName="site";
+          moduleName = "site";
           break;
         case "ServerList":
-          moduleName="server";
+          moduleName = "server";
           break;
         case "CompanyList":
-          moduleName="company";
+          moduleName = "company";
           break;
         default:
           break;
       }
       return moduleName;
     },
-    search(){
-      console.log("search")
-      let moduleName=this.getModule();
-      this.$store.dispatch("search/action_search",{moduleName,text:this.searchText});
-
+    search() {
+      let moduleName = this.getModule();
+      this.$store.dispatch("search/action_search", {
+        moduleName,
+        text: this.text
+      });
     },
-    cancelSearch(){
-      console.log("cancel")
-      this.searchText="";
-      let moduleName=this.getModule();
-      this.$store.dispatch("search/action_cancel",{moduleName});
-
+    cancelSearch() {
+      console.log("cancel");
+      this.text = "";
+      let moduleName = this.getModule();
+      this.$store.dispatch("search/action_cancel", { moduleName });
     },
     logout() {
       this.$store.dispatch("user/action_logout").then(res => {
@@ -213,8 +236,7 @@ export default {
   data() {
     return {
       showNavbarAlert: false,
-      searchText:""
-
+      searchText: ""
     };
   }
 };

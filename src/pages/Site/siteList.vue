@@ -66,10 +66,12 @@ export default {
     ...mapGetters({
       list: "site/GET_LIST",
       page: "site/GET_PAGE",
-      isLast: "site/GET_ISLAST"
+      isLast: "site/GET_ISLAST",
+      isSearch:"search/Get_ISSEARCH"
     })
   },
   created() {
+    this.$store.dispatch("search/action_change_page");
     this.$store.commit("site/SET_LIST", []);
     window.addEventListener("scroll", this.handleScroll);
   },
@@ -93,7 +95,7 @@ export default {
         ) +
           window.innerHeight ===
         document.documentElement.offsetHeight;
-      if (bottomOfWindow && !this.isLast) {
+      if (bottomOfWindow && !this.isLast && !this.isSearch) {
         this.increase_page();
         this.getSiteList();
       }
