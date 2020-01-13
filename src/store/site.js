@@ -77,7 +77,10 @@ export default {
     SET_PAGE(state,data){
       state.page=data;
     },
-    
+    INCREASE_PAGE(state){
+      state.page=state.page+1;
+    },
+ 
   },
   actions: {
     action_getList({ commit,state }) {

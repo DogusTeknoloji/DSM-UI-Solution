@@ -83,7 +83,7 @@ export default {
   },
   methods: {
         ...mapMutations({
-      increase_page: "server/INCREASE_PAGE"
+      increase_page: "site/INCREASE_PAGE"
 
     }),
     handleScroll(event) {
