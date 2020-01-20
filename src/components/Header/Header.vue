@@ -23,7 +23,7 @@
           style="margin-left:7px;background:none;border:none;color:black"
           @click="cancelSearch"
           v-show="isSearch"
-        >Vazgeç</a>
+        >Cancel</a>
       </b-nav-form>
       <b-nav-item-dropdown right extra-menu-classes="py-0" :disabled="true">
         <template slot="button-content">
@@ -198,6 +198,9 @@ export default {
       let moduleName = "";
       switch (this.$route.name) {
         case "SiteList":
+          moduleName = "site";
+          break;
+           case "Site":
           moduleName = "site";
           break;
         case "ServerList":

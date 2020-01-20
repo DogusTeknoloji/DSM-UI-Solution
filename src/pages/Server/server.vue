@@ -100,13 +100,21 @@
                 <div class="col-md-12 info-card">
                   <h5 class="general-info-header">Volume Details</h5>
                   <table class="table text-center">
-                    unknown-data
-                    <!-- <tr>
-                      <td class="general-info-table-title">C:\</td>
-                      <td>20 GB</td>
-                      <td>80 GB</td>
-                      <td class="general-info-table-value">100 GB ( 20% free)</td>
-                    </tr> -->
+                  <thead>
+                  <tr>
+                  <th>Volume Name </th>
+                  <th>Free Space </th>
+                  <th>Used Space </th>
+                  <th>Total Capacity</th>
+                  </tr>
+                  </thead>
+                    
+                    <tr v-for="(item, i) in detail.volumeDetails" :key="i">
+                      <td class="general-info-table-title text-left">{{item.volumeName}}</td>
+                      <td class="text-left">{{item.freeSpace}}</td>
+                      <td class="text-left">{{item.usedSpace}}</td>
+                      <td class="general-info-table-value text-left">{{item.totalCapacity}} ( {{item.freePercent}} free)</td>
+                    </tr> 
                
                   </table>
                 </div>

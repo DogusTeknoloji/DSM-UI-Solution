@@ -49,9 +49,9 @@ service.interceptors.response.use(
     if (response.status !== 200) {
         console.log(response);
         if (response.status !== 401) {
-          
-        window.localStorage.setItem("authenticated", false);  
-        router.push('/login');
+         
+          window.localStorage.setItem("authenticated", false);
+          window.location.href = "/";
     
         }
           
@@ -84,7 +84,7 @@ service.interceptors.response.use(
     {      
       console.log("401")
       window.localStorage.setItem("authenticated", false);
-      this.$router.push('/login');
+      window.location.href = "/";
     }
     else
     

@@ -5,7 +5,7 @@ export default {
   namespaced: true,
   state: {
     isSearch: false,
-    search_text:"sdsad"
+    search_text:""
   },
   getters: {
     Get_ISSEARCH(state) {
