@@ -46,11 +46,13 @@
           index="reports"
           :disabled="true"
           :childrenLinks="[
-          { header: 'Server Ownership', link: '/app/reports/server-ownership-status' },
-          { header: 'Most Called Urls', link: '/app/reports/most-called-urls' },
-          { header: 'Longest Response Time', link: '/app/reports/longest-response-time' },
+          { header: 'Overall Disk Status', link: '/app/reports/overall-disk-status' },
+          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-jobs' }
         ]"
         />
+        <!-- { header: 'Server Ownership', link: '/app/reports/server-ownership-status' },
+          { header: 'Most Called Urls', link: '/app/reports/most-called-urls' },
+          { header: 'Longest Response Time', link: '/app/reports/longest-response-time' }, -->
       </ul>
     </nav>
   </b-collapse>

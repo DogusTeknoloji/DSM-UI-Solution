@@ -14,6 +14,8 @@ import CompanyList from '@/pages/Company/companyList'
 import  ServerOwnershipStatus  from "@/pages/Reports/ServerOwnershipStatus";
 import  MostCalledUrls  from "@/pages/Reports/MostCalledUrls";
 import  LongestResponseTime  from "@/pages/Reports/LongestResponseTime";
+import OverallDiskStatus from "@/pages/Reports/OverallDiskStatus";
+import aaa from "@/pages/Reports/aaa";
 
 Vue.use(Router);
 
@@ -52,6 +54,11 @@ export default new Router({
           component: SiteList,
         },
         {
+          path: 'aaa',
+          name: 'aaa',
+          component: aaa,
+        },
+        {
           path: 'server/:id',
           name: 'Server',
           component: Server,
@@ -87,7 +94,11 @@ export default new Router({
           name: 'LongestResponseTime',
           component: LongestResponseTime,
         },
-    
+        {
+          path: 'reports/overall-disk-status',
+          name: 'OverallDiskStatus',
+          component: OverallDiskStatus,
+        }
       ],
     },
     {

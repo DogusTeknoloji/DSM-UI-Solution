@@ -7,6 +7,9 @@ import server from './server';
 import user from './user';
 import company from './company';
 import search from './search';
+import aaa from './aaa';
+
+import odsreport from './odsreport';
 
 Vue.use(Vuex);
 
@@ -17,6 +20,8 @@ export default new Vuex.Store({
     server,
     company,
     user,
-    search
+    search,
+    aaa,
+    odsreport
   },
 });
