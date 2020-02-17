@@ -57,7 +57,7 @@ export default {
   methods: {
     ...mapMutations("JobReport",{increase_page: "INCREASE_PAGE"}),
     ...mapActions("JobReport",["action_getList"]),
-    handleScroll(event) {
+    handleScroll() {
       let bottomOfWindow =
         Math.max(
           window.pageYOffset,
@@ -74,14 +74,7 @@ export default {
     },
     getScheduledJobList() {
       this.isLoading = true;
-      this.action_getList().then(
-        res => {
-          this.isLoading = false;
-        },
-        err => {
-          console.log(err);
-        }
-      );
+      this.action_getList();
     }
   }
 };

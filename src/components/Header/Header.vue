@@ -28,7 +28,7 @@
       <b-nav-item-dropdown right extra-menu-classes="py-0" :disabled="true">
         <template slot="button-content">
           <span class="avatar thumb-sm float-left mr-2">
-            <img class="rounded-circle" src="../../assets/people/a5.jpg" alt="..." />
+          <img class="rounded-circle" :src="this.photo" alt="..." />
           </span>
           <span class="d-md-down-none d-lg-inline">
             <span class="fw-semi-bold">{{this.username}}</span>
@@ -154,7 +154,7 @@ import { mapState, mapActions, mapGetters } from "vuex";
 import Notifications from "@/components/Notifications/Notifications";
 
 export default {
-  name: "Headed",
+  name: "Header",
   components: { Notifications },
   computed: {
     ...mapState("layout", {
@@ -164,7 +164,7 @@ export default {
     ...mapGetters({
       username: "user/GET_USERNAME",
       isSearch: "search/Get_ISSEARCH",
-     
+      photo: "user/GET_PHOTO"
     }),
     text: {
       get() {

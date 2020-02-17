@@ -18,7 +18,7 @@
                     <i class="fa fa-group" />
                   </span>
                   &nbsp;
-                  <b>478</b>
+                  <b>0</b>
                 </h3>
               </div>
               <div class="stat-item">
@@ -28,7 +28,7 @@
                     <i class="fa fa-group" />
                   </span>
                   &nbsp;
-                  <b>500</b>
+                  <b>0</b>
                 </h3>
               </div>
             </div>
@@ -39,8 +39,8 @@
               <i class="fa fa-chevron-up" />
             </span>
           </small>
-          <span class="fw-semi-bold">&nbsp;17% higher</span>
-          &nbsp;than last month
+          <!-- <span class="fw-semi-bold">&nbsp;17% higher</span>
+          &nbsp;than last month -->
         </Widget>
       </b-col>
       <b-col xl="4" lg="4"  sm="12">
@@ -53,7 +53,7 @@
                   <span class="text-success">
                     <i class="fa fa-chevron-up" />
                   </span> &nbsp;
-                  <b>478</b>
+                  <b>0</b>
                 </h3>
               </div>
               <div class="stat-item">
@@ -62,7 +62,7 @@
                   <span class="text-danger">
                     <i class="fa fa-chevron-down" />
                   </span> &nbsp;
-                  <b>500</b>
+                  <b>0</b>
                 </h3>
               </div>
             </div>
@@ -88,7 +88,7 @@
                   <span class="text-warning">
                     <i class="glyphicon glyphicon-exclamation-sign" />
                   </span> &nbsp;
-                  <b>478</b>
+                  <b>0</b>
                 </h3>
               </div>
               <div class="stat-item">
@@ -98,7 +98,7 @@
                    
                     <i class=" glyphicon glyphicon-glyph-fire" />
                   </span> &nbsp;
-                  <b>500</b>
+                  <b>0</b>
                 </h3>
               </div>
             </div>
@@ -132,10 +132,10 @@
                   <i class="glyphicon glyphicon-user" />
                 </span>
                 <div>
-                  <h6 class="m-0 fw-semi-bold">TESTSERVER1</h6>
+                  <h6 class="m-0 fw-semi-bold">-</h6>
                   <h5
                     class="help-block text-ellipsis m-0 "
-                  >DSM Monitor Service is unavailable!</h5>
+                  >_</h5>
                 </div>
               </a>
                <a class="list-group-item" href="#">
@@ -143,20 +143,20 @@
                   <i class="glyphicon glyphicon-user" />
                 </span>
                 <div>
-                  <h6 class="m-0 fw-semi-bold">TESTSERVER1</h6>
+                  <h6 class="m-0 fw-semi-bold">-</h6>
                   <h5
                     class="help-block text-ellipsis m-0 "
-                  >DSM Monitor Service is unavailable!</h5>
+                  >-</h5>
                 </div>
               </a> <a class="list-group-item" href="#">
                 <span class="thumb-sm float-left mr rounded-circle" style="border:1px solid #aaa">
                   <i class="glyphicon glyphicon-user" />
                 </span>
                 <div>
-                  <h6 class="m-0 fw-semi-bold">TESTSERVER1</h6>
+                  <h6 class="m-0 fw-semi-bold">-</h6>
                   <h5
                     class="help-block text-ellipsis m-0 "
-                  >DSM Monitor Service is unavailable!</h5>
+                  >-</h5>
                 </div>
               </a>
                <a class="list-group-item" href="#">
@@ -164,10 +164,10 @@
                   <i class="glyphicon glyphicon-user" />
                 </span>
                 <div>
-                  <h6 class="m-0 fw-semi-bold">TESTSERVER1</h6>
+                  <h6 class="m-0 fw-semi-bold">-</h6>
                   <h5
                     class="help-block text-ellipsis m-0 "
-                  >DSM Monitor Service is unavailable!</h5>
+                  >-</h5>
                 </div>
               </a>
             </div>

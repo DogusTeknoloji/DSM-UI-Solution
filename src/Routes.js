@@ -103,7 +103,7 @@ export default new Router({
     },
     {
       path: '*',
-      name: 'Error',
+      name: 'xPage',
       component: ErrorPage,
     }
   ],
