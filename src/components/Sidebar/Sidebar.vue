@@ -47,7 +47,7 @@
           :disabled="true"
           :childrenLinks="[
           { header: 'Overall Disk Status', link: '/app/reports/overall-disk-status' },
-          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-jobs' }
+          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' }
         ]"
         />
         <!-- { header: 'Server Ownership', link: '/app/reports/server-ownership-status' },

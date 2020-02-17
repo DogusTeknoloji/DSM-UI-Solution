@@ -15,6 +15,7 @@ import  ServerOwnershipStatus  from "@/pages/Reports/ServerOwnershipStatus";
 import  MostCalledUrls  from "@/pages/Reports/MostCalledUrls";
 import  LongestResponseTime  from "@/pages/Reports/LongestResponseTime";
 import OverallDiskStatus from "@/pages/Reports/OverallDiskStatus";
+import ScheduledJobStatus from "@/pages/Reports/ScheduledJobs";
 
 Vue.use(Router);
 
@@ -92,6 +93,11 @@ export default new Router({
           path: 'reports/overall-disk-status',
           name: 'OverallDiskStatus',
           component: OverallDiskStatus,
+        },
+        {
+          path: 'reports/scheduled-job-status',
+          name: 'ScheduledJobStatus',
+          component: ScheduledJobStatus,
         }
       ],
     },

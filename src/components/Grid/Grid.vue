@@ -40,6 +40,7 @@ export default {
   },
   methods:{
     goto(id) {
+      if (id ==null) return;
       this.$router.push(this.navigate.url +"/"+ id);
     }
   }

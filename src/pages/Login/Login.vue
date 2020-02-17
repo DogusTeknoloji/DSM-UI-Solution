@@ -3,7 +3,7 @@
     <b-container>
       <Widget
         class="mx-auto"
-        title="<h3 class='mt-0 fw-normal text-center'>SignIn to DSM</h3>"
+        title="<h3 class='mt-0 fw-normal text-center'>Sign In to DSM</h3>"
         customHeader
       >
         <form class="mt" @submit.prevent="login">
@@ -21,6 +21,17 @@
                 required
                 placeholder="Your User Name"
               />
+              <div>
+                <span class=" pl-0 v-center" > @ </span>
+              </div>
+              <b-form-select 
+                id="domainselect-input"
+                class="input-transparent pl-0"
+                type="text"
+                required
+                v-model="selected" 
+                :options="options"
+               />
             </b-input-group>
           </b-form-group>
           <b-form-group label="Password" label-for="password-input">
@@ -77,19 +88,25 @@ export default {
       form: {
         Username: "",
         Password: ""
-      }
+      },
+      selected:"@d-teknoloji.com.tr",
+      options:[
+        { value:"idv", text:"Individual Account"},
+        { value:"@d-teknoloji.com.tr",text:"d-teknoloji.com.tr" }
+      ]
     };
   },
   methods: {
     login() {
       this.isLoading = true;
-      console.log("login");
-      const username = this.form.Username;
-      const password = this.form.Password;
-
-      if (username.length !== 0 && password.length !== 0) {
+      var userValidationObj = { Username:  this.form.Username + this.selected, Password: this.form.Password };
+      if (this.selected == "idv"){
+        userValidationObj.Username = this.form.Username;
+      }
+      
+      if (this.form.Username.length !== 0 && this.form.Password.length !== 0) {
         this.$store
-          .dispatch("user/action_login", this.form)
+          .dispatch("user/action_login", userValidationObj)
           .then(res => {
             if (res) {
               this.isLoading = false;
@@ -100,7 +117,7 @@ export default {
           .catch(err => {
             this.isLoading = false;
             if (err == 400)
-              this.errorMessage = "Username or password is incorrect";
+              alert("Username or password is incorrect");
           });
       }
     }
