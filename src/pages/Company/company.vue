@@ -121,7 +121,6 @@ export default {
       fetch_sites: "company/action_getCompanySites"
     }),
     handleTabClick() {
-      console.log(this.activeName);
       switch (this.activeName) {
         case "servers":
           this.fetch_servers(this.$route.params.id);

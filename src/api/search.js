@@ -8,3 +8,22 @@ export function search(url) {
   })
   
 }
+
+export function getExportList(url){
+  let apiUrl= url;
+
+  request({
+        url: apiUrl,
+        method: 'GET',
+        responseType: 'blob',
+    }).then((response) => {
+         var fileURL = window.URL.createObjectURL(new Blob([response]));
+         var fileLink = document.createElement('a');
+    
+         fileLink.href = fileURL;
+         fileLink.setAttribute('download', 'dsm_export.xlsx');
+         document.body.appendChild(fileLink);
+    
+         fileLink.click();
+    });
+}

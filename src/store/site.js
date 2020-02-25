@@ -89,7 +89,6 @@ export default {
           if(res.length==0)
           {state.isLast= true;}
           commit("PUSH_LIST",res);
-          console.log(res);
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -97,9 +96,8 @@ export default {
       })
     },
     action_getSite({ commit }, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getSiteDetails(id).then(res => {
-          console.log(res);
           commit("SET_SELECT_SITE", res);
           commit("SET_SELECT_SITE_ID",id);
           resolve(res);
@@ -108,9 +106,8 @@ export default {
       })
     },
     action_getSiteHeader({ commit }, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getSiteHeader(id).then(res => {
-          console.log(res);
           commit("SET_SELECT_SITE_HEADER", res);
           resolve(res);
         })
@@ -118,9 +115,8 @@ export default {
       })
     },
     action_SELECTED_SITE_BINDINGS({ commit },data) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getSiteBindings(data).then(res => {
-          console.log(res);
           commit("SET_SELECTED_SITE_BINDINGS", res);
           resolve(res);
         })
@@ -129,7 +125,6 @@ export default {
     action_SELECTED_SITE_BACKEND_SERVICES_ENDPOİNTS({ commit },data) {
       return new Promise((resolve, reject) => {
         getSiteEndpoints(data).then(res => {
-          console.log(res);
           commit("SET_SELECTED_SITE_BACKEND_SERVICES_ENDPOİNTS", res);
           resolve(res);
         }).catch(err=>{
@@ -140,7 +135,6 @@ export default {
     action_SELECTED_SITE_BACKEND_SERVICES_DIRECT_DB_CONNECTION({ commit },data) {
       return new Promise((resolve, reject) => {
         getSiteConnectionstrings(data).then(res => {
-          console.log(res);
           commit("SET_SELECTED_SITE_BACKEND_SERVICES_DIRECT_DB_CONNECTION", res);
           resolve(res);
         }).catch(err=>{
@@ -149,9 +143,8 @@ export default {
       })
     },
     action_SELECTED_SITE_PACKAGES({ commit },data) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getSitePackages(data).then(res => {
-          console.log(res);
           commit("SET_SELECTED_SITE_PACKAGES", res);
           resolve(res);
         })

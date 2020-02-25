@@ -77,7 +77,6 @@
 
 <script>
 import Widget from "@/components/Widget/Widget";
-import { mapActions } from "vuex";
 export default {
   name: "LoginPage",
   components: { Widget },

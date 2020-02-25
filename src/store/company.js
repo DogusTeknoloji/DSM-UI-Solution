@@ -67,7 +67,6 @@ export default {
           if(res.length==0)
           {state.isLast= true;}
           commit("PUSH_LIST", res);
-          console.log(res);
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -75,9 +74,8 @@ export default {
       })
     },
     action_getCompanyServers({ commit }, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getCompanyServers(id).then(res => {
-          console.log(res);
           commit("SET_Company_SERVERS", res);
           resolve(res);
         })
@@ -85,9 +83,8 @@ export default {
       })
     },
     action_getCompanyHeader({ commit }, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getCompanyHeader(id).then(res => {
-          console.log(res);
           commit("SET_COMPANY_HEADER", res);
           resolve(res);
         })
@@ -95,9 +92,8 @@ export default {
       })
     },
     action_getCompanySites({ commit }, data) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getCompanySites(data).then(res => {
-          console.log(res);
           commit("SET_COMPANY_SITES", res);
           resolve(res);
         })

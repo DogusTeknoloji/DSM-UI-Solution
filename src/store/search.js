@@ -1,6 +1,5 @@
 import { search } from '@/api/search'
 import { } from "./site";
-import { Store } from 'vuex';
 export default {
   namespaced: true,
   state: {
@@ -27,7 +26,6 @@ export default {
   },
   actions: {
     action_search({ commit }, { moduleName, text }) {
-      console.log(text);
       commit(moduleName + "/SET_LIST", [], { root: true });
       return new Promise((resolve, reject) => {
         let url = "/" + moduleName + "/search/" + text;
@@ -46,24 +44,15 @@ export default {
     action_cancel({ commit, dispatch }, { moduleName }) {
       commit(moduleName + "/SET_LIST", [], { root: true });
       commit(moduleName + "/SET_PAGE", 1, { root: true });
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         commit("SET_ISSEARCH", false)
         commit(moduleName + "/SET_PAGE", 1, { root: true })
-        dispatch(moduleName + "/action_getList", 1, { root: true }).then(
-          res => {
-
-          },
-          err => {
-            console.log(err);
-          }
-        );
-
-
+        dispatch(moduleName + "/action_getList", 1, { root: true });
         resolve()
 
       })
     },
-    action_change_page({ commit, dispatch }) {
+    action_change_page({ commit }) {
       commit("SET_ISSEARCH", false)
       commit("SET_TEXT", "")
     },

@@ -7,6 +7,7 @@ import BootstrapVue from 'bootstrap-vue';
 import VCalendar from 'v-calendar';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import VueAxios from './utils/axios';
 
 import store from './store';
 import router from './Routes';
@@ -14,8 +15,7 @@ import App from './App';
 
 Vue.use(BootstrapVue);
 Vue.use(ElementUI);
-
-
+Vue.use(VueAxios);
 Vue.use(VCalendar, {
   firstDayOfWeek: 2,  // Monday
 });

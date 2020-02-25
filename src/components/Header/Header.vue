@@ -222,13 +222,12 @@ export default {
       });
     },
     cancelSearch() {
-      console.log("cancel");
       this.text = "";
       let moduleName = this.getModule();
       this.$store.dispatch("search/action_cancel", { moduleName });
     },
     logout() {
-      this.$store.dispatch("user/action_logout").then(res => {
+      this.$store.dispatch("user/action_logout").then(() => {
         window.localStorage.setItem("authenticated", false);
         this.$router.push("/login");
       });

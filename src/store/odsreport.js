@@ -40,7 +40,6 @@ export default {
           if(res.length==0)
           {state.isLast= true;}
           commit("PUSH_LIST",res);
-          console.log(res);
           resolve(res)
         }).catch(error => {
           reject(error)

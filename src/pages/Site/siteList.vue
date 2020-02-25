@@ -5,7 +5,12 @@
       <div class="page-letters"></div>
     </div>
     <br />
-
+    <div class="col-md-12 text-right full-row">
+       <b-button class="badge badge-resize excel-color" @click="downloadExport()">
+       <i class="glyphicon glyphicon-console"></i>
+       Export to Excel</b-button>
+    </div>
+    <br/>
     <div class="col-md-12 table-card">
       <table class="table table-hover table-striped">
         <thead>
@@ -46,8 +51,8 @@
 
 <script>
 import Widget from "@/components/Widget/Widget";
-import { mapGetters, mapActions, mapMutations } from "vuex";
-
+import { mapGetters, mapMutations } from "vuex";
+import {getExportList , getExportSearchList } from '@/api/site/'
 export default {
   name: "SiteList",
   components: {
@@ -86,7 +91,7 @@ export default {
       increase_page: "site/INCREASE_PAGE"
 
     }),
-    handleScroll(event) {
+    handleScroll() {
       let bottomOfWindow =
         Math.max(
           window.pageYOffset,
@@ -103,27 +108,28 @@ export default {
     getSiteList() {
       this.isLoading = true;
       this.$store.dispatch("site/action_getList").then(
-        res => {
+        () => {
           this.isLoading = false;
-        },
-        err => {
-          console.log(err);
         }
       );
     },
     gotoSite(s) {
-      console.log(s);
       this.isLoading = true;
       this.$store.dispatch("site/action_getSite", s.siteId).then(
-        res => {
-          console.log(res);
+        () => {
           this.isLoading = false;
           this.$router.push("/app/site/" + s.siteId);
-        },
-        err => {
-          console.log(err);
         }
       );
+    },
+     downloadExport(){
+       if (this.isSearch){
+         let searchText = this.$store.state.search.search_text;
+         getExportSearchList(searchText);
+       }
+       else{
+        getExportList();
+      }
     }
   }
 };
@@ -137,5 +143,21 @@ tbody {
   tr {
     cursor: pointer;
   }
+}
+.full-row{
+  margin-left: 20px;
+}
+.excel-color
+{
+  background-color:#21a366;
+  color: #ffffff;
+}
+.excel-color:hover
+{
+  background-color:#217346;
+  color: #ffffff;
+}
+.badge-resize{
+  height: 26px;
 }
 </style>

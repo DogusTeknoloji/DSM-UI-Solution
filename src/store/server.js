@@ -64,7 +64,6 @@ export default {
           if(res.length==0)
           {state.isLast= true;}
           commit("PUSH_LIST",res);
-          console.log(res);
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -72,9 +71,8 @@ export default {
       })
     },
     action_getServerDetails({ commit }, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getServerDetails(id).then(res => {
-          console.log(res);
           commit("SET_SERVER_DETAIL", res);
           resolve(res);
         })
@@ -82,9 +80,8 @@ export default {
       })
     },
     action_getServerHeader({ commit }, id) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getServerHeader(id).then(res => {
-          console.log(res);
           commit("SET_SERVER_HEADER", res);
           resolve(res);
         })
@@ -92,9 +89,8 @@ export default {
       })
     },
     action_getServerSites({ commit },data) {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         getServerSites(data).then(res => {
-          console.log(res);
           commit("SET_SERVER_SITES", res);
           resolve(res);
         })

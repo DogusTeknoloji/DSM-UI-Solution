@@ -1,46 +1,64 @@
 <template>
   <div class="row">
-    <Grid
-      :title="'Servers'"
-      :thList="thList"
-      :isLoading="isLoading"
-      :list="list"
-      :navigate="{url:'/app/server',id:'serverId'}"
-    ></Grid>
+    <div class="col-md-12">
+      <h4 class="fw-semi-bold">Servers</h4>
+      <div class="page-letters"></div>
+    </div>
+    <br />
+    <div class="col-md-12 text-right full-row">
+       <b-button class="badge badge-resize excel-color" @click="downloadExport()">
+       <i class="glyphicon glyphicon-console"></i>
+       Export to Excel</b-button>
+    </div>
+    <br/>
+    <div class="col-md-12 table-card">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Server Name</th>
+            <th scope="col">Ip Address</th>
+            <th scope="col">DNS Name</th>
+            <th scope="col">Operating System</th>
+            <th scope="col">Responsible</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(s, i) in this.list" :key="i" @click="gotoSite(s)">
+            <th scope="row">{{i+1}}</th>
+            <td>{{s.machineName}}</td>
+            <td>{{s.ipAddress}}</td>
+            <td>{{s.dnsName}}</td>
+            <td>{{s.operatingSystem}}</td>
+            <td>{{s.responsible}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12 text-center" v-if="this.isLoading">
+      <img src="@/assets/svg/loading.svg" />
+    </div>
   </div>
 </template>
 
 <script>
+
 import { mapGetters, mapActions,mapMutations } from "vuex";
 import Widget from "@/components/Widget/Widget";
-import Grid from "@/components/Grid/Grid";
+import {getExportList,getExportSearchList } from '@/api/server/'
 
 export default {
   name: "ServerList",
   components: {
-    Widget,
-    Grid
+    Widget
   },
   data() {
     return {
       detailVisible: false,
       solutionVisible: false,
       textarea: "",
-      isLoading: true,
-      thList: [
-        { name: "machineName", title: "Server Name" },
-        { name: "ipAddress", title: "Ip Address" },
-        { name: "dnsName", title: "DNS Name" },
-        { name: "operatingSystem", title: "Operating System" },
-        { name: "responsible", title: "Responsible" }
-      ]
+      isLoading: true
     };
-  },
-  created() {
-    window.addEventListener("scroll", this.handleScroll);
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
   },
   computed: {
     ...mapGetters({
@@ -49,6 +67,14 @@ export default {
       isLast: "server/GET_ISLAST",
       isSearch:"search/Get_ISSEARCH"
     })
+  },
+  created() {
+    this.$store.dispatch("search/action_change_page");
+    this.$store.commit("server/SET_LIST", []);
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   mounted() {
     this.getServerList();
@@ -60,7 +86,7 @@ export default {
     }),
     ...mapActions({
     }),
-    handleScroll(event) {
+    handleScroll() {
       let bottomOfWindow =
         Math.max(
           window.pageYOffset,
@@ -78,16 +104,23 @@ export default {
     getServerList() {
       this.isLoading = true;
       this.$store.dispatch("server/action_getList").then(
-        res => {
+        () => {
           this.isLoading = false;
         },
-        err => {
-          console.log(err);
-        }
       );
     },
     gotoServer(s) {
+      this.isLoading = true;
       this.$router.push("/app/server/" + s.serverId);
+    },
+     downloadExport(){
+       if (this.isSearch){
+         let searchText = this.$store.state.search.search_text;
+         getExportSearchList(searchText);
+       }
+       else{
+         getExportList();
+       }
     }
   }
 };
@@ -101,5 +134,21 @@ tbody {
   tr {
     cursor: pointer;
   }
+}
+.full-row{
+  margin-left: 20px;
+}
+.excel-color
+{
+  background-color:#21a366;
+  color: #ffffff;
+}
+.excel-color:hover
+{
+  background-color:#217346;
+  color: #ffffff;
+}
+.badge-resize{
+  height: 26px;
 }
 </style>

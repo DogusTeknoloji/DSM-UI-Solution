@@ -1,6 +1,12 @@
 <template>
   <div style="width:100%">
       <h4 class="fw-semi-bold">{{title}}</h4>
+  <br/>
+  <div class="col-md-12 text-right full-row">
+    <b-button class="badge badge-resize excel-color" @click="downloadExport()">
+    <i class="glyphicon glyphicon-console"></i>
+    Export to Excel</b-button>
+  </div>
     <div class="col-md-12 table-card">
       <table class="table  table-hover table-striped">
         <thead>
@@ -61,5 +67,21 @@ tbody {
     display: table;
 
 }
+}
+.full-row{
+  margin-left: 20px;
+}
+.excel-color
+{
+  background-color:#21a366;
+  color: #ffffff;
+}
+.excel-color:hover
+{
+  background-color:#217346;
+  color: #ffffff;
+}
+.badge-resize{
+  height: 26px;
 }
 </style>

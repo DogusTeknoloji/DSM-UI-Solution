@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '@/store'
 import { getToken } from '@/utils/auth';
 import router from '../Routes';
 
@@ -7,8 +6,26 @@ const settings=require("../settings.json");
 // create an axios instance
 const service = axios.create({
   baseURL: settings.apiURL,
-  timeout: 10000 
+  timeout: 30000 
 })
+
+
+// function downloadList(controllerName){
+//   axios({
+//     url: settings.apiURL + controllerName + '/export/',
+//     method: 'GET',
+//     responseType: 'blob',
+// }).then((response) => {
+//      var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+//      var fileLink = document.createElement('a');
+
+//      fileLink.href = fileURL;
+//      fileLink.setAttribute('download', 'dsm_export.xlsx');
+//      document.body.appendChild(fileLink);
+
+//      fileLink.click();
+// });
+// }
 
 // request interceptor
 service.interceptors.request.use(
@@ -25,7 +42,6 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
     return Promise.reject(error)
   }
 )
@@ -45,9 +61,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
     // if the custom code is not 20000, it is judged as an error.
-    console.log(response.status);
     if (response.status !== 200) {
-        console.log(response);
         if (response.status !== 401) {
          
           window.localStorage.setItem("authenticated", false);
@@ -75,14 +89,12 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log(error)
     if(error.response.status==403)
     return Promise.reject(error.response.status)
     if(error.response.status==400)
     return router.push('/error')
     if(error.response.status==401)
     {      
-      console.log("401")
       window.localStorage.setItem("authenticated", false);
       window.location.href = "/";
     }

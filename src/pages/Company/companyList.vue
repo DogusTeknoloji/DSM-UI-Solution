@@ -6,7 +6,14 @@
     </div>
     <br />
 
+    <div class="col-md-12 text-right full-row">
+       <b-button class="badge badge-resize excel-color" @click="downloadExport()">
+       <i class="glyphicon glyphicon-console"></i>
+       Export to Excel</b-button>
+    </div>
+    <br/>
     <div class="col-md-12 table-card">
+      
       <table class="table table-responsive table-hover table-striped">
         <thead>
           <tr>
@@ -29,8 +36,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions,mapMutations  } from "vuex";
+import { mapGetters,mapMutations  } from "vuex";
 import Widget from "@/components/Widget/Widget";
+import {getExportList,getExportSearchList } from '@/api/company'
 
 export default {
   name: "CompanyList",
@@ -69,7 +77,7 @@ export default {
       increase_page: "company/INCREASE_PAGE"
 
     }),
-    handleScroll(event) {
+    handleScroll() {
       let bottomOfWindow =
         Math.max(
           window.pageYOffset,
@@ -80,7 +88,6 @@ export default {
         document.documentElement.offsetHeight;
 
       if (bottomOfWindow && !this.isLast && !this.isSearch) {
-        console.log(this.isLast);
         this.increase_page();
         this.getServerList();
       }
@@ -88,17 +95,22 @@ export default {
     getServerList() {
       this.isLoading = true;
       this.$store.dispatch("company/action_getList").then(
-        res => {
-
+        () => {
           this.isLoading = false;
-        },
-        err => {
-          console.log(err);
         }
       );
     },
     gotoCompany(s) {
       this.$router.push("/app/company/" + s.companyId);
+    },
+    downloadExport(){
+      if (this.isSearch){
+        let searchText = this.$store.state.search.search_text;
+        getExportSearchList(searchText);
+      }
+      else {
+        getExportList();
+      }
     }
   }
 };
@@ -112,5 +124,21 @@ tbody {
   tr {
     cursor: pointer;
   }
+}
+.full-row{
+  margin-left: 20px;
+}
+.excel-color
+{
+  background-color:#21a366;
+  color: #ffffff;
+}
+.excel-color:hover
+{
+  background-color:#217346;
+  color: #ffffff;
+}
+.badge-resize{
+  height: 26px;
 }
 </style>

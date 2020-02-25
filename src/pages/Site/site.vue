@@ -469,7 +469,6 @@ export default {
       fetch_header:"site/action_getSiteHeader"
     }),
     handleTabClick() {
-      console.log(this.activeName);
       switch (this.activeName) {
         case "general":
           this.fetch_site(this.$route.params.id);
@@ -481,10 +480,8 @@ export default {
           this.fetch_endpoints(this.$route.params.id).catch(err=>{
             if(err==403)
               this.forbidden_endpoint=true;
-          });;
-          this.fetch_db_connections(this.$route.params.id).then(res=>{
-            console.log(res);
-          }).catch(err=>{
+          });
+          this.fetch_db_connections(this.$route.params.id).then().catch(err=>{
             if(err==403)
               this.forbidden_db_conneciton=true;
           });

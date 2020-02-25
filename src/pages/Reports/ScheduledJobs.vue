@@ -1,45 +1,75 @@
 <template>
   <div class="row">
-    <Grid
-      :title="'Scheduled Job List'"
-      :thList="thList"
-      :isLoading="isLoading"
-      :list="GET_LIST"
-      :navigate="{url:'#',id:null}"
-    ></Grid>
+    <div class="col-md-12">
+      <h4 class="fw-semi-bold">Scheduled Job List</h4>
+      <div class="page-letters"></div>
+    </div>
+    <br />
+    <div class="col-md-12 text-right full-row">
+       <b-button class="badge badge-resize excel-color" @click="downloadExport()">
+       <i class="glyphicon glyphicon-console"></i>
+       Export to Excel</b-button>
+    </div>
+    <br/>
+    <div class="col-md-12 table-card">
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">Owner</th>
+            <th scope="col">Host Type</th>
+            <th scope="col">Host Name</th>
+            <th scope="col">Repeat Time</th>
+            <th scope="col">Job Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(s, i) in GET_LIST" :key="i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{s.jobDescription}}</td>
+            <td>{{s.owner}}</td>
+            <td>{{s.hostType}}</td>
+            <td>{{s.hostName}}</td>
+            <td>{{s.repeatTime}}</td>
+            <td>{{s.jobName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12 text-center" v-if="this.isLoading">
+      <img src="@/assets/svg/loading.svg" />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions,mapMutations } from "vuex";
 import Widget from "@/components/Widget/Widget";
-import Grid from "@/components/Grid/Grid";
+import {getExportList } from '@/api/reports/scheduledjobs/'
 import ReportModule from '@/store/ScheduledJobsReportModule';
 
 export default {
   name: "ScheduledJobs",
   components: {
-    Widget,
-    Grid
+    Widget
   },
   data() {
     return {
       detailVisible: false,
       solutionVisible: false,
       textarea: "",
-      isLoading: true,
-      thList: [
-        { name: "jobDescription", title: "Job Description" },
-        { name: "owner", title: "Owner" },
-        { name: "hostType", title: "Host Type" },
-        { name: "hostName", title: "Host Name" },
-        { name: "repeatTime", title: "Repeat Time" },       
-        { name: "jobName", title: "Job Name" }
-      ]
+      isLoading: true
     };
+  },
+  computed: {
+    ...mapGetters('JobReport',['GET_LIST','GETPAGE','GET_ISLAST']),
   },
   created() {
     this.$store.registerModule("JobReport",ReportModule);
+
+    this.action_change_page();
+    this.$store.commit("JobReport/SET_LIST");
     window.addEventListener("scroll", this.handleScroll);
   },
   beforeDestroy(){
@@ -47,9 +77,6 @@ export default {
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
-  },
-  computed: {
-    ...mapGetters('JobReport',['GET_LIST','GETPAGE','GET_ISLAST'])
   },
   mounted() {
     this.getScheduledJobList();
@@ -74,7 +101,14 @@ export default {
     },
     getScheduledJobList() {
       this.isLoading = true;
-      this.action_getList();
+      this.action_getList().then(
+        () =>{
+           this.isLoading=false;
+        }
+      );
+    },
+     downloadExport(){
+         getExportList();
     }
   }
 };
@@ -88,5 +122,21 @@ tbody {
   tr {
     cursor: pointer;
   }
+}
+.full-row{
+  margin-left: 20px;
+}
+.excel-color
+{
+  background-color:#21a366;
+  color: #ffffff;
+}
+.excel-color:hover
+{
+  background-color:#217346;
+  color: #ffffff;
+}
+.badge-resize{
+  height: 26px;
 }
 </style>
