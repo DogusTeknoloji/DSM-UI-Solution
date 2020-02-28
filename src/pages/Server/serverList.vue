@@ -24,7 +24,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoSite(s)">
+          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
             <th scope="row">{{i+1}}</th>
             <td>{{s.machineName}}</td>
             <td>{{s.ipAddress}}</td>
