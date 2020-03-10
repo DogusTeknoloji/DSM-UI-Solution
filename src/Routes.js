@@ -3,9 +3,11 @@ import Router from 'vue-router';
 
 import Layout from '@/components/Layout/Layout';
 import Dashboard from '@/pages/Dashboard/Dashboard';
+import DashboardServerStats from "@/pages/Dashboard/ServerStatistics";
 import Site from '@/pages/Site/site'
 import SiteList from '@/pages/Site/siteList'
 import Login from '@/pages/Login/Login';
+import ComingSoonPage from '@/pages/ComingSoon/ComingSoon';
 import ErrorPage from '@/pages/Error/Error';
 import Server from '@/pages/Server/server'
 import ServerList from '@/pages/Server/serverList'
@@ -16,6 +18,8 @@ import  MostCalledUrls  from "@/pages/Reports/MostCalledUrls";
 import  LongestResponseTime  from "@/pages/Reports/LongestResponseTime";
 import OverallDiskStatus from "@/pages/Reports/OverallDiskStatus";
 import ScheduledJobStatus from "@/pages/Reports/ScheduledJobs";
+import DatabasePortal from "@/pages/DBPortal/DatabasePortal";
+
 
 Vue.use(Router);
 
@@ -33,6 +37,11 @@ export default new Router({
       component: ErrorPage,
     },
     {
+      path: '/comingsoon',
+      name: 'ComingSoon',
+      component:ComingSoonPage
+    },
+    {
       path: '/app',
       name: 'Layout',
       component: Layout,
@@ -40,8 +49,13 @@ export default new Router({
       children: [
         {
           path: 'dashboard',
-          name: 'Dashboard',
+          name: 'Dashboard - Overview',
           component: Dashboard,
+        },
+        {
+          path: 'dashboard/srvstatistics',
+          name: 'Dashboard - Server Statistics',
+          component: DashboardServerStats,
         },
         {
           path: 'site/:id',
@@ -72,6 +86,11 @@ export default new Router({
           path: 'companylist',
           name: 'CompanyList',
           component: CompanyList,
+        },
+        {
+          path: 'databasePortal',
+          name: 'Database Portal',
+          component: DatabasePortal,
         },
         {
           path: 'reports/server-ownership-status',

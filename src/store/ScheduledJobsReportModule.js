@@ -22,6 +22,8 @@ export default {
       state.list=data;
     },
     PUSH_LIST(state,data){
+      console.log(state.list);
+      console.log(data);
       state.list.push.apply(state.list, data);
     },
     SET_PAGE(state,data){

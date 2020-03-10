@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <h4 class="fw-semi-bold">Scheduled Job List</h4>
+      <h4 class="fw-semi-bold">Overall Disk Status</h4>
       <div class="page-letters"></div>
     </div>
     <br />
@@ -16,23 +16,30 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Job Description</th>
-            <th scope="col">Owner</th>
-            <th scope="col">Host Type</th>
-            <th scope="col">Host Name</th>
-            <th scope="col">Repeat Time</th>
-            <th scope="col">Job Name</th>
+            <th scope="col">Company Name</th>
+            <th scope="col">Server Name</th>
+            <th scope="col">Last Check Date</th>
+            <th scope="col">Volume</th>
+            <th scope="col">Disk Capacity</th>
+            <th scope="col">Used Disk Space</th>
+            <th scope="col">Free Disk Space</th>
+            <th scope="col">Responsible</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in GET_LIST" :key="i">
+          
+          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
             <th scope="row">{{i+1}}</th>
-            <td>{{s.jobDescription}}</td>
-            <td>{{s.owner}}</td>
-            <td>{{s.hostType}}</td>
-            <td>{{s.hostName}}</td>
-            <td>{{s.repeatTime}}</td>
-            <td>{{s.jobName}}</td>
+            <td>{{s.companyName}}</td>
+            <td>{{s.serverName}}</td>
+            <td>{{s.lastCheckDate}}</td>           
+            <td>{{s.volumeName}}</td>
+            <td>{{s.diskCapacity}}</td>
+            <td>{{s.usedDiskSpace}}</td>
+            <td v-if="s.freePercentage < 5"><div class="badge text-white badge-danger">Critical Disk Space!</div>  {{s.freeDiskSpace}}</td>
+            <td v-else-if="s.freePercentage > 4 && s.freePercentage <10 "><div class="badge text-gray-dark badge-warning">Warning!</div>  {{s.freeDiskSpace}}</td>
+            <td v-else>{{s.freeDiskSpace}}</td>
+            <td>{{s.responsible}}</td>
           </tr>
         </tbody>
       </table>
@@ -42,16 +49,13 @@
     </div>
   </div>
 </template>
-
 <script>
 import { mapGetters, mapActions,mapMutations } from "vuex";
 import Widget from "@/components/Widget/Widget";
-import {getExportList } from '@/api/reports/scheduledjobs/'
-import ReportModule from '@/store/ScheduledJobsReportModule';
-import SearchModule from '@/store/search';
+import {getExportList } from '@/api/reports/overalldiskstatus/'
 
 export default {
-  name: "ScheduledJobs",
+  name: "OverallDiskStatus",
   components: {
     Widget
   },
@@ -60,34 +64,32 @@ export default {
       detailVisible: false,
       solutionVisible: false,
       textarea: "",
-      isLoading: true
-    };
-  },
-  computed: {
-    ...mapGetters('JobReport',['GET_LIST','GETPAGE','GET_ISLAST']),
-    ...mapGetters('Search',['Get_ISSEARCH']),
+    }
   },
   created() {
-    this.$store.registerModule("JobReport",ReportModule);
-    this.$store.registerModule("Search", SearchModule);
-    this.$store.commit("JobReport/SET_LIST",[]);
-    this.action_change_page()
     window.addEventListener("scroll", this.handleScroll);
-  },
-  beforeDestroy(){
-    this.$store.unregisterModule("JobReport");
-    this.$store.unregisterModule("Search");
   },
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
+  computed: {
+    ...mapGetters({
+      list: "odsreport/GET_LIST",
+      page: "odsreport/GET_PAGE",
+      isLast: "odsreport/GET_ISLAST",
+    })
+  },
   mounted() {
-    this.getScheduledJobList();
+    this.getDiskList();
   },
   methods: {
-    ...mapMutations("JobReport",{increase_page: "INCREASE_PAGE"}),
-    ...mapActions("JobReport",["action_getList"]),
-    ...mapActions("Search",["action_change_page"]),
+    ...mapMutations({
+      increase_page: "odsreport/INCREASE_PAGE"
+    }),
+        ...mapActions({
+      action_getList:"odsreport/action_getList",
+     
+    }),
     handleScroll() {
       let bottomOfWindow =
         Math.max(
@@ -100,19 +102,21 @@ export default {
 
       if (bottomOfWindow && !this.isLast  && !this.isSearch) {
         this.increase_page();
-        this.getScheduledJobList();
+        this.getDiskList();
       }
     },
-    getScheduledJobList() {
-      this.isLoading = true;
+    getDiskList() {
       this.action_getList().then(
-        () =>{
-           this.isLoading=false;
+        () => {
+          this.isLoading = false;
         }
       );
     },
+    gotoServer(s) {
+      this.$router.push("/app/server/" + s.serverId);
+    },
      downloadExport(){
-         getExportList();
+      getExportList();
     }
   }
 };

@@ -14,6 +14,10 @@
           iconName="fi flaticon-home"
           index="dashboard"
           isHeader
+          :childrenLinks="[
+          { header: 'Overview', link: '/app/dashboard' },
+          { header: 'Server Statistics', link: '/app/dashboard/srvstatistics' , betaFeature:'betaFeature' }
+        ]"
         />
         <h5 class="navTitle">PAGES</h5>
         <NavLink
@@ -39,12 +43,19 @@
         />
 
         <NavLink
+          header="Database Portal"
+          link = "/app/databasePortal"
+          iconName = "fa fa-sitemap"
+          index = "dbportal"
+          isHeader
+        />
+
+        <NavLink
           :activeItem="activeItem"
           header="Reports"
           link="/app/reports"
           iconName="glyphicon glyphicon-file"
           index="reports"
-          :disabled="true"
           :childrenLinks="[
           { header: 'Overall Disk Status', link: '/app/reports/overall-disk-status' },
           { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' }
