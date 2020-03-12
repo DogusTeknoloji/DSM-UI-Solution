@@ -50,6 +50,26 @@ export function getExportList(){
     });
 }
 
+export function getRDPFile(data){
+  let url= controllerName+"connect/" ;
+  
+  request({
+        url: url,
+        method: 'POST',
+        responseType: 'blob',
+        data
+    }).then((response) => {
+         var fileURL = window.URL.createObjectURL(new Blob([response]));
+         var fileLink = document.createElement('a');
+    
+         fileLink.href = fileURL;
+         fileLink.setAttribute('download', 'connection.rdp');
+         document.body.appendChild(fileLink);
+    
+         fileLink.click();
+    });
+}
+
 export function getExportSearchList(data){
   let url= controllerName+"export/"+data;
 

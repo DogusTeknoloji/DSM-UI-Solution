@@ -4,11 +4,15 @@
       <div class="site-header">
         <div style="display:flex">
           <div>
-            <h1 class="page-title" style="margin:0">{{header.serverName}} &nbsp;</h1>
+            <h1 class="page-title" style="margin:0">{{header.serverName}} &nbsp;</h1> 
+             
             <div style="display:inline">
               <h5 style="cursor:pointer"  @click="$router.push('/app/company/'+header.companyId)">{{header.companyName}}</h5>
             </div>
           </div>
+          <b-button class="badge badge-resize rdp-color"  @click="downloadRDP()">
+            <i class="fa fa-terminal" aria-hidden="true"></i> &nbsp;&nbsp; Connect with RDP</b-button>
+
         </div>
         <div class="site-status status-running">
           <div style="align-self: center;">
@@ -16,12 +20,14 @@
             <br />
           </div>
 
+
           <div class="site-status-text">
             <h4 style="font-family:Roboto; display:block;margin-top:12px">{{header.availability}}</h4>
           </div>
+          
         </div>
+        
       </div>
-
       <div class="col-md-12">
         <el-tabs v-model="activeName" @tab-click="handleTabClick()">
           <el-tab-pane label="General" name="general">
@@ -35,7 +41,7 @@
                       <td class="general-info-table-value">{{detail.domain}}</td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">IP Address:</td>
+                      <td class="general-info-table-title">IP Address: </td>
                       <td class="general-info-table-value">{{detail.ipAddress}}</td>
                     </tr>
                     <tr>
@@ -172,6 +178,9 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { getRDPFile } from '@/api/server/' ;
+import { getUserName } from '@/utils/auth/' ;
+
 export default {
   name: "Server",
   components: {},
@@ -210,6 +219,10 @@ export default {
         default:
           break;
       }
+    },
+    downloadRDP(){
+      var data = { ServerId: this.$route.params.id , UserName: getUserName()};
+      getRDPFile(data);
     }
   }
 };
@@ -292,5 +305,29 @@ export default {
 }
 .v-modal {
   display: none !important;
+}
+.rdp-color
+{
+  background-color:#008C9E;
+  color: #ffffff;
+}
+.rdp-color:hover
+{
+  background-color:#00B4CC;
+  color: #ffffff;
+}
+.rdp-color:active
+{
+  background-color:#00DFFC;
+  color: #ffffff;
+}
+.badge-resize{
+  height: 26px;
+  margin-top: 7px;
+}
+
+.rdp-icon {
+    width: 24px !important;
+    height: 24px !important;
 }
 </style>

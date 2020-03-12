@@ -45,7 +45,7 @@
         <NavLink
           header="Database Portal"
           link = "/app/databasePortal"
-          iconName = "fa fa-sitemap"
+          iconName = "fa fa-cubes"
           index = "dbportal"
           isHeader
         />
