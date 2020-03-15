@@ -34,7 +34,7 @@
             <div class="row general-info">
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
-                  <h5 class="general-info-header">Details</h5>
+                  <h5 class="general-info-header">Basic Details</h5>
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Domain:</td>
@@ -45,8 +45,8 @@
                       <td class="general-info-table-value">{{detail.ipAddress}}</td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">Web Server:</td>
-                      <td class="general-info-table-value">{{detail.webServer}}</td>
+                      <td class="general-info-table-title">Custom Ip:</td>
+                      <td class="general-info-table-value">{{detail.customIp}}</td>
                     </tr>
 
                     <tr>
@@ -59,7 +59,7 @@
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Memory:</td>
-                      <td class="general-info-table-value">{{detail.memory}}</td>
+                      <td class="general-info-table-value">{{detail.memory}} (Currently Usage: {{detail.memoryUsage}})</td>
                     </tr>
 
                     <tr>
@@ -71,7 +71,7 @@
                       <td class="general-info-table-value">{{detail.siteCount}}</td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">Online Site Count</td>
+                      <td class="general-info-table-title">Online Site Count:</td>
                       <td class="general-info-table-value">{{detail.onlineSiteCount}}</td>
                     </tr>
                   </table>
@@ -87,16 +87,33 @@
                       <td class="general-info-table-value">{{detail.volumes}}</td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">Total Capacity</td>
+                      <td class="general-info-table-title">Total Capacity:</td>
                       <td class="general-info-table-value">{{detail.totalCapacity}}</td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">Percent Free</td>
+                      <td class="general-info-table-title">Percent Free:</td>
                       <td class="general-info-table-value">{{detail.percentFree}}</td>
                     </tr>
+                  </table>
+                  <br/>
+                  <h5 class="general-info-header">Organization Details</h5>
+
+                   <table class="table">
+                     <tr>
+                      <td class="general-info-table-title">Owned by:</td>
+                      <td class="general-info-table-value">{{header.companyName}}</td>
+                    </tr>
                     <tr>
-                      <td class="general-info-table-title">Last Check Date</td>
-                      <td class="general-info-table-value">{{detail.lastCheckDate}}</td>
+                      <td class="general-info-table-title">Managing by:</td>
+                      <td class="general-info-table-value">{{detail.responsible}}</td>
+                    </tr>
+                    <tr>
+                      <td class="general-info-table-title">Environment:</td>
+                      <td class="general-info-table-value">{{detail.serverType}}</td>
+                    </tr>
+                    <tr>
+                      <td class="general-info-table-title">Notes:</td>
+                      <td class="general-info-table-value">{{detail.notes}}</td>
                     </tr>
                   </table>
                 </div>
