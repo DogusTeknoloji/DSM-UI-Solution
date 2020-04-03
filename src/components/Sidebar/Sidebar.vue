@@ -16,7 +16,8 @@
           isHeader
           :childrenLinks="[
           { header: 'Overview', link: '/app/dashboard' },
-          { header: 'Server Statistics', link: '/app/dashboard/srvstatistics' , betaFeature:'betaFeature' }
+          { header: 'Server Statistics', link: '/app/dashboard/srvstatistics' , betaFeature:'betaFeature' },
+          { header: 'App. Management', link: '/app/dashboard/appmanagement' , betaFeature:'betaFeature' }
         ]"
         />
         <h5 class="navTitle">PAGES</h5>

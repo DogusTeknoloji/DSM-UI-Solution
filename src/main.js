@@ -8,6 +8,7 @@ import VCalendar from 'v-calendar';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import VueAxios from './utils/axios';
+import {ServerTable,ClientTable} from 'vue-tables-2';
 
 import store from './store';
 import router from './Routes';
@@ -19,6 +20,9 @@ Vue.use(VueAxios);
 Vue.use(VCalendar, {
   firstDayOfWeek: 2,  // Monday
 });
+Vue.use(ServerTable);
+Vue.use(ClientTable);
+window.moment = require('moment');
 
 Vue.config.productionTip = false;
 router.beforeEach((to, from, next) => {

@@ -50,13 +50,12 @@
 </template>
 
 <script>
-import Widget from "@/components/Widget/Widget";
 import { mapGetters, mapMutations } from "vuex";
 import {getExportList , getExportSearchList } from '@/api/site/'
 export default {
   name: "SiteList",
   components: {
-    Widget
+    
   },
   data() {
     return {

@@ -1,5 +1,4 @@
 import { search } from '@/api/search'
-import { } from "./site";
 export default {
   namespaced: true,
   state: {
@@ -25,16 +24,22 @@ export default {
 
   },
   actions: {
-    action_search({ commit }, { moduleName, text }) {
-      commit(moduleName + "/SET_LIST", [], { root: true });
+    action_search({ commit, dispatch }, { moduleName, text }) {
       return new Promise((resolve, reject) => {
+        if (text.length ==0){
+          return new Promise((resolve) => {
+            commit(moduleName + "/SET_LIST", [], { root: true });
+            commit("SET_ISSEARCH", false)
+            commit(moduleName + "/SET_PAGE", 1, { root: true })
+            dispatch(moduleName + "/action_getList", 1, { root: true });
+            resolve()
+          })
+        }
+
         let url = "/" + moduleName + "/search/" + text;
         commit("SET_ISSEARCH", true)
         search(url).then(res => {
-
-
           commit(moduleName + "/SET_LIST", res, { root: true });
-
           resolve(res)
         }).catch(error => {
           reject(error)
@@ -43,13 +48,11 @@ export default {
     },
     action_cancel({ commit, dispatch }, { moduleName }) {
       commit(moduleName + "/SET_LIST", [], { root: true });
-      commit(moduleName + "/SET_PAGE", 1, { root: true });
       return new Promise((resolve) => {
         commit("SET_ISSEARCH", false)
         commit(moduleName + "/SET_PAGE", 1, { root: true })
         dispatch(moduleName + "/action_getList", 1, { root: true });
         resolve()
-
       })
     },
     action_change_page({ commit }) {

@@ -44,20 +44,56 @@
 <script>
 
 import { mapGetters, mapActions,mapMutations } from "vuex";
-import Widget from "@/components/Widget/Widget";
-import {getExportList,getExportSearchList } from '@/api/server/'
+import {getExportList,getExportSearchList,getServerList } from '@/api/server/'
 
 export default {
   name: "ServerList",
   components: {
-    Widget
+    
   },
   data() {
     return {
       detailVisible: false,
       solutionVisible: false,
       textarea: "",
-      isLoading: true
+      isLoading: true,
+      rows: [getServerList(1)] ,
+      columns: [ 'machineName','ipAddress','dnsName','operatingSystem','responsible'],
+      // columns: ['name', 'created_at', 'updated_at', 'pushed_at'],
+      options: {
+                  filterByColumn: true,
+                  perPage:50,
+                  texts: {
+                      filter: "Filter:",
+                      filterBy: 'Filter by {column}',
+                      count:' '
+                  },
+    //   requestFunction: function () {
+    //   return getServerList(1);      
+    // },
+      // requestAdapter(data) {
+      //   return {
+      //     sort: data.orderBy ? data.orderBy : 'name',
+      //     direction: data.ascending ? 'asc' : 'desc'
+
+      //   }
+      // },
+      // responseAdapter() {
+      //   return {
+      //     data: this.$store.dispatch("server/action_getList"),
+      //     count: 0
+      //   }
+      // },
+        pagination: { chunk:10,dropdown:true },
+        filterable:['machineName','ipAddress','dnsName','operatingSystem','responsible'],
+        headings: {
+                      machineName: 'Server Name',
+                      ipAddress: 'Ip Address',
+                      dnsName: 'DNS Name',
+                      operatingSystem: 'Operating System',
+                      responsible: 'Responsible'
+                  }
+      },
     };
   },
   computed: {
@@ -110,7 +146,7 @@ export default {
       );
     },
     gotoServer(s) {
-      this.isLoading = true;
+      this.isLoading = false;
       this.$router.push("/app/server/" + s.serverId);
     },
      downloadExport(){

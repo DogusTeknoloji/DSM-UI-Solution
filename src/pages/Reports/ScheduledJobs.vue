@@ -45,7 +45,6 @@
 
 <script>
 import { mapGetters, mapActions,mapMutations } from "vuex";
-import Widget from "@/components/Widget/Widget";
 import {getExportList } from '@/api/reports/scheduledjobs/'
 import ReportModule from '@/store/ScheduledJobsReportModule';
 import SearchModule from '@/store/search';
@@ -53,7 +52,7 @@ import SearchModule from '@/store/search';
 export default {
   name: "ScheduledJobs",
   components: {
-    Widget
+    
   },
   data() {
     return {

@@ -51,13 +51,12 @@
 </template>
 <script>
 import { mapGetters, mapActions,mapMutations } from "vuex";
-import Widget from "@/components/Widget/Widget";
 import {getExportList } from '@/api/reports/overalldiskstatus/'
 
 export default {
   name: "OverallDiskStatus",
   components: {
-    Widget
+
   },
   data() {
     return {

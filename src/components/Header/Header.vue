@@ -16,7 +16,7 @@
             id="search-input"
             v-model="text"
             v-on:keyup.enter="search"
-            placeholder="Search Dashboard"
+            placeholder="Search"
           />
         </b-input-group>
         <a

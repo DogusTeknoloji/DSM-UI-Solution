@@ -193,9 +193,6 @@
 <script>
 import Vue from "vue";
 import Widget from "@/components/Widget/Widget";
-import Map from "./components/Map/Map";
-import AnimatedNumber from "animated-number-vue";
-import AreaChart from "./components/AreaChart/AreaChart";
 import LineChart from './components/LineChart'
 
 const lineChartData = {
@@ -241,9 +238,6 @@ export default {
   name: "Dashboard",
   components: {
     Widget,
-    Map,
-    AnimatedNumber,
-    AreaChart,
     LineChart
   },
   data() {

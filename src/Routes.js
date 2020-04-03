@@ -4,6 +4,7 @@ import Router from 'vue-router';
 import Layout from '@/components/Layout/Layout';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import DashboardServerStats from "@/pages/Dashboard/ServerStatistics";
+import AppManagementInfo from "@/pages/Dashboard/AppManagementInfo";
 import Site from '@/pages/Site/site'
 import SiteList from '@/pages/Site/siteList'
 import Login from '@/pages/Login/Login';
@@ -56,6 +57,11 @@ export default new Router({
           path: 'dashboard/srvstatistics',
           name: 'Dashboard - Server Statistics',
           component: DashboardServerStats,
+        },
+        {
+          path: 'dashboard/appmanagement',
+          name: 'Applicaton Management - Links',
+          component: AppManagementInfo,
         },
         {
           path: 'site/:id',

@@ -37,13 +37,12 @@
 
 <script>
 import { mapGetters,mapMutations  } from "vuex";
-import Widget from "@/components/Widget/Widget";
 import {getExportList,getExportSearchList } from '@/api/company'
 
 export default {
   name: "CompanyList",
   components: {
-    Widget
+
   },
   data() {
     return {
