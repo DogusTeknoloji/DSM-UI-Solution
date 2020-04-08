@@ -6,6 +6,9 @@
     </div>
     <br />
     <div class="col-md-12 text-right full-row">
+      <small>Last Check: {{checkDate}}</small>
+    </div>
+    <div class="col-md-12 text-right full-row">
        <b-button class="badge badge-resize excel-color" @click="downloadExport()">
        <i class="glyphicon glyphicon-console"></i>
        Export to Excel</b-button>
@@ -101,6 +104,7 @@ export default {
       list: "server/GET_LIST",
       page: "server/GET_PAGE",
       isLast: "server/GET_ISLAST",
+      checkDate: "server/GET_CHECKDATE",
       isSearch:"search/Get_ISSEARCH"
     })
   },
@@ -114,6 +118,7 @@ export default {
   },
   mounted() {
     this.getServerList();
+    this.getCheckDate();
   },
   methods: {
     ...mapMutations({
@@ -148,6 +153,9 @@ export default {
     gotoServer(s) {
       this.isLoading = false;
       this.$router.push("/app/server/" + s.serverId);
+    },
+    getCheckDate(){
+      this.$store.dispatch("server/action_getCheckDate").then( ()=>{});
     },
      downloadExport(){
        if (this.isSearch){

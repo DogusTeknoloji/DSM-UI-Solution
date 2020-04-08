@@ -1,4 +1,4 @@
-import { getServerList, getServerDetails,getServerSites,getServerHeader } from '@/api/server'
+import { getServerList, getServerDetails,getServerSites,getServerHeader,getCheckDate } from '@/api/server'
 export default {
   namespaced: true,
   state: {
@@ -7,9 +7,8 @@ export default {
     server_header:{},
     server_sites: [],
     page:1,
-    isLast: false
-    
-
+    isLast: false,
+    checkDate: "",
   },
   getters: {
 
@@ -31,6 +30,9 @@ export default {
   GET_ISLAST(state) {
     return state.isLast;
   },
+  GET_CHECKDATE(state){
+    return state.checkDate;
+  }
   },
   mutations: {
     SET_SERVER_DETAIL(state, site) {
@@ -54,8 +56,9 @@ export default {
     INCREASE_PAGE(state){
       state.page=state.page+1;
     },
- 
-    
+    SET_CHECKDATE(state,data){
+      state.checkDate = data
+    },
   },
   actions: {
     action_getList({ commit,state }) {
@@ -92,6 +95,14 @@ export default {
       return new Promise((resolve) => {
         getServerSites(data).then(res => {
           commit("SET_SERVER_SITES", res);
+          resolve(res);
+        })
+      })
+    },
+    action_getCheckDate({ commit }){
+      return new Promise((resolve) => {
+        getCheckDate().then(res => {
+          commit("SET_CHECKDATE",res);
           resolve(res);
         })
       })

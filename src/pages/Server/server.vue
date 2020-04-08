@@ -121,7 +121,8 @@
               <!-- Web Config - Other -->
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
-                  <h5 class="general-info-header">Volume Details</h5>
+                    <div class="general-info-header">Volume Details</div>
+                    <div class="text-right">Last Update: {{detail.lastCheckDate}}</div>
                   <table class="table text-center">
                   <thead>
                   <tr>
@@ -297,6 +298,13 @@ export default {
 .general-info {
   display: flex;
   justify-content: space-between;
+}
+.text-right{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  align-self: flex-end;
+  text-align: right;
+  margin-right: 15px;
+  display: flex;
 }
 .general-info-header {
   font-family: "Roboto";

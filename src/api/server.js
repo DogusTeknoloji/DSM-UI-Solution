@@ -31,6 +31,14 @@ export function getServerSites(data) {
   })  
 }
 
+export function getCheckDate(){
+  let url = "/server/ServerCheckDate/";
+  return request({
+    url,
+    method: 'get'
+  });
+}
+
 export function getExportList(){
   let url= controllerName+"export/";
 

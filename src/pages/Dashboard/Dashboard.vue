@@ -195,6 +195,9 @@ import Vue from "vue";
 import Widget from "@/components/Widget/Widget";
 import LineChart from './components/LineChart'
 
+import {mapGetters, mapActions} from "vuex";
+import DashboardModule from '@/store/dashboard';
+
 const lineChartData = {
   newVisitis: {
     expectedData: [100, 120, 161, 134, 105, 160, 165],
@@ -248,10 +251,21 @@ export default {
       lineChartData: lineChartData.newVisitis
     };
   },
+  computed:{
+    ...mapGetters('Dashboard',['GET_MSG']),
+  },
+  created(){
+    this.$store.registerModule("Dashboard",DashboardModule);
+  },
   mounted() {
     this.fillData();
+    this.getMsg();
+  },
+  beforeDestroy(){
+    this.$store.unregisterModule("Dashboard");
   },
   methods: {
+    ...mapActions("Dashboard",["action_getMsg"]),
     checkTable(id) {
       let arr = [];
       if (id === 0) {
@@ -321,33 +335,11 @@ export default {
     },
     getRandomInt() {
       return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+    },
+    getMsg(){
+      this.action_getMsg().then(()=>{ console.log('Ok');});
     }
   },
-  computed: {
-    calendarAttributes() {
-      return [
-        // Today attribute
-        {
-          contentStyle: {
-            fontWeight: "700",
-            fontSize: ".9rem"
-          },
-          dates: new Date()
-        },
-        // Attributes for todos
-        ...this.todos.map(todo => ({
-          dates: todo.dates,
-          dot: {
-            backgroundColor: todo.color,
-            opacity: todo.isComplete ? 0.3 : 1
-          },
-          popover: {
-            label: todo.description
-          }
-        }))
-      ];
-    }
-  }
 };
 </script>
 
