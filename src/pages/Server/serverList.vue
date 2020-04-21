@@ -9,8 +9,9 @@
       <small>Last Check: {{checkDate}}</small>
     </div>
     <div class="col-md-12 text-right full-row">
+      <a id="resetOrder" class="link-hidden" @click="resetOrder()">Clear Order </a>
        <b-button class="badge badge-resize excel-color" @click="downloadExport()">
-       <i class="glyphicon glyphicon-console"></i>
+       <i class="glyphicon glyphicon-console"/>
        Export to Excel</b-button>
     </div>
     <br/>
@@ -19,12 +20,12 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">Server Name</th>
-            <th scope="col">Ip Address</th>
-            <th scope="col">DNS Name</th>
-            <th scope="col">Service</th>
-            <th scope="col">Operating System</th>
-            <th scope="col">Responsible</th>
+            <th scope="col"><a id="order-item-serverName" @click="orderby('serverName')">Server Name <i id="order-icon-serverName"/></a></th>
+            <th scope="col"><a id="order-item-ipAddress" @click="orderby('ipAddress')">Ip Address <i id="order-icon-ipAddress"/></a></th>
+            <th scope="col"><a id="order-item-hostName" @click="orderby('hostName')">DNS Name <i id="order-icon-hostName"/></a></th>
+            <th scope="col"><a id="order-item-serviceName" @click="orderby('serviceName')">Service <i id="order-icon-serviceName"/></a></th>
+            <th scope="col"><a id="order-item-operatingSystem" @click="orderby('operatingSystem')">Operating System <i id="order-icon-operatingSystem"/></a></th>
+            <th scope="col"><a id="order-item-responsible" @click="orderby('responsible')">Responsible <i id="order-icon-responsible"/></a></th>
           </tr>
         </thead>
         <tbody>
@@ -58,13 +59,14 @@ export default {
   },
   data() {
     return {
+      orderColumn: "",
+      orderPosition: 0,
       detailVisible: false,
       solutionVisible: false,
       textarea: "",
       isLoading: true,
       rows: [getServerList(1)] ,
       columns: [ 'machineName','ipAddress','dnsName','operatingSystem','responsible'],
-      // columns: ['name', 'created_at', 'updated_at', 'pushed_at'],
       options: {
                   filterByColumn: true,
                   perPage:50,
@@ -73,22 +75,6 @@ export default {
                       filterBy: 'Filter by {column}',
                       count:' '
                   },
-    //   requestFunction: function () {
-    //   return getServerList(1);      
-    // },
-      // requestAdapter(data) {
-      //   return {
-      //     sort: data.orderBy ? data.orderBy : 'name',
-      //     direction: data.ascending ? 'asc' : 'desc'
-
-      //   }
-      // },
-      // responseAdapter() {
-      //   return {
-      //     data: this.$store.dispatch("server/action_getList"),
-      //     count: 0
-      //   }
-      // },
         pagination: { chunk:10,dropdown:true },
         filterable:['machineName','ipAddress','dnsName','operatingSystem','responsible'],
         headings: {
@@ -139,7 +125,7 @@ export default {
           window.innerHeight ===
         document.documentElement.offsetHeight;
 
-      if (bottomOfWindow && !this.isLast  && !this.isSearch) {
+      if (bottomOfWindow && !this.isLast  && !this.isSearch && !this.isLoading) {
         this.increase_page();
         this.getServerList();
       }
@@ -167,6 +153,59 @@ export default {
        else{
          getExportList();
        }
+    },
+    orderby(field){
+
+      var resetLink = document.getElementById("resetOrder");
+      resetLink.setAttribute("class","link");
+
+      if (this.orderColumn != ""){
+        var orderItemPrevASC =  document.getElementById('order-icon-'+ this.orderColumn);
+        orderItemPrevASC.removeAttribute("class");
+      }
+
+      if (this.orderColumn!= field){
+        this.orderPosition = -1;
+      }
+
+      if (this.orderPosition == 0){
+        this.orderPosition = 1;
+        
+        var orderItemASC = document.getElementById('order-icon-' + field);
+        orderItemASC.setAttribute("class","fa fa-arrow-up");
+      }
+      else if (this.orderPosition == 1 || this.orderPosition == -1){
+        this.orderPosition = 0;
+
+        var orderItemDESC = document.getElementById('order-icon-' + field);
+        orderItemDESC.setAttribute("class","fa fa-arrow-down");
+      }
+
+      this.$store.commit("server/SET_ORDER_COL",field);
+      this.$store.commit("server/SET_ORDER_POS",this.orderPosition);
+      this.$store.commit("server/SET_PAGE", 1);
+      this.$store.commit("server/SET_LIST", []);
+
+      this.getServerList();
+
+      this.orderColumn=field;
+
+    },
+    resetOrder(){
+      if (this.orderColumn != ""){
+        var orderItemPrevASC =  document.getElementById('order-icon-'+ this.orderColumn);
+        orderItemPrevASC.removeAttribute("class");
+      }
+      this.orderColumn = "";
+      this.orderPosition = -1;
+      var resetLink =  document.getElementById("resetOrder");
+      resetLink.setAttribute("class","link-hidden");
+
+      this.$store.commit("server/SET_ORDER_COL",null);
+      this.$store.commit("server/SET_ORDER_POS",-1);
+      this.$store.commit("server/SET_PAGE", 1);
+      this.$store.commit("server/SET_LIST", []);
+      this.getServerList();
     }
   }
 };
@@ -196,5 +235,14 @@ tbody {
 }
 .badge-resize{
   height: 26px;
+}
+.link{
+  color: #213773;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  font-size: 9pt;
+}
+.link-hidden{
+  visibility: hidden;
 }
 </style>

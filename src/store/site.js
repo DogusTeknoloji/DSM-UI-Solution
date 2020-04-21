@@ -11,8 +11,9 @@ export default {
     selected_site_backend_services_endpoints: [],
     selected_site_backend_services_direct_db_connection: [],
     selected_site_packages: [],
-    isLast: false
-
+    isLast: false,
+    orderCol :null,
+    orderPos:-1
   },
   getters: {
     GET_GET_SELECTED_SITE_ID(state){
@@ -80,12 +81,17 @@ export default {
     INCREASE_PAGE(state){
       state.page=state.page+1;
     },
- 
+    SET_ORDER_COL(state,data){
+      state.orderCol = data;
+    },
+    SET_ORDER_POS(state,data){
+      state.orderPos = data;
+    }
   },
   actions: {
     action_getList({ commit,state }) {
       return new Promise((resolve, reject) => {
-        getSiteList(state.page).then(res => {
+        getSiteList(state.page,state.orderCol,state.orderPos).then(res => {
           if(res.length==0)
           {state.isLast= true;}
           commit("PUSH_LIST",res);

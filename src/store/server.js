@@ -9,6 +9,8 @@ export default {
     page:1,
     isLast: false,
     checkDate: "",
+    orderCol :null,
+    orderPos:-1
   },
   getters: {
 
@@ -26,13 +28,13 @@ export default {
     },
     GET_LIST(state){
       return state.list;
-  },
-  GET_ISLAST(state) {
-    return state.isLast;
-  },
-  GET_CHECKDATE(state){
-    return state.checkDate;
-  }
+    },
+    GET_ISLAST(state) {
+      return state.isLast;
+    },
+    GET_CHECKDATE(state){
+      return state.checkDate;
+    }
   },
   mutations: {
     SET_SERVER_DETAIL(state, site) {
@@ -57,13 +59,19 @@ export default {
       state.page=state.page+1;
     },
     SET_CHECKDATE(state,data){
-      state.checkDate = data
+      state.checkDate = data;
     },
+    SET_ORDER_COL(state,data){
+      state.orderCol = data;
+    },
+    SET_ORDER_POS(state,data){
+      state.orderPos = data;
+    }
   },
   actions: {
     action_getList({ commit,state }) {
       return new Promise((resolve, reject) => {
-        getServerList(state.page).then(res => {
+        getServerList(state.page,state.orderCol,state.orderPos).then(res => {
           if(res.length==0)
           {state.isLast= true;}
           commit("PUSH_LIST",res);

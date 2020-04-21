@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 const controllerName="/site/";
-export function getSiteList(data) {
-  let url=controllerName+data;
+export function getSiteList(data,field=null,orderPos=-1) {
+  let url=controllerName+data+ "?fi=" + field + "&pos=" + orderPos;
   return request({
     url,
     method: 'get'

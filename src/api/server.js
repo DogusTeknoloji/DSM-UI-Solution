@@ -1,8 +1,8 @@
 import request from '@/utils/request';
 const controllerName="/server/";
 
-export function getServerList(data) {
-  let url=controllerName+data;
+export function getServerList(data,field=null,orderPos=-1) {
+  let url=controllerName+data+ "?fi=" + field + "&pos=" + orderPos;
   return request({
     url,
     method: 'get'
