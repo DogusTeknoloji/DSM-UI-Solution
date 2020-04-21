@@ -74,6 +74,10 @@
                       <td class="general-info-table-title">Online Site Count:</td>
                       <td class="general-info-table-value">{{detail.onlineSiteCount}}</td>
                     </tr>
+                    <tr>
+                      <td class="general-info-table-title"></td>
+                      <td class="general-info-table-value"></td>
+                    </tr>
                   </table>
                 </div>
               </div>
@@ -112,8 +116,16 @@
                       <td class="general-info-table-value">{{detail.serverType}}</td>
                     </tr>
                     <tr>
+                      <td class="general-info-table-title">Service:</td>
+                      <td class="general-info-table-value">{{detail.serviceName}}</td>
+                    </tr>
+                    <tr>
                       <td class="general-info-table-title">Notes:</td>
                       <td class="general-info-table-value">{{detail.notes}}</td>
+                    </tr>
+                    <tr>
+                      <td class="general-info-table-title"></td>
+                      <td class="general-info-table-value"></td>
                     </tr>
                   </table>
                 </div>
@@ -315,7 +327,7 @@ export default {
   background-color: rgba(255, 255, 255, 0.2);
   // padding-left: 50px;
   padding-top: 20px;
-  min-height: 400px;
+  min-height: 500px;
 }
 .table-card {
   background-color: rgba(255, 255, 255, 0.2);

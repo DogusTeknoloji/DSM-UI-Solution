@@ -22,6 +22,7 @@
             <th scope="col">Server Name</th>
             <th scope="col">Ip Address</th>
             <th scope="col">DNS Name</th>
+            <th scope="col">Service</th>
             <th scope="col">Operating System</th>
             <th scope="col">Responsible</th>
           </tr>
@@ -32,6 +33,7 @@
             <td>{{s.machineName}}</td>
             <td>{{s.ipAddress}}</td>
             <td>{{s.dnsName}}</td>
+            <td>{{s.serviceName}}</td>
             <td>{{s.operatingSystem}}</td>
             <td>{{s.responsible}}</td>
           </tr>
