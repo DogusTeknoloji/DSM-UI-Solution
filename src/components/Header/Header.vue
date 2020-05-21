@@ -2,12 +2,12 @@
   <b-navbar toggleable="md" class="header d-print-none">
     <b-navbar-nav class="navbar-nav-mobile ml-auto">
       <b-nav-text class="mr-3">
-        <!-- <b-alert class="header-alert animated bounceIn delay-2s" dismissible v-model="showNavbarAlert">
+        <b-alert class="header-alert animated bounceIn delay-2s" dismissible v-model="showNavbarAlert">
             <i class="fa fa-info-circle mr-1"></i> Check out Light Blue Settings on the right!
-        </b-alert>-->
+        </b-alert>
       </b-nav-text>
-      <b-nav-form @submit.prevent.native="search" class="d-sm-down-none mr-3">
-        <b-input-group class="input-group-transparent">
+      <div @submit.prevent.native="search" class="form-inline d-sm-down-none mr-3"> 
+        <b-input-group class="input-group-transparent d-sm-down-none mr-3">
           <b-input-group-text slot="prepend">
             <i class="la la-search"></i>
           </b-input-group-text>
@@ -24,7 +24,7 @@
           @click="cancelSearch"
           v-show="isSearch"
         >Cancel</a>
-      </b-nav-form>
+      </div>
       <b-nav-item-dropdown right extra-menu-classes="py-0" :disabled="true">
         <template slot="button-content">
           <span class="avatar thumb-sm float-left mr-2">
