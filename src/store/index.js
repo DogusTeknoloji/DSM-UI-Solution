@@ -1,14 +1,19 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import layout from './layout';
-import site from './site';
-import server from './server';
-import user from './user';
-import company from './company';
-import search from './search';
+import layout from './modules/layout'
+import site from './modules/site';
+import server from './modules/server';
+import user from './modules/user';
+import company from './modules/company';
+import search from './modules/search';
 
-import odsreport from './odsreport';
+import azdevopsprojects from './modules/azuredevops-projects';
+import azdevopsdepgroups from './modules/azuredevops-dgroups';
+import azdevopsdepagents from './modules/azuredevops-dagents';
+
+import odsreport from './modules/odsreport';
+
 
 Vue.use(Vuex);
 
@@ -20,6 +25,9 @@ export default new Vuex.Store({
     company,
     user,
     search,
+    azdevopsprojects,
+    azdevopsdepgroups,
+    azdevopsdepagents,
     odsreport
   },
 });

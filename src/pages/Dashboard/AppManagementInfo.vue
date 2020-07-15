@@ -41,7 +41,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import AMLModule from '@/store/appmanagementlinks';
+import AMLModule from '@/store/modules/appmanagementlinks';
 
 export default {
   name: "app-management-links",
@@ -56,20 +56,20 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('AppLink',['GET_LIST']),
+    ...mapGetters('modules/AppLink',['GET_LIST']),
   },
   created() {
-    this.$store.registerModule("AppLink",AMLModule);
-    this.$store.commit("AppLink/SET_LIST",[]);
+    this.$store.registerModule("modules/AppLink",AMLModule);
+    this.$store.commit("modules/AppLink/SET_LIST",[]);
   },
   mounted(){
     this.getAppLinks();
   },
   beforeDestroy(){
-    this.$store.unregisterModule("AppLink");
+    this.$store.unregisterModule("modules/AppLink");
   },
   methods: {
-    ...mapActions("AppLink",["action_getList"]),
+    ...mapActions("modules/AppLink",["action_getList"]),
     getAppLinks() {
       this.action_getList().then(()=>{}).catch(err=>{
             if(err==403)

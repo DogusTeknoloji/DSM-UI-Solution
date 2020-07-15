@@ -196,7 +196,7 @@ import Widget from "@/components/Widget/Widget";
 import LineChart from './components/LineChart'
 
 import {mapGetters, mapActions} from "vuex";
-import DashboardModule from '@/store/dashboard';
+import DashboardModule from '@/store/modules/dashboard';
 
 const lineChartData = {
   newVisitis: {
@@ -252,20 +252,20 @@ export default {
     };
   },
   computed:{
-    ...mapGetters('Dashboard',['GET_MSG']),
+    ...mapGetters('modules/Dashboard',['GET_MSG']),
   },
   created(){
-    this.$store.registerModule("Dashboard",DashboardModule);
+    this.$store.registerModule("modules/Dashboard",DashboardModule);
   },
   mounted() {
     this.fillData();
     this.getMsg();
   },
   beforeDestroy(){
-    this.$store.unregisterModule("Dashboard");
+    this.$store.unregisterModule("modules/Dashboard");
   },
   methods: {
-    ...mapActions("Dashboard",["action_getMsg"]),
+    ...mapActions("modules/Dashboard",["action_getMsg"]),
     checkTable(id) {
       let arr = [];
       if (id === 0) {
