@@ -46,8 +46,8 @@
 <script>
 import { mapGetters, mapActions,mapMutations } from "vuex";
 import {getExportList } from '@/api/reports/scheduledjobs/'
-import ReportModule from '@/store/ScheduledJobsReportModule';
-import SearchModule from '@/store/search';
+import ReportModule from '@/store/modules/ScheduledJobsReportModule';
+import SearchModule from '@/store/modules/search';
 
 export default {
   name: "ScheduledJobs",

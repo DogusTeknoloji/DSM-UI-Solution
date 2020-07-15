@@ -6,7 +6,7 @@
             <i class="fa fa-info-circle mr-1"></i> Check out Light Blue Settings on the right!
         </b-alert>
       </b-nav-text>
-      <div @submit.prevent.native="search" class="form-inline d-sm-down-none mr-3"> 
+      <div class="form-inline d-sm-down-none mr-3"> 
         <b-input-group class="input-group-transparent d-sm-down-none mr-3">
           <b-input-group-text slot="prepend">
             <i class="la la-search"></i>
