@@ -5,6 +5,9 @@ import Layout from '@/components/Layout/Layout';
 import Dashboard from '@/pages/Dashboard/Dashboard';
 import DashboardServerStats from "@/pages/Dashboard/ServerStatistics";
 import AppManagementInfo from "@/pages/Dashboard/AppManagementInfo";
+import AzureDevOpsDeploymentAgents from "@/pages/AzureDevOps/deployment-agents";
+import AzureDevOpsDeploymentGroups from "@/pages/AzureDevOps/deployment-groups";
+import AzureDevOpsProjects from "@/pages/AzureDevOps/projects";
 import Site from '@/pages/Site/site'
 import SiteList from '@/pages/Site/siteList'
 import Login from '@/pages/Login/Login';
@@ -63,6 +66,21 @@ export default new Router({
           name: 'Applicaton Management - Links',
           component: AppManagementInfo,
         },
+        {
+          path: 'AzureDevOps/Projects',
+          name: "Azure DevOps Projects",
+          component: AzureDevOpsProjects,
+        }, 
+        {
+          path: 'AzureDevOps/DeploymentGroups',
+          name: "Azure DevOps Deployment Groups",
+          component: AzureDevOpsDeploymentGroups,
+        },
+        {
+          path: 'AzureDevOps/DeploymentAgents',
+          name: "Azure DevOps Deployment Agents",
+          component: AzureDevOpsDeploymentAgents,
+        },  
         {
           path: 'site/:id',
           name: 'Site',

@@ -26,14 +26,14 @@ export default {
     }
   },
   actions: {
-    action_getProjects( {commit,state }) {
+    actionGetProjects( {commit,state }) {
       return new Promise((resolve, reject) => {
-        getProjects(state.orderCol,state.orderPos).then(res => {
+        getProjects(state.orderCol,state.orderPos).then((res) => {
           commit("PUSH_LIST",res);
-          resolve(res)
-        }).catch(error => {
-          reject(error)
-        })
+          resolve(res);
+        }).catch((error) => {
+          reject(error);
+        });
       })
     }
   },

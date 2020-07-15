@@ -1,4 +1,5 @@
 <template>
+<div>
   <b-collapse class="sidebar-collapse" id="sidebar-collapse" :visible="sidebarOpened">
     <nav :class="{sidebar: true}">
       <header class="logo">
@@ -20,7 +21,20 @@
           { header: 'App. Management', link: '/app/dashboard/appmanagement' , betaFeature:'betaFeature' }
         ]"
         />
-        <h5 class="navTitle">PAGES</h5>
+        <NavLink
+          :activeItem="activeItem"
+          header="Azure DevOps"
+          link="/app/azuredevops"
+          iconName="fa fa-code"
+          index="azuredevops"
+          isHeader
+          :childrenLinks="[
+          { header: 'Projects', link: '/app/azuredevops/projects' },
+          { header: 'Deployment Groups', link: '/app/azuredevops/deploymentgroups' , betaFeature:'betaFeature' },
+          { header: 'Deployment Agents', link: '/app/azuredevops/deploymentagents' , betaFeature:'betaFeature' }
+        ]"
+        />
+
         <NavLink
           header="Sites"
           link="/app/sitelist"
@@ -62,12 +76,10 @@
           { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' }
         ]"
         />
-        <!-- { header: 'Server Ownership', link: '/app/reports/server-ownership-status' },
-          { header: 'Most Called Urls', link: '/app/reports/most-called-urls' },
-          { header: 'Longest Response Time', link: '/app/reports/longest-response-time' }, -->
       </ul>
     </nav>
   </b-collapse>
+</div>
 </template>
 
 <script>
@@ -76,26 +88,9 @@ import NavLink from "./NavLink/NavLink";
 
 export default {
   name: "Sidebar",
-  components: { NavLink },
+  components: { NavLink  },
   data() {
-    return {
-      alerts: [
-        {
-          id: 0,
-          title: "Sales Report",
-          value: 15,
-          footer: "Calculating x-axis bias... 65%",
-          color: "info"
-        },
-        {
-          id: 1,
-          title: "Personal Responsibility",
-          value: 20,
-          footer: "Provide required notes",
-          color: "danger"
-        }
-      ]
-    };
+    return { };
   },
   methods: {
     ...mapActions("layout", ["changeSidebarActive", "switchSidebar"]),

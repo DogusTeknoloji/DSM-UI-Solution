@@ -1,4 +1,4 @@
-import { getDeploymentAgents} from '@/api/azuredevops'
+import { getDeploymentAgents} from '@/api/azuredevops';
 export default {
   namespaced: true,
   state: {
@@ -26,14 +26,14 @@ export default {
     }
   },
   actions: {
-    action_getDeploymentAgents({ commit,state }) {
+    actionGetDeploymentAgents({ commit,state }) {
       return new Promise((resolve, reject) => {
-        getDeploymentAgents(state.orderCol,state.orderPos).then(res => {
+        getDeploymentAgents(state.orderCol,state.orderPos).then((res) => {
           commit("PUSH_LIST",res);
-          resolve(res)
-        }).catch(error => {
-          reject(error)
-        })
+          resolve(res);
+        }).catch((error) => {
+          reject(error);
+        });
       })
     }
   },

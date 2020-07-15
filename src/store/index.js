@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import layout from './modules/layout'
+import layout from './modules/layout';
 import site from './modules/site';
 import server from './modules/server';
 import user from './modules/user';

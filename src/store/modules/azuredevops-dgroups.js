@@ -26,14 +26,14 @@ export default {
     }
   },
   actions: {
-    action_getDeploymentGroups({ commit,state }) {
+    actionGetDeploymentGroups({ commit,state }) {
       return new Promise((resolve, reject) => {
-        getDeploymentGroups(state.orderCol,state.orderPos).then(res => {
+        getDeploymentGroups(state.orderCol,state.orderPos).then((res) => {
           commit("PUSH_LIST",res);
-          resolve(res)
-        }).catch(error => {
-          reject(error)
-        })
+          resolve(res);
+        }).catch((error) => {
+          reject(error);
+        });
       })
     }
   },

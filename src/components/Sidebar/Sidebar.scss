@@ -2,7 +2,6 @@
 .sidebar {
   color: $sidebar-color;
   margin-left: 15px;
-
   @include media-breakpoint-up('md') {
     position: absolute;
     left: 0;
