@@ -4,29 +4,42 @@
       <div class="site-header">
         <div style="display:flex">
           <div>
-            <h1 class="page-title" style="margin:0">{{header.serverName}} &nbsp;</h1> 
-             
+            <h1 class="page-title" style="margin:0">
+              {{ header.serverName }} &nbsp;
+            </h1>
+
             <div style="display:inline">
-              <h5 style="cursor:pointer"  @click="$router.push('/app/company/'+header.companyId)">{{header.companyName}}</h5>
+              <h5
+                style="cursor:pointer"
+                @click="$router.push('/app/company/' + header.companyId)"
+              >
+                {{ header.companyName }}
+              </h5>
             </div>
           </div>
-          <b-button class="badge badge-resize rdp-color"  @click="downloadRDP()">
-            <i class="fa fa-terminal" aria-hidden="true"></i> &nbsp;&nbsp; Connect with RDP</b-button>
-
+          <b-button class="badge badge-resize rdp-color" @click="downloadRDP()">
+            <i class="fa fa-terminal" aria-hidden="true"></i> &nbsp;&nbsp;
+            Connect with RDP</b-button
+          >
         </div>
         <div class="site-status status-running">
           <div style="align-self: center;">
-            <img src="../../assets/ok-128.png" width="48px" height="48px" alt srcset />
+            <img
+              src="../../assets/ok-128.png"
+              width="48px"
+              height="48px"
+              alt
+              srcset
+            />
             <br />
           </div>
 
-
           <div class="site-status-text">
-            <h4 style="font-family:Roboto; display:block;margin-top:12px">{{header.availability}}</h4>
+            <h4 style="font-family:Roboto; display:block;margin-top:12px">
+              {{ header.availability }}
+            </h4>
           </div>
-          
         </div>
-        
       </div>
       <div class="col-md-12">
         <el-tabs v-model="activeName" @tab-click="handleTabClick()">
@@ -38,41 +51,62 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Domain:</td>
-                      <td class="general-info-table-value">{{detail.domain}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.domain }}
+                      </td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">IP Address: </td>
-                      <td class="general-info-table-value">{{detail.ipAddress}}</td>
+                      <td class="general-info-table-title">IP Address:</td>
+                      <td class="general-info-table-value">
+                        {{ detail.ipAddress }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Custom Ip:</td>
-                      <td class="general-info-table-value">{{detail.customIp}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.customIp }}
+                      </td>
                     </tr>
 
                     <tr>
-                      <td class="general-info-table-title">Operating System:</td>
-                      <td class="general-info-table-value">{{detail.operatingSystem}}</td>
+                      <td class="general-info-table-title">
+                        Operating System:
+                      </td>
+                      <td class="general-info-table-value">
+                        {{ detail.operatingSystem }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">CPU:</td>
-                      <td class="general-info-table-value">{{detail.cpu}}</td>
+                      <td class="general-info-table-value">{{ detail.cpu }}</td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Memory:</td>
-                      <td class="general-info-table-value">{{detail.memory}} (Currently Usage: {{detail.memoryUsage}})</td>
+                      <td class="general-info-table-value">
+                        {{ detail.memory }} (Currently Usage:
+                        {{ detail.memoryUsage }})
+                      </td>
                     </tr>
 
                     <tr>
                       <td class="general-info-table-title">Last Backup:</td>
-                      <td class="general-info-table-value">{{detail.lastBackup}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.lastBackup }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Site Count:</td>
-                      <td class="general-info-table-value">{{detail.siteCount}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.siteCount }}
+                      </td>
                     </tr>
                     <tr>
-                      <td class="general-info-table-title">Online Site Count:</td>
-                      <td class="general-info-table-value">{{detail.onlineSiteCount}}</td>
+                      <td class="general-info-table-title">
+                        Online Site Count:
+                      </td>
+                      <td class="general-info-table-value">
+                        {{ detail.onlineSiteCount }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title"></td>
@@ -88,40 +122,57 @@
                   <table class="table">
                     <tr>
                       <td class="general-info-table-title">Volumes:</td>
-                      <td class="general-info-table-value">{{detail.volumes}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.volumes }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Total Capacity:</td>
-                      <td class="general-info-table-value">{{detail.totalCapacity}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.totalCapacity }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Percent Free:</td>
-                      <td class="general-info-table-value">{{detail.percentFree}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.percentFree }}
+                      </td>
                     </tr>
                   </table>
-                  <br/>
+
+                  <br />
                   <h5 class="general-info-header">Organization Details</h5>
 
-                   <table class="table">
-                     <tr>
+                  <table class="table">
+                    <tr>
                       <td class="general-info-table-title">Owned by:</td>
-                      <td class="general-info-table-value">{{header.companyName}}</td>
+                      <td class="general-info-table-value">
+                        {{ header.companyName }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Managing by:</td>
-                      <td class="general-info-table-value">{{detail.responsible}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.responsible }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Environment:</td>
-                      <td class="general-info-table-value">{{detail.serverType}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.serverType }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Service:</td>
-                      <td class="general-info-table-value">{{detail.serviceName}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.serviceName }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title">Notes:</td>
-                      <td class="general-info-table-value">{{detail.notes}}</td>
+                      <td class="general-info-table-value">
+                        {{ detail.notes }}
+                      </td>
                     </tr>
                     <tr>
                       <td class="general-info-table-title"></td>
@@ -133,25 +184,30 @@
               <!-- Web Config - Other -->
               <div class="col-md-4">
                 <div class="col-md-12 info-card">
-                    <div class="general-info-header">Volume Details</div>
-                    <div class="text-right">Last Update: {{detail.lastCheckDate}}</div>
+                  <div class="general-info-header">Volume Details</div>
+                  <div class="text-right">
+                    Last Update: {{ detail.lastCheckDate }}
+                  </div>
                   <table class="table text-center">
-                  <thead>
-                  <tr>
-                  <th>Volume Name </th>
-                  <th>Free Space </th>
-                  <th>Used Space </th>
-                  <th>Total Capacity</th>
-                  </tr>
-                  </thead>
-                    
+                    <thead>
+                      <tr>
+                        <th>Volume Name</th>
+                        <th>Free Space</th>
+                        <th>Used Space</th>
+                        <th>Total Capacity</th>
+                      </tr>
+                    </thead>
+
                     <tr v-for="(item, i) in detail.volumeDetails" :key="i">
-                      <td class="general-info-table-title text-left">{{item.volumeName}}</td>
-                      <td class="text-left">{{item.freeSpace}}</td>
-                      <td class="text-left">{{item.usedSpace}}</td>
-                      <td class="general-info-table-value text-left">{{item.totalCapacity}} ( {{item.freePercent}} free)</td>
-                    </tr> 
-               
+                      <td class="general-info-table-title text-left">
+                        {{ item.volumeName }}
+                      </td>
+                      <td class="text-left">{{ item.freeSpace }}</td>
+                      <td class="text-left">{{ item.usedSpace }}</td>
+                      <td class="general-info-table-value text-left">
+                        {{ item.totalCapacity }} ( {{ item.freePercent }} free)
+                      </td>
+                    </tr>
                   </table>
                 </div>
               </div>
@@ -168,7 +224,11 @@
 
             -->
           </el-tab-pane>
-          <el-tab-pane label="Sites" name="sites" :disabled="detail.siteCount==0">
+          <el-tab-pane
+            label="Sites"
+            name="sites"
+            :disabled="detail.siteCount == 0"
+          >
             <h4 class="fw-semi-bold">Sites</h4>
             <br />
             <div class="col-md-12 table-card">
@@ -184,22 +244,27 @@
                 </thead>
                 <tbody>
                   <tr v-for="(s, i) in this.sites" :key="i">
-                    <th scope="row">{{++i}}</th>
+                    <th scope="row">{{ ++i }}</th>
                     <td>
-                      <router-link class="site-link" :to="{ name: 'Site', params: { id: s.siteId }}">{{s.siteName}}</router-link>
+                      <router-link
+                        class="site-link"
+                        :to="{ name: 'Site', params: { id: s.siteId } }"
+                        >{{ s.siteName }}</router-link
+                      >
                     </td>
 
-                    <td>{{s.physicalPath}}</td>
-                    <td>{{s.domains}}</td>
-                    <td>{{s.state}}</td>
+                    <td>{{ s.physicalPath }}</td>
+                    <td>{{ s.domains }}</td>
+                    <td>{{ s.state }}</td>
                   </tr>
-
                 </tbody>
               </table>
             </div>
           </el-tab-pane>
 
-          <el-tab-pane label="Statistics" :disabled="true" name="statistic">Task</el-tab-pane>
+          <el-tab-pane label="Statistics" :disabled="true" name="statistic"
+            >Task</el-tab-pane
+          >
         </el-tabs>
       </div>
     </b-col>
@@ -208,18 +273,18 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { getRDPFile } from '@/api/server/' ;
-import { getUserName } from '@/utils/auth/' ;
+import { getRDPFile } from "@/api/server/";
+import { getUserName } from "@/utils/auth/";
 
 export default {
   name: "Server",
   components: {},
   data() {
     return {
-      activeName: "general"
+      activeName: "general",
     };
   },
-  mounted(){
+  mounted() {
     this.fetch_detail(this.$route.params.id);
     this.fetch_header(this.$route.params.id);
   },
@@ -227,14 +292,14 @@ export default {
     ...mapGetters({
       detail: "server/GET_SERVER_DETAILS",
       header: "server/GET_SERVER_HEADER",
-      sites: "server/GET_SERVER_SITES"
-    })
+      sites: "server/GET_SERVER_SITES",
+    }),
   },
   methods: {
     ...mapActions({
       fetch_detail: "server/action_getServerDetails",
       fetch_header: "server/action_getServerHeader",
-      fetch_sites: "server/action_getServerSites"
+      fetch_sites: "server/action_getServerSites",
     }),
     handleTabClick() {
       switch (this.activeName) {
@@ -244,17 +309,16 @@ export default {
         case "sites":
           this.fetch_sites(this.$route.params.id);
           break;
-     
 
         default:
           break;
       }
     },
-    downloadRDP(){
-      var data = { ServerId: this.$route.params.id , UserName: getUserName()};
+    downloadRDP() {
+      var data = { ServerId: this.$route.params.id, UserName: getUserName() };
       getRDPFile(data);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -311,8 +375,8 @@ export default {
   display: flex;
   justify-content: space-between;
 }
-.text-right{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.text-right {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   align-self: flex-end;
   text-align: right;
   margin-right: 15px;
@@ -343,28 +407,25 @@ export default {
 .v-modal {
   display: none !important;
 }
-.rdp-color
-{
-  background-color:#008C9E;
+.rdp-color {
+  background-color: #008c9e;
   color: #ffffff;
 }
-.rdp-color:hover
-{
-  background-color:#00B4CC;
+.rdp-color:hover {
+  background-color: #00b4cc;
   color: #ffffff;
 }
-.rdp-color:active
-{
-  background-color:#00DFFC;
+.rdp-color:active {
+  background-color: #00dffc;
   color: #ffffff;
 }
-.badge-resize{
+.badge-resize {
   height: 26px;
   margin-top: 7px;
 }
 
 .rdp-icon {
-    width: 24px !important;
-    height: 24px !important;
+  width: 24px !important;
+  height: 24px !important;
 }
 </style>
