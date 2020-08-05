@@ -29,9 +29,12 @@ router.beforeEach((to, from, next) => {
   // if (!isAuthenticated) next('/login')
   // else next()
 
-  if (to.fullPath == "/login") next();
-  else if (window.localStorage.getItem("authenticated") === "false")
+  if (to.fullPath == "/login"){
+    next();
+  }
+  else if (window.localStorage.getItem("authenticated") === "false"){
     next("/login");
+  }
   else {
     store.dispatch("search/action_change_page");
     next();
