@@ -78,7 +78,7 @@ export default {
       return new Promise((resolve, reject) => {
         getServerList(state.page)
           .then((res) => {
-            if (res.length == 0) {
+            if (res.length === 0) {
               state.isLast = true;
             }
             commit("PUSH_LIST", res);
