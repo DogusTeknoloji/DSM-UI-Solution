@@ -88,13 +88,19 @@ service.interceptors.response.use(
     }
   },
   (error) => {
-    if (error.response.status == 403)
+    if (error.response.status === 403){
       return Promise.reject(error.response.status);
-    if (error.response.status == 400) return router.push("/error");
-    if (error.response.status == 401) {
+    }
+    if (error.response.status === 400){ 
+      return router.push("/error"); 
+    }
+    if (error.response.status === 401) {
       window.localStorage.setItem("authenticated", true); //TODO : TRUE
       window.location.href = "/";
-    } else return Promise.reject(error);
+    } 
+    else{
+      return Promise.reject(error);
+    }
   }
 );
 
