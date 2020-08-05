@@ -2,11 +2,16 @@
   <b-navbar toggleable="md" class="header d-print-none">
     <b-navbar-nav class="navbar-nav-mobile ml-auto">
       <b-nav-text class="mr-3">
-        <b-alert class="header-alert animated bounceIn delay-2s" dismissible v-model="showNavbarAlert">
-            <i class="fa fa-info-circle mr-1"></i> Check out Light Blue Settings on the right!
+        <b-alert
+          class="header-alert animated bounceIn delay-2s"
+          dismissible
+          v-model="showNavbarAlert"
+        >
+          <i class="fa fa-info-circle mr-1"></i> Check out Light Blue Settings
+          on the right!
         </b-alert>
       </b-nav-text>
-      <div class="form-inline d-sm-down-none mr-3"> 
+      <div class="form-inline d-sm-down-none mr-3">
         <b-input-group class="input-group-transparent d-sm-down-none mr-3">
           <b-input-group-text slot="prepend">
             <i class="la la-search"></i>
@@ -23,17 +28,21 @@
           style="margin-left:7px;background:none;border:none;color:black"
           @click="cancelSearch"
           v-show="isSearch"
-        >Cancel</a>
+          >Cancel</a
+        >
       </div>
       <b-nav-item-dropdown right extra-menu-classes="py-0" :disabled="true">
         <template slot="button-content">
           <span class="avatar thumb-sm float-left mr-2">
-          <img class="rounded-circle" :src="this.photo" alt="..." />
+            <img class="rounded-circle" :src="this.photo" alt="..." />
           </span>
           <span class="d-md-down-none d-lg-inline">
-            <span class="fw-semi-bold">{{this.username}}</span>
+            <span class="fw-semi-bold">{{ this.username }}</span>
           </span>
-          <span class="ml-2 circle bg-warning text-white fw-bold d-md-down-none d-lg-inline-block">0</span>
+          <span
+            class="ml-2 circle bg-warning text-white fw-bold d-md-down-none d-lg-inline-block"
+            >0</span
+          >
         </template>
         <notifications />
       </b-nav-item-dropdown>
@@ -86,9 +95,7 @@
         <template slot="button-content">
           <i class="la la-cog px-2" />
         </template>
-        <b-dropdown-item>
-          <i class="la la-user" /> My Account
-        </b-dropdown-item>
+        <b-dropdown-item> <i class="la la-user" /> My Account </b-dropdown-item>
         <b-dropdown-divider />
         <b-dropdown-item>Calendar</b-dropdown-item>
         <b-dropdown-item>
@@ -100,7 +107,12 @@
           <i class="la la-sign-out" /> Log Out
         </b-dropdown-item-button>
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown no-caret right class="d-md-down-none" :disabled="true">
+      <b-nav-item-dropdown
+        no-caret
+        right
+        class="d-md-down-none"
+        :disabled="true"
+      >
         <template slot="button-content">
           <i class="la la-globe px-2" />
         </template>
@@ -158,13 +170,13 @@ export default {
   components: { Notifications },
   computed: {
     ...mapState("layout", {
-      sidebarClose: state => state.sidebarClose,
-      sidebarStatic: state => state.sidebarStatic
+      sidebarClose: (state) => state.sidebarClose,
+      sidebarStatic: (state) => state.sidebarStatic,
     }),
     ...mapGetters({
       username: "user/GET_USERNAME",
       isSearch: "search/Get_ISSEARCH",
-      photo: "user/GET_PHOTO"
+      photo: "user/GET_PHOTO",
     }),
     text: {
       get() {
@@ -172,15 +184,15 @@ export default {
       },
       set(value) {
         this.$store.commit("search/SET_TEXT", value);
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions("layout", [
       "toggleSidebar",
       "toggleChat",
       "switchSidebar",
-      "changeSidebarActive"
+      "changeSidebarActive",
     ]),
     switchSidebarMethod() {
       if (!this.sidebarClose) {
@@ -200,7 +212,7 @@ export default {
         case "SiteList":
           moduleName = "site";
           break;
-           case "Site":
+        case "Site":
           moduleName = "site";
           break;
         case "ServerList":
@@ -208,6 +220,9 @@ export default {
           break;
         case "CompanyList":
           moduleName = "company";
+          break;
+        case "DatabasePortal":
+          moduleName = "databaseportal";
           break;
         default:
           break;
@@ -218,7 +233,7 @@ export default {
       let moduleName = this.getModule();
       this.$store.dispatch("search/action_search", {
         moduleName,
-        text: this.text
+        text: this.text,
       });
     },
     cancelSearch() {
@@ -231,16 +246,16 @@ export default {
         window.localStorage.setItem("authenticated", false);
         this.$router.push("/login");
       });
-    }
+    },
   },
   created() {},
 
   data() {
     return {
       showNavbarAlert: false,
-      searchText: ""
+      searchText: "",
     };
-  }
+  },
 };
 </script>
 
