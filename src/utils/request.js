@@ -62,7 +62,7 @@ service.interceptors.response.use(
     // if the custom code is not 20000, it is judged as an error.
     if (response.status !== 200) {
       if (response.status !== 401) {
-        window.localStorage.setItem("authenticated", true); //TODO : FALSE
+        window.localStorage.setItem("authenticated", false);
         window.location.href = "/";
       }
 
@@ -80,10 +80,9 @@ service.interceptors.response.use(
       //   })
       // }
       // return Promise.reject(new Error(response.message || 'Hata'))
-      return Promise.reject(
-        new Error("Hata,İşlemlerinizi Tekrardan Kontrol Ediniz.")
-      );
-    } else {
+      return Promise.reject(new Error("Hata,İşlemlerinizi Tekrardan Kontrol Ediniz."));
+    } 
+    else {
       return res;
     }
   },
@@ -95,7 +94,7 @@ service.interceptors.response.use(
       return router.push("/error"); 
     }
     if (error.response.status === 401) {
-      window.localStorage.setItem("authenticated", true); //TODO : TRUE
+      window.localStorage.setItem("authenticated", false);
       window.location.href = "/";
     } 
     else{
