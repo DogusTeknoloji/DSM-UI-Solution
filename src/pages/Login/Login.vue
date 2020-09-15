@@ -122,7 +122,7 @@ export default {
     }
   },
   created() {
-    if (window.localStorage.getItem("authenticated") === "true") {
+    if (window.localStorage.getItem("authenticated") === "true" && window.location.pathname !== "/app/dashboard") {
       this.$router.push("/app/dashboard");
     }
   }
