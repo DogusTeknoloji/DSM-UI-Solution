@@ -33,7 +33,9 @@ router.beforeEach((to, from, next) => {
     next();
   }
   else if (window.localStorage.getItem("authenticated") === "false"){
-    next("/login");
+    if (window.location.pathname !== "/login"){
+      next("/login");
+    }
   }
   else {
     store.dispatch("search/action_change_page");

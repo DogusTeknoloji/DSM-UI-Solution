@@ -9,7 +9,9 @@ export default {
     const currentPath = this.$router.history.current.path;
 
     if (window.localStorage.getItem("authenticated") === "false") {
-      this.$router.push("/login");
+      if (currentPath !== "/login"){
+        this.$router.push("/login");
+      }
     }
 
     if (currentPath === "/" || currentPath === "/app") {
