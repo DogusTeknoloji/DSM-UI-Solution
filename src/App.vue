@@ -15,7 +15,9 @@ export default {
     }
 
     if (currentPath === "/" || currentPath === "/app") {
-      this.$router.push("/app/dashboard");
+      if (currentPath !== "/app/dashboard"){
+        this.$router.push("/app/dashboard");
+      }
     }
   },
 };
