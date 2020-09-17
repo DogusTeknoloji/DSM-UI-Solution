@@ -15,7 +15,7 @@
     "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.2",
-    "bootstrap-vue": "^2.17.0",
+    "bootstrap-vue": "^2.17.1",
     "chart.js": "^2.9.3",
     "core-js": "^3.6.5",
     "css-loader": "^1.0.0",
@@ -92,7 +92,8 @@
     "minimist": "^1.2.5",
     "mkdirp": "^1.0.4",
     "core-js": "^3.6.5",
-    "cache-loader": "^4.1.0"
+    "cache-loader": "^4.1.0",
+    "node-forge": "^0.10.0"
   },
   "browserslist": [
     "> 1%",
