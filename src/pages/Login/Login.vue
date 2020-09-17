@@ -110,7 +110,9 @@ export default {
             if (res) {
               this.isLoading = false;
               window.localStorage.setItem("authenticated", true);
-              this.$router.push("/app/dashboard");
+              if (window.location.pathname !== "/app/dashboard"){
+                this.$router.push("/app/dashboard");
+              }
             }
           })
           .catch(err => {
