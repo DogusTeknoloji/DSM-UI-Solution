@@ -5,7 +5,8 @@ export default {
     namespaced: true,
     state: {
         token: auth.getToken(),
-        fullName: auth.getUserName(),
+        userName: auth.getUserName(),
+        displayName: auth.getDisplayName(),
         roles: [],
         profilePhoto: auth.getPhoto(),
 
@@ -19,7 +20,8 @@ export default {
         title: auth.getTitle(),
     },
     getters:{
-      GET_USERNAME:(state)=>{return state.fullName;},
+      GET_USERNAME:(state)=>{return state.userName;},
+      GET_DISPLAYNAME:(state)=>{return state.displayName},
       GET_PHOTO:(state)=>{ return state.profilePhoto;},
       GET_COMPANY:(state)=>{ return state.company},
       GET_DATEOFHIRE:(state)=>{ return state.dateOfHire},
@@ -32,7 +34,10 @@ export default {
     },
     mutations: {
       SET_USERNAME:(state,name)=>{
-        state.fullName=name;
+        state.userName = name;
+      },
+      SET_DISPLAYNAME:(state,name)=>{
+        state.displayName = name;
       },
       SET_TOKEN: (state, token) => {
         state.token = token;
@@ -73,7 +78,8 @@ export default {
         const token = (tokenType + ' ' + res.token)
 
         commit('SET_PHOTO',res.profilePhoto);
-        commit('SET_USERNAME', res.fullName);
+        commit('SET_DISPLAYNAME',res.fullName);
+        commit('SET_USERNAME', res.samAccountName);
         commit('SET_COMPANY',res.company);
         commit('SET_DATEOFHIRE',res.dateofhire);
         commit('SET_ACCOUNTCREATEDATE',res.accountCreateDate);
@@ -86,7 +92,8 @@ export default {
         commit('SET_TOKEN', token);
 
         auth.setToken(token);
-        auth.setUserName(res.fullName);
+        auth.setDisplayName(res.fullName);
+        auth.setUserName(res.samAccountName);
         auth.setPhoto(res.profilePhoto);
         auth.setCompany(res.company);
         auth.setDateOfHire(res.dateOfHire);

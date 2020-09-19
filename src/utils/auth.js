@@ -2,6 +2,7 @@ import Cookies from 'js-cookie'
 
 const TokenKey = 'User-Token';
 const UserNameKey="User-Name";
+const UserDisplayNameKey = "User-DisplayName";
 const UserPhotoKey="User-Photo";
 const UserCompanyKey="User-Company";
 const UserDateOfHireKey = "User-DateOfHire";
@@ -30,6 +31,14 @@ export function getUserName() {
 
 export function setUserName(name) {
   return Cookies.set(UserNameKey, name,1);
+}
+
+export function getDisplayName(){
+  return localStorage.getItem(UserDisplayNameKey);
+}
+
+export function setDisplayName(displayName){
+  return localStorage.setItem(UserDisplayNameKey,displayName);
 }
 
 export function getPhoto(){
