@@ -7,7 +7,7 @@
         customHeader
       >
         <form class="mt" @submit.prevent="login">
-          <b-alert class="alert-sm" variant="danger" :show="!!errorMessage">{{errorMessage}}</b-alert>
+          <b-alert class="alert-sm" variant="danger" :show="errorMessage">{{errorMessage}}</b-alert>
           <b-form-group label="User Name" label-for="username-input">
             <b-input-group class="input-group-transparent">
               <b-input-group-text slot="prepend">
@@ -91,7 +91,10 @@ export default {
       selected:"@d-teknoloji.com.tr",
       options:[
         { value:"idv", text:"Individual Account"},
-        { value:"@d-teknoloji.com.tr",text:"d-teknoloji.com.tr" }
+        { value:"@d-teknoloji.com.tr",text:"d-teknoloji.com.tr" },
+        { value:"@vdfholding.com.tr",text:"vdfholding.com.tr" },
+        { value:"@dohas.com.tr",text:"dohas.com.tr" },
+        { value:"@dturizm.com.tr",text:"dturizm.com.tr" }
       ]
     };
   },
