@@ -143,8 +143,8 @@ $z-index-variants: (more: 1, less: -1, '10': 10, '-10': -10);
   }
 }
 
-@include bg-variant('.bg-dark', $text-color);
-@include bg-variant('.bg-widget', $widget-bg);
+// @include bg-variant('.bg-dark', $text-color);
+// @include bg-variant('.bg-widget', $widget-bg);
 
 
 .td-underline {
@@ -196,21 +196,21 @@ $z-index-variants: (more: 1, less: -1, '10': 10, '-10': -10);
 
 //copy bg classes after bootstrap so it's possible to overload other bootstrap classes
 
-@include bg-variant('.bg-primary', theme-color('primary'));
-@include bg-variant('.bg-success', theme-color('success'));
-@include bg-variant('.bg-info', theme-color('info'));
-@include bg-variant('.bg-warning', theme-color('warning'));
-@include bg-variant('.bg-danger', theme-color('danger'));
-@include bg-variant('.bg-body', $body-bg);
-@include bg-variant('.bg-body-light', $body-bg-light);
-@include bg-variant('.bg-gray', $gray-700);
-@include bg-variant('.bg-gray-transparent', rgba($gray-700, 0.6));
-@include bg-variant('.bg-gray-dark', $gray-800);
-@include bg-variant('.bg-black', $black);
-@include bg-variant('.bg-gray-light', $gray-600);
-@include bg-variant('.bg-gray-lighter', $gray-200);
-@include bg-variant('.bg-transparent', rgba(0,0,0,0));
-@include bg-variant('.bg-white', $white);
+// @include bg-variant('.bg-primary', theme-color('primary'));
+// @include bg-variant('.bg-success', theme-color('success'));
+// @include bg-variant('.bg-info', theme-color('info'));
+// @include bg-variant('.bg-warning', theme-color('warning'));
+// @include bg-variant('.bg-danger', theme-color('danger'));
+// @include bg-variant('.bg-body', $body-bg);
+// @include bg-variant('.bg-body-light', $body-bg-light);
+// @include bg-variant('.bg-gray', $gray-700);
+// @include bg-variant('.bg-gray-transparent', rgba($gray-700, 0.6));
+// @include bg-variant('.bg-gray-dark', $gray-800);
+// @include bg-variant('.bg-black', $black);
+// @include bg-variant('.bg-gray-light', $gray-600);
+// @include bg-variant('.bg-gray-lighter', $gray-200);
+// @include bg-variant('.bg-transparent', rgba(0,0,0,0));
+// @include bg-variant('.bg-white', $white);
 
 .bg-body,
 .bg-body-light,
@@ -227,19 +227,19 @@ $z-index-variants: (more: 1, less: -1, '10': 10, '-10': -10);
 
 //override bs .text-* classes so they use $brand-* variables
 
-@include text-emphasis-variant('.text-primary', theme-color('primary'));
-@include text-emphasis-variant('.text-success', theme-color('success'));
-@include text-emphasis-variant('.text-info', theme-color('info'));
-@include text-emphasis-variant('.text-warning', theme-color('warning'));
-@include text-emphasis-variant('.text-danger', theme-color('danger'));
-@include text-emphasis-variant('.text-link', $link-color);
-@include text-emphasis-variant('.text-white', $white);
-@include text-emphasis-variant('.text-gray', $gray-700);
-@include text-emphasis-variant('.text-gray-dark', $gray-800);
-@include text-emphasis-variant('.text-gray-light', $gray-600);
-@include text-emphasis-variant('.text-semi-muted', $gray-600);
-@include text-emphasis-variant('.text-gray-darker', $gray-900);
-@include text-emphasis-variant('.text-gray-lighter', $gray-200);
+// @include text-emphasis-variant('.text-primary', theme-color('primary'),'true');
+// @include text-emphasis-variant('.text-success', theme-color('success'),'true');
+// @include text-emphasis-variant('.text-info', theme-color('info'),'true');
+// @include text-emphasis-variant('.text-warning', theme-color('warning'),'true');
+// @include text-emphasis-variant('.text-danger', theme-color('danger'),'true');
+// @include text-emphasis-variant('.text-link', $link-color,'true');
+// @include text-emphasis-variant('.text-white', $white,'true');
+// @include text-emphasis-variant('.text-gray', $gray-700,'true');
+// @include text-emphasis-variant('.text-gray-dark', $gray-800,'true');
+// @include text-emphasis-variant('.text-gray-light', $gray-600,'true');
+// @include text-emphasis-variant('.text-semi-muted', $gray-600,'true');
+// @include text-emphasis-variant('.text-gray-darker', $gray-900,'true');
+// @include text-emphasis-variant('.text-gray-lighter', $gray-200,'true');
 
 .text-ellipsis {
   display: block;
