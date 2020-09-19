@@ -65,7 +65,7 @@
             </b-button>
             <a 
               href="#"
-              class="text-center text-dark d-block mt-4"
+              class="text-center text-dark d-block mt-4 hidden"
             >Forgot Username or Password?</a>
           </div>
         </form>
