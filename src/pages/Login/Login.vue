@@ -63,9 +63,9 @@
                 <b-spinner small type="grow"></b-spinner>Loading...
               </div>
             </b-button>
-            <a
+            <a 
               href="#"
-              class="text-center text-gray w-100 d-block mt-4"
+              class="text-center text-dark d-block mt-4"
             >Forgot Username or Password?</a>
           </div>
         </form>
