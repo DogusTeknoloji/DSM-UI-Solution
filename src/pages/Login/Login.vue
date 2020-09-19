@@ -6,8 +6,11 @@
         title="<h3 class='mt-0 fw-normal text-center'>Sign In to DSM</h3>"
         customHeader
       >
-        <div class="widget-middle-overflow bg-widget mt-4 px-4 py-3">
-           Burası
+        <div v-if="this.displayName.length>1" class="">
+            <b-overlay rounded="circle" class="mt-0 fw-normal text-center">
+              <b-img width="88" height="60" thumbnail rounded="circle" fluid v-if="this.photo.length > 1" :src="this.photo" :alt="this.displayName" />
+            </b-overlay>
+           <b-card-title class="mt-2 fw-normal text-center">Welcome back {{this.displayName.split(' ')[0]}}!</b-card-title> 
         </div>
         <form class="mt" @submit.prevent="login">
           <b-alert class="alert-sm" variant="danger" :show="errorMessage">{{errorMessage}}</b-alert>
@@ -46,6 +49,7 @@
                 id="password-input"
                 class="input-transparent pl-0"
                 type="password"
+                ref="pwd"
                 v-model="form.Password"
                 required
                 placeholder="Your Password"
@@ -74,15 +78,33 @@
         </form>
       </Widget>
     </b-container>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <div class="float:right">
+        <p> Sürüm: 20.9.20.1 </p>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
 import Widget from "@/components/Widget/Widget";
+import { mapGetters } from "vuex";
 export default {
   name: "LoginPage",
   components: { Widget },
+  computed: {
+    ...mapGetters({
+      photo: "user/GET_PHOTO",
+      userName: "user/GET_USERNAME",
+      displayName: "user/GET_DISPLAYNAME"
+    }),
+  },
+  mounted(){
+    if (this.userName.length > 0){
+      this.form.Username = this.userName;
+      this.$refs.pwd.$el.focus();
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -100,7 +122,7 @@ export default {
         { value:"@dturizm.com.tr",text:"dturizm.com.tr" }
       ]
     };
-  },
+  }, 
   methods: {
     login() {
       this.isLoading = true;
