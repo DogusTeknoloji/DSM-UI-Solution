@@ -6,6 +6,9 @@
         title="<h3 class='mt-0 fw-normal text-center'>Sign In to DSM</h3>"
         customHeader
       >
+        <div class="widget-middle-overflow bg-widget mt-4 px-4 py-3">
+           Burası
+        </div>
         <form class="mt" @submit.prevent="login">
           <b-alert class="alert-sm" variant="danger" :show="errorMessage">{{errorMessage}}</b-alert>
           <b-form-group label="User Name" label-for="username-input">

@@ -104,7 +104,7 @@ export default {
     })
       },
       action_logout() {
-        removeToken();
+        auth.removeToken();
       },
     },
   };
