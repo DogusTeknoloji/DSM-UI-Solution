@@ -6,7 +6,7 @@
         title="<h3 class='mt-0 fw-normal text-center'>Sign In to DSM</h3>"
         customHeader
       >
-        <div v-if="this.displayName.length>1" class="">
+        <div v-if="this.displayName != null && this.displayName.length>1" class="">
             <b-overlay rounded="circle" class="mt-0 fw-normal text-center">
               <b-img width="88" height="60" thumbnail rounded="circle" fluid v-if="this.photo.length > 1" :src="this.photo" :alt="this.displayName" />
             </b-overlay>
@@ -63,11 +63,11 @@
                 <span class="login-circle">
                   <i class="fa fa-caret-right"></i>
                 </span>
-                Sign in
+                &nbsp;Sign in
               </div>
 
               <div v-show="isLoading">
-                <b-spinner small type="grow"></b-spinner>Loading...
+                <b-spinner small type="grow"></b-spinner> Loading...
               </div>
             </b-button>
             <a 
@@ -100,7 +100,7 @@ export default {
     }),
   },
   mounted(){
-    if (this.userName.length > 0){
+    if (this.userName != null && this.userName.length > 0){
       this.form.Username = this.userName;
       this.$refs.pwd.$el.focus();
     }
@@ -145,8 +145,10 @@ export default {
           })
           .catch(err => {
             this.isLoading = false;
-            if (err == 400)
-              alert("Username or password is incorrect");
+            if (err == 400){
+              this.errorMessage = err;
+            }
+              // alert("Username or password is incorrect");
           });
       }
     }
