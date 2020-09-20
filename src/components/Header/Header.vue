@@ -37,7 +37,7 @@
             <img class="rounded-circle" :src="this.photo" alt="..." />
           </span>
           <span class="d-md-down-none d-lg-inline">
-            <span class="fw-semi-bold">{{ this.username }}</span>
+            <span class="fw-semi-bold">{{ this.displayName }}</span>
           </span>
           <span
             class="ml-2 circle bg-warning text-white fw-bold d-md-down-none d-lg-inline-block"
@@ -174,7 +174,7 @@ export default {
       sidebarStatic: (state) => state.sidebarStatic,
     }),
     ...mapGetters({
-      username: "user/GET_USERNAME",
+      displayName: "user/GET_DISPLAYNAME",
       isSearch: "search/Get_ISSEARCH",
       photo: "user/GET_PHOTO",
     }),

@@ -6,8 +6,14 @@
         title="<h3 class='mt-0 fw-normal text-center'>Sign In to DSM</h3>"
         customHeader
       >
+        <div v-if="this.displayName.length>1" class="">
+            <b-overlay rounded="circle" class="mt-0 fw-normal text-center">
+              <b-img width="88" height="60" thumbnail rounded="circle" fluid v-if="this.photo.length > 1" :src="this.photo" :alt="this.displayName" />
+            </b-overlay>
+           <b-card-title class="mt-2 fw-normal text-center">Welcome back {{this.displayName.split(' ')[0]}}!</b-card-title> 
+        </div>
         <form class="mt" @submit.prevent="login">
-          <b-alert class="alert-sm" variant="danger" :show="!!errorMessage">{{errorMessage}}</b-alert>
+          <b-alert class="alert-sm" variant="danger" :show="errorMessage">{{errorMessage}}</b-alert>
           <b-form-group label="User Name" label-for="username-input">
             <b-input-group class="input-group-transparent">
               <b-input-group-text slot="prepend">
@@ -43,6 +49,7 @@
                 id="password-input"
                 class="input-transparent pl-0"
                 type="password"
+                ref="pwd"
                 v-model="form.Password"
                 required
                 placeholder="Your Password"
@@ -65,21 +72,39 @@
             </b-button>
             <a 
               href="#"
-              class="text-center text-dark d-block mt-4"
+              class="text-center text-dark d-block mt-4 hidden"
             >Forgot Username or Password?</a>
           </div>
         </form>
       </Widget>
     </b-container>
-    <footer class="footer"></footer>
+    <footer class="footer">
+      <div class="float:right">
+        <p> Sürüm: 20.9.20.1 </p>
+      </div>
+    </footer>
   </div>
 </template>
 
 <script>
 import Widget from "@/components/Widget/Widget";
+import { mapGetters } from "vuex";
 export default {
   name: "LoginPage",
   components: { Widget },
+  computed: {
+    ...mapGetters({
+      photo: "user/GET_PHOTO",
+      userName: "user/GET_USERNAME",
+      displayName: "user/GET_DISPLAYNAME"
+    }),
+  },
+  mounted(){
+    if (this.userName.length > 0){
+      this.form.Username = this.userName;
+      this.$refs.pwd.$el.focus();
+    }
+  },
   data() {
     return {
       isLoading: false,
@@ -91,10 +116,13 @@ export default {
       selected:"@d-teknoloji.com.tr",
       options:[
         { value:"idv", text:"Individual Account"},
-        { value:"@d-teknoloji.com.tr",text:"d-teknoloji.com.tr" }
+        { value:"@d-teknoloji.com.tr",text:"d-teknoloji.com.tr" },
+        { value:"@vdfholding.com.tr",text:"vdfholding.com.tr" },
+        { value:"@dohas.com.tr",text:"dohas.com.tr" },
+        { value:"@dturizm.com.tr",text:"dturizm.com.tr" }
       ]
     };
-  },
+  }, 
   methods: {
     login() {
       this.isLoading = true;
