@@ -35,13 +35,13 @@ steps:
 - task: CopyFiles@2
   inputs:
     Contents: '**/dist/**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    TargetFolder: '$(build.artifactstagingdirectory)/Publish'
     CleanTargetFolder: true
     OverWrite: true
     preserveTimestamp: true
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Publish'
     ArtifactName: 'dsm-ui-vue'
     publishLocation: 'Container'
