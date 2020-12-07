@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getToken } from "@/utils/auth";
-import router from "../Routes";
 
 const settings = require("../settings.json");
 // create an axios instance
