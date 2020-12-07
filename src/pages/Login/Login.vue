@@ -12,8 +12,11 @@
             </b-overlay>
            <b-card-title class="mt-2 fw-normal text-center">Welcome back {{this.displayName.split(' ')[0]}}!</b-card-title> 
         </div>
-        <form class="mt" @submit.prevent="login">
-          <b-alert class="alert-sm" variant="danger" :show="errorMessage">{{errorMessage}}</b-alert>
+          <b-alert class="alert-sm" variant="secondary" :show="alertCountDown"
+                   @dismissed="alertCountDown=0" @dismiss-count-down="countDownChanged">
+            <h6 class="mt-2 fw-normal">{{errorMessage}}</h6>
+            <b-progress variant="secondary" :max="alertSeconds" :value="alertCountDown" height="8px" />
+          </b-alert>
           <b-form-group label="User Name" label-for="username-input">
             <b-input-group class="input-group-transparent">
               <b-input-group-text slot="prepend">
@@ -58,7 +61,8 @@
             </b-input-group>
           </b-form-group>
           <div class="widget-middle-overflow bg-widget mt-4 px-4 py-3">
-            <b-button class="btn-block btn-lg fs-normal" type="submit" variant="danger">
+            <b-button class="btn-block btn-lg fs-normal" type="submit" 
+                      variant="primary" @click="login()">
               <div v-show="!isLoading">
                 <span class="login-circle">
                   <i class="fa fa-caret-right"></i>
@@ -75,12 +79,12 @@
               class="text-center text-dark d-block mt-4 hidden"
             >Forgot Username or Password?</a>
           </div>
-        </form>
+        <!-- </form> -->
       </Widget>
     </b-container>
     <footer class="footer">
       <div class="float:right">
-        <p> Sürüm: 20.9.20.1 </p>
+        <p> Sürüm: 20.12.08.1 </p>
       </div>
     </footer>
   </div>
@@ -108,6 +112,8 @@ export default {
   data() {
     return {
       isLoading: false,
+      alertSeconds: 15,
+      alertCountDown: 0,
       errorMessage: null,
       form: {
         Username: "",
@@ -145,16 +151,26 @@ export default {
           })
           .catch(err => {
             this.isLoading = false;
-            if (err == 400){
+            if (err.errorCode == 400){
+              this.errorMessage = "Error: " + err.message;
+            }
+            else{
               this.errorMessage = err;
             }
-              // alert("Username or password is incorrect");
+            this.showAlert();
           });
       }
+    },
+    countDownChanged(dismissCountDown){
+      this.alertCountDown = dismissCountDown;
+    },
+    showAlert(){
+      this.alertCountDown = this.alertSeconds;
     }
   },
   created() {
     if (window.localStorage.getItem("authenticated") === "true" && window.location.pathname !== "/app/dashboard") {
+      
       this.$router.push("/app/dashboard");
     }
   }

@@ -33,7 +33,9 @@ router.beforeEach((to, from, next) => {
     next();
   }
   else if (window.localStorage.getItem("authenticated") === "false"){
-    if (window.location.pathname !== "/login"){
+    if (window.location.pathname !== "/login" 
+            && window.location.pathname !== "/#/login" 
+            && window.location.pathname !== 'undefined'){
       next("/login");
     }
   }
