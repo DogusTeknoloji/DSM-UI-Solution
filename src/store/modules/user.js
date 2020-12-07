@@ -74,6 +74,7 @@ export default {
       action_login({ commit }, data) {
            return new Promise((resolve, reject) => {
       login(data).then(res => {
+
         const tokenType="Bearer";
         const token = (tokenType + ' ' + res.token)
 
@@ -106,6 +107,7 @@ export default {
 
         resolve(true);
       }).catch(error => {
+        console.log(error);
         reject(error)
       })
     })

@@ -1,6 +1,5 @@
 import axios from "axios";
 import { getToken } from "@/utils/auth";
-import router from "../Routes";
 
 const settings = require("../settings.json");
 // create an axios instance
@@ -91,7 +90,7 @@ service.interceptors.response.use(
       return Promise.reject(error.response.status);
     }
     if (error.response.status === 400){ 
-      return router.push("/error"); 
+      return Promise.reject({ errorCode: 400,  message: error.response.data.message });
     }
     if (error.response.status === 401) {
       window.localStorage.setItem("authenticated", false);
