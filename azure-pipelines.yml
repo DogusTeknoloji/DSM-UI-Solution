@@ -1,8 +1,3 @@
-# Node.js with Vue
-# Build a Node.js project that uses Vue.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
-
 trigger:
 - master
 
@@ -10,13 +5,14 @@ pool: 'Default'
 
 steps:
 - task: NodeTool@0
+  displayName: 'Install Node.js'
   inputs:
     versionSpec: '10.x'
-  displayName: 'Install Node.js'
 
 - task: replacetokens@3
+  displayName: 'Replace Tokens in Settings.json'
   inputs:
-    targetFiles: '**/settings.json'
+    targetFiles: 'src/settings.json'
     encoding: 'auto'
     writeBOM: true
     actionOnMissing: 'warn'
@@ -33,15 +29,16 @@ steps:
   displayName: 'npm build'
 
 - task: CopyFiles@2
+  displayName: 'Copy Published Files to Staging Directory'
   inputs:
-    Contents: '**/dist/**'
-    TargetFolder: '$(build.artifactstagingdirectory)'
+    Contents: 'dist/**'
+    TargetFolder: '$(build.artifactstagingdirectory)/Publish'
     CleanTargetFolder: true
     OverWrite: true
-    preserveTimestamp: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifacts'
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/Publish'
     ArtifactName: 'dsm-ui-vue'
     publishLocation: 'Container'
