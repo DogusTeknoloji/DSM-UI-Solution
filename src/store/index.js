@@ -12,6 +12,8 @@ import azdevopsprojects from "./modules/azuredevops-projects";
 import azdevopsdepgroups from "./modules/azuredevops-dgroups";
 import azdevopsdepagents from "./modules/azuredevops-dagents";
 
+import elasticSearchInventory from "./modules/elastic-search-inventory";
+
 import odsreport from "./modules/odsreport";
 import portal from "./modules/portal";
 
@@ -30,5 +32,6 @@ export default new Vuex.Store({
     azdevopsdepagents,
     odsreport,
     portal,
+    elasticSearchInventory
   },
 });
