@@ -18,7 +18,8 @@
           :childrenLinks="[
           { header: 'Overview', link: '/app/dashboard' },
           { header: 'Server Statistics', link: '/app/dashboard/srvstatistics' , betaFeature:'betaFeature' },
-          { header: 'App. Management', link: '/app/dashboard/appmanagement' , betaFeature:'betaFeature' }
+          { header: 'App. Management', link: '/app/dashboard/appmanagement' , betaFeature:'betaFeature' },
+          { header: 'ElasticSearch Inventory', link: '/app/dashboard/elastic-search-inventory', betaFeature: 'betaFeature'}
         ]"
         />
         <NavLink

@@ -5,6 +5,7 @@ import Layout from "@/components/Layout/Layout";
 import Dashboard from "@/pages/Dashboard/Dashboard";
 import DashboardServerStats from "@/pages/Dashboard/ServerStatistics";
 import AppManagementInfo from "@/pages/Dashboard/AppManagementInfo";
+import ElasticSearchInventory from "@/pages/Dashboard/ElasticSearchInventory";
 import AzureDevOpsDeploymentAgents from "@/pages/AzureDevOps/deployment-agents";
 import AzureDevOpsDeploymentGroups from "@/pages/AzureDevOps/deployment-groups";
 import AzureDevOpsProjects from "@/pages/AzureDevOps/projects";
@@ -65,6 +66,11 @@ export default new Router({
           path: "dashboard/appmanagement",
           name: "Applicaton Management - Links",
           component: AppManagementInfo,
+        },
+        {
+          path: "dashboard/elastic-search-inventory",
+          name: "Elastic Search Inventory",
+          component: ElasticSearchInventory
         },
         {
           path: "AzureDevOps/Projects",
