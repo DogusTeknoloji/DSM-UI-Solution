@@ -12,7 +12,7 @@
     "animate.css": "^3.6.1",
     "animated-number-vue": "^0.1.4",
     "awesome-bootstrap-checkbox": "^1.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.1",
