@@ -16,7 +16,14 @@
     </div>
     <br/>
     <div class="col-md-12 table-card">
-      <table class="table table-hover table-striped">
+      <div class="position-absolute">
+        <ContextMenu ref="menu">
+          <template slot-scope="{ contextData }">
+            <ContextMenuItem @click.native="contextMenuCopyIpAddress(contextData.ipAddress)"> Copy Ip Address ({{ contextData.machineName }})</ContextMenuItem>
+          </template>
+        </ContextMenu>
+      </div>
+      <table class="table table-hover table-striped ">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -29,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
+          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)" @contextmenu.prevent="$refs.menu.open($event, s)">
             <th scope="row">{{i+1}}</th>
             <td>{{s.machineName}}</td>
             <td>{{s.ipAddress}}</td>
@@ -50,12 +57,14 @@
 <script>
 
 import { mapGetters, mapActions,mapMutations } from "vuex";
-import {getExportList,getExportSearchList,getServerList } from '@/api/server/'
-
+import {getExportList,getExportSearchList,getServerList } from '@/api/server/';
+import ContextMenu from '@/components/ContextMenu/ContextMenu';
+import ContextMenuItem from '@/components/ContextMenu/ContextMenuItem';
 export default {
   name: "ServerList",
   components: {
-    
+    ContextMenu,
+    ContextMenuItem
   },
   data() {
     return {
@@ -63,6 +72,9 @@ export default {
       orderPosition: 0,
       detailVisible: false,
       solutionVisible: false,
+      viewMenu: false,
+      top: '0px',
+      left: '0px',
       textarea: "",
       isLoading: true,
       rows: [getServerList(1)] ,
@@ -206,6 +218,17 @@ export default {
       this.$store.commit("server/SET_PAGE", 1);
       this.$store.commit("server/SET_LIST", []);
       this.getServerList();
+    },
+    contextMenuCopyIpAddress(ipAddress){
+      if (ipAddress !== null){
+        var item = document.createElement("textarea");
+        document.body.appendChild(item);
+        item.value = ipAddress;
+        item.select();
+        document.execCommand('copy');
+        document.body.removeChild(item);
+      }
+      this.$refs.menu.close();
     }
   }
 };
@@ -244,5 +267,13 @@ tbody {
 }
 .link-hidden{
   visibility: hidden;
+}
+
+.context-table{
+  position: relative,
+}
+
+.context-absolute{
+  position: absolute;
 }
 </style>
