@@ -1,7 +1,7 @@
 trigger:
 - master
 
-pool: 'Default'
+pool: 'LinuxPool'
 
 steps:
 - task: NodeTool@0
