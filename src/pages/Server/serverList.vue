@@ -19,7 +19,12 @@
       <div class="position-absolute">
         <ContextMenu ref="menu">
           <template slot-scope="{ contextData }">
-            <ContextMenuItem @click.native="contextMenuCopyIpAddress(contextData.ipAddress)"> Copy Ip Address ({{ contextData.machineName }})</ContextMenuItem>
+            <ContextMenuHeader>{{ contextData.machineName }}</ContextMenuHeader>
+            <ContextMenuItem class="disabled" @click.native="$refs.menu.close">Connect via SSH/RDP</ContextMenuItem>
+            <ContextMenuSeparator />
+            <ContextMenuItem @click.native="contextMenuCopyIpAddress(contextData.ipAddress)">Copy Ip Address</ContextMenuItem>
+            <ContextMenuItem class="disabled" v-if="contextData.serviceName != null" @click.native="$refs.menu.close">Search for Service ({{contextData.serviceName}})</ContextMenuItem>
+            <ContextMenuItem class="disabled" @click.native="$refs.menu.close">Export Server Details</ContextMenuItem>
           </template>
         </ContextMenu>
       </div>
@@ -60,11 +65,15 @@ import { mapGetters, mapActions,mapMutations } from "vuex";
 import {getExportList,getExportSearchList,getServerList } from '@/api/server/';
 import ContextMenu from '@/components/ContextMenu/ContextMenu';
 import ContextMenuItem from '@/components/ContextMenu/ContextMenuItem';
+import ContextMenuSeparator from '@/components/ContextMenu/ContextMenuSeparator';
+import ContextMenuHeader from '@/components/ContextMenu/ContextMenuHeader';
 export default {
   name: "ServerList",
   components: {
     ContextMenu,
-    ContextMenuItem
+    ContextMenuItem,
+    ContextMenuSeparator,
+    ContextMenuHeader
   },
   data() {
     return {
@@ -119,6 +128,7 @@ export default {
   mounted() {
     this.getServerList();
     this.getCheckDate();
+    
   },
   methods: {
     ...mapMutations({
@@ -275,5 +285,6 @@ tbody {
 
 .context-absolute{
   position: absolute;
+  height: 100%;
 }
 </style>

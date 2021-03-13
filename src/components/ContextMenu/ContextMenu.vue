@@ -6,8 +6,7 @@
     </div>
 </template>
 <script>
-//import Popper from '@popperjs/core';
-import { createPopper, preventOverflow, flip } from '@popperjs/core';
+import Popper from 'popper.js';
 import ClickOutside from 'vue-click-outside';
 export default {
     props: {
@@ -15,9 +14,6 @@ export default {
             type: String,
             default: 'body'
         }
-    },
-    components:{
-        //Popper
     },
     data(){
         return {
@@ -42,47 +38,27 @@ export default {
                 this.popper.destroy();
             }
 
-            
-            const element = document.querySelector(this.boundariesElement);
-            this.popper = createPopper(this.referenceObject(event), this.$refs.popper, {
-                placement: 'right-start',
-                modifiers: [{
-                        name: 'preventOverflow',
-                        enabled: false,
-                        options: {
-                            boundary: element,
-                            mainAxis: false,
-                        }
-                    }, {
-                        name: 'offset',
-                        enabled: true,
-                        options: {
-                            offset: [0,90]
-                        }
-                    }
-                ]
+            const refObj = this.referenceObject(event,this.$el);
+            this.popper = new Popper(refObj, this.$refs.popper, {
+                placement: 'right-end',
+                modifiers: []                
             });
-
-            // ReCalculate Context Position
             this.$nextTick( () => {
-                this.popper.update();
+                this.popper.scheduleUpdate();
             });
         },
         close(){
             this.opened = false;
         },
-        referenceObject(event){
-            //const rect = event.target.getBoundingClientRect();
-            console.log(event);
-            const left = event.clientX + 200;
-            const top = event.clientY + 50
+        referenceObject(event, contextMenu){
+            const left = (event.clientX - (contextMenu.clientWidth / 4 * 3 ));
+            const top = (event.clientY - (contextMenu.clientHeight / 3 * 2));
             const right = left + 1;
             const bottom =  top + 1;
             const clientWidth = 1;
             const clientHeight = 1;
-
+                       
             function getBoundingClientRect(){
-                console.log ("left:" + left + "top:" + top + "right:" + right + "bottom:" +bottom);
                 return {
                     left,top,right,bottom
                 };
@@ -120,7 +96,7 @@ export default {
     }
 
     #right-click-menu{
-        background: #FAFAFA;
+        background: rgb(209,217,224);
         border: 1px solid #BDBDBD;
         box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
         display: block;
@@ -129,6 +105,7 @@ export default {
         padding: 0;
         width: 250px;
         z-index: 999999;
+
     }
 
     #right-click-menu li {
