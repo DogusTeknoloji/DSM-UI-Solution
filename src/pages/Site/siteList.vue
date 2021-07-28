@@ -29,18 +29,19 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoSite(s)">
-            <th scope="row">{{i+1}}</th>
-            <td>{{s.siteName}}</td>
-            <td>{{s.ipAddress}}</td>
-            <td>{{s.port}}</td>
-            <td>{{s.hostName}}</td>
-            <td>{{s.appType}}</td>
-            <td>{{s.machinename}}</td>
-            <td>{{s.appPoolName}}</td>
-            <td>{{s.physicalPath}}</td>
-            <td>{{s.logFileDirectory}}</td>
-          </tr>
+            <tr v-for="(s, i) in this.list" :key="i" @click="gotoSite(s)">
+                <th scope="row">{{i+1}}</th>
+                <td>{{s.siteName}}</td>
+                <td>{{s.ipAddress}}</td>
+                <td>{{s.port}}</td>
+                <td>{{s.hostName}}</td>
+                <td>{{s.appType}}</td>
+                <td>{{s.machinename}}</td>
+                <td>{{s.appPoolName}}</td>
+                <td>{{s.physicalPath}}</td>
+                <td>{{s.logFileDirectory}}</td>
+            </tr>
+            <tr>  <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
         </tbody>
       </table>
     </div>

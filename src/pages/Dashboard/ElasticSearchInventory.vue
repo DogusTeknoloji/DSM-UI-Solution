@@ -32,11 +32,12 @@
                         <td @click="gotoServer(esi.serverId)" class="link">{{esi.hostname}}</td>
                         <td>{{esi.ipAddress}}</td>
                         <td>
-                            <button @click="gotoLink(esi)"  class="btn ml-md-auto bg-success login-btn">
+                            <button @click="gotoLink(esi)" class="btn ml-md-auto bg-success login-btn">
                                 <span class="fw-semi-bold">Login to Kibana</span>
                             </button>
                         </td>
                     </tr>
+                    <tr>  <td v-if="GET_LIST.length <1 || GET_LIST==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
                 </tbody>
             </table>
         </div>

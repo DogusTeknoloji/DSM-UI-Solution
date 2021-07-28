@@ -67,16 +67,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
-            <th scope="row">{{ i + 1 }}</th>
-            <td>{{ s.serverName }}</td>
-            <td>{{ s.owner }}</td>
-            <td>{{ s.environment }}</td>
-            <td>{{ s.ipAddress }}</td>
-            <td>{{ s.version }}</td>
-            <td>{{ s.osversion }}</td>
-            <td>{{ s.description, }}</td>
-          </tr>
+            <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>{{ s.serverName }}</td>
+                <td>{{ s.owner }}</td>
+                <td>{{ s.environment }}</td>
+                <td>{{ s.ipAddress }}</td>
+                <td>{{ s.version }}</td>
+                <td>{{ s.osversion }}</td>
+                <td>{{ s.description, }}</td>
+            </tr>
+            <tr>  <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
         </tbody>
       </table>
     </div>

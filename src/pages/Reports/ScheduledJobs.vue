@@ -25,15 +25,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in GET_LIST" :key="i">
-            <th scope="row">{{i+1}}</th>
-            <td>{{s.jobDescription}}</td>
-            <td>{{s.owner}}</td>
-            <td>{{s.hostType}}</td>
-            <td>{{s.hostName}}</td>
-            <td>{{s.repeatTime}}</td>
-            <td>{{s.jobName}}</td>
-          </tr>
+            <tr v-for="(s, i) in GET_LIST" :key="i">
+                <th scope="row">{{i+1}}</th>
+                <td>{{s.jobDescription}}</td>
+                <td>{{s.owner}}</td>
+                <td>{{s.hostType}}</td>
+                <td>{{s.hostName}}</td>
+                <td>{{s.repeatTime}}</td>
+                <td>{{s.jobName}}</td>
+            </tr>
+            <tr>  <td v-if="GET_LIST.length <1 || GET_LIST==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
         </tbody>
       </table>
     </div>
