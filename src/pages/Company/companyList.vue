@@ -14,20 +14,24 @@
     <br/>
     <div class="col-md-12 table-card">
       
-      <table class="table table-responsive table-hover table-striped">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Company Name</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(c, i) in this.list" :key="i" @click="gotoCompany(c)">
-            <th scope="row">{{i+1}}</th>
-            <td style="width:100%">{{c.name}}</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="table table-responsive table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Company Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(c, i) in this.list" :key="i" @click="gotoCompany(c)">
+                    <th scope="row">{{i+1}}</th>
+                    <td style="width:100%">{{c.name}}</td>
+                </tr>
+
+                <tr> 
+                <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> 
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="col-md-12 text-center" v-if="this.isLoading">
       <img src="@/assets/svg/loading.svg" />

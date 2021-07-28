@@ -27,20 +27,21 @@
           </tr>
         </thead>
         <tbody>
-          
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
-            <th scope="row">{{i+1}}</th>
-            <td>{{s.companyName}}</td>
-            <td>{{s.serverName}}</td>
-            <td>{{s.lastCheckDate}}</td>           
-            <td>{{s.volumeName}}</td>
-            <td>{{s.diskCapacity}}</td>
-            <td>{{s.usedDiskSpace}}</td>
-            <td v-if="s.freePercentage < 5"><div class="badge text-white badge-danger">Critical Disk Space!</div>  {{s.freeDiskSpace}}</td>
-            <td v-else-if="s.freePercentage > 4 && s.freePercentage <10 "><div class="badge text-gray-dark badge-warning">Warning!</div>  {{s.freeDiskSpace}}</td>
-            <td v-else>{{s.freeDiskSpace}}</td>
-            <td>{{s.responsible}}</td>
-          </tr>
+
+            <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)">
+                <th scope="row">{{i+1}}</th>
+                <td>{{s.companyName}}</td>
+                <td>{{s.serverName}}</td>
+                <td>{{s.lastCheckDate}}</td>
+                <td>{{s.volumeName}}</td>
+                <td>{{s.diskCapacity}}</td>
+                <td>{{s.usedDiskSpace}}</td>
+                <td v-if="s.freePercentage < 5"><div class="badge text-white badge-danger">Critical Disk Space!</div>  {{s.freeDiskSpace}}</td>
+                <td v-else-if="s.freePercentage > 4 && s.freePercentage <10 "><div class="badge text-gray-dark badge-warning">Warning!</div>  {{s.freeDiskSpace}}</td>
+                <td v-else>{{s.freeDiskSpace}}</td>
+                <td>{{s.responsible}}</td>
+            </tr>
+            <tr>  <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
         </tbody>
       </table>
     </div>

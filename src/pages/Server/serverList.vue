@@ -41,15 +41,16 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)" @contextmenu.prevent="$refs.menu.open($event, s)">
-            <th scope="row">{{i+1}}</th>
-            <td>{{s.machineName}}</td>
-            <td>{{s.ipAddress}}</td>
-            <td>{{s.dnsName}}</td>
-            <td>{{s.serviceName}}</td>
-            <td>{{s.operatingSystem}}</td>
-            <td>{{s.responsible}}</td>
-          </tr>
+            <tr v-for="(s, i) in this.list" :key="i" @click="gotoServer(s)" @contextmenu.prevent="$refs.menu.open($event, s)">
+                <th scope="row">{{i+1}}</th>
+                <td>{{s.machineName}}</td>
+                <td>{{s.ipAddress}}</td>
+                <td>{{s.dnsName}}</td>
+                <td>{{s.serviceName}}</td>
+                <td>{{s.operatingSystem}}</td>
+                <td>{{s.responsible}}</td>
+            </tr>
+            <tr>  <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
         </tbody>
       </table>
     </div>
