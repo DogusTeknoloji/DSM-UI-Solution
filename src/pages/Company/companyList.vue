@@ -26,8 +26,10 @@
                     <th scope="row">{{i+1}}</th>
                     <td style="width:100%">{{c.name}}</td>
                 </tr>
-                tr>
-            <tr> </tr><td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
+
+                <tr> 
+                <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> 
+                </tr>
             </tbody>
         </table>
     </div>
