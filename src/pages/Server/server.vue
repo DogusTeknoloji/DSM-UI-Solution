@@ -144,40 +144,47 @@
                   <h5 class="general-info-header">Organization Details</h5>
 
                   <table class="table">
-                    <tr>
-                      <td class="general-info-table-title">Owned by:</td>
-                      <td class="general-info-table-value">
-                        {{ header.companyName }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title">Managing by:</td>
-                      <td class="general-info-table-value">
-                        {{ detail.responsible }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title">Environment:</td>
-                      <td class="general-info-table-value">
-                        {{ detail.serverType }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title">Service:</td>
-                      <td class="general-info-table-value">
-                        {{ detail.serviceName }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title">Notes:</td>
-                      <td class="general-info-table-value">
-                        {{ detail.notes }}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="general-info-table-title"></td>
-                      <td class="general-info-table-value"></td>
-                    </tr>
+                      <tr>
+                          <td class="general-info-table-title">Owned by:</td>
+                          <td class="general-info-table-value">
+                              {{ header.companyName }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="general-info-table-title">Managing by:</td>
+                          <td class="general-info-table-value">
+                              {{ detail.responsible }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="general-info-table-title">Environment:</td>
+                          <td class="general-info-table-value">
+                              {{ detail.serverType }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="general-info-table-title">ODM Replication:</td>
+                          <td class="general-info-table-value"
+                              v-bind:class="{ 'text-yes': detail.odmReplication.toLowerCase() =='yes', 'text-danger': detail.odmReplication.toLowerCase()=='no' }">
+                              {{ detail.odmReplication }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="general-info-table-title">Service:</td>
+                          <td class="general-info-table-value">
+                              {{ detail.serviceName }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="general-info-table-title">Notes:</td>
+                          <td class="general-info-table-value">
+                              {{ detail.notes }}
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="general-info-table-title"></td>
+                          <td class="general-info-table-value"></td>
+                      </tr>
                   </table>
                 </div>
               </div>
@@ -328,6 +335,9 @@ export default {
 }
 .el-dialog__wrapper {
   overflow: auto;
+}
+.text-yes {
+  color: green;
 }
 .is-active {
   color: rgb(0, 0, 0) !important;
