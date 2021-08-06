@@ -16,6 +16,7 @@ import ComingSoonPage from "@/pages/ComingSoon/ComingSoon";
 import ErrorPage from "@/pages/Error/Error";
 import Server from "@/pages/Server/server";
 import ServerList from "@/pages/Server/serverList";
+import ServerListODM from "@/pages/Server/serverListODM";
 import Company from "@/pages/Company/company";
 import CompanyList from "@/pages/Company/companyList";
 import ServerOwnershipStatus from "@/pages/Reports/ServerOwnershipStatus";
@@ -106,6 +107,11 @@ export default new Router({
           path: "serverlist",
           name: "ServerList",
           component: ServerList,
+        },
+        {
+          path: "serverlistodm",
+          name: "ServerListODM",
+          component: ServerListODM,
         },
         {
           path: "company/:id",
