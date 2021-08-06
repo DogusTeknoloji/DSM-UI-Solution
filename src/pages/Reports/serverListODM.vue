@@ -1,15 +1,24 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <h4 class="fw-semi-bold">ODM Reports</h4>
+      <h4 class="fw-semi-bold">ODM Server List</h4>
       <div class="page-letters"></div>
     </div>
     <br/>
-    <br/>
+    <div class="col-md-12 text-right full-row mt-5"> 
+      <small> </small>
+    </div>
+    <div class="col-md-12 text-right full-row">
+       <b-button class="badge badge-resize excel-color" @click="downloadExport()">
+       <i class="glyphicon glyphicon-console"/>
+       Export to Excel</b-button>
+    </div>
+    <div class="col-md-12 table-card">
       <table class="table table-hover table-striped ">
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">Site Name</th>
             <th scope="col">Server Name</th>
             <th scope="col">Ip Address</th>
             <th scope="col">DNS Name</th>
@@ -22,17 +31,20 @@
         <tbody>
             <tr v-for="(s, i) in this.list" :key="i">
                 <th scope="row">{{i+1}}</th>
-                <td>{{s.machineName}}</td>
+                <td>{{s.siteName}}</td>
+                <td>{{s.serverName}}</td>
                 <td>{{s.ipAddress}}</td>
                 <td>{{s.dnsName}}</td>
-                <td>{{s.serviceName}}</td>
-                <td>{{s.ODM}}</td>
+                <td>{{s.service}}</td>
+                <td v-if="s.odmStatus">{{s.odmStatus}}</td>
+                <td v-else>No-Data</td>
                 <td>{{s.operatingSystem}}</td>
                 <td>{{s.responsible}}</td>
             </tr>
             <tr>  <td v-if="this.list.length <1 || this.list==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
         </tbody>
       </table>
+    </div>
     <div class="col-md-12 text-center" v-if="this.isLoading">
       <img src="@/assets/svg/loading.svg"/>
     </div>
@@ -40,6 +52,7 @@
 </template>
 <script>
 import {mapGetters, mapMutations, mapActions} from "vuex"
+import { getOdmExportSearchList, getOdmExportList } from '@/api/reports/odmstatus';
 export default {
    data(){
      return {
@@ -48,19 +61,43 @@ export default {
    },
    computed: {
      ...mapGetters({
-       list: 'odmstatusreport/GET_LIST'
+       list: 'odmstatusreport/GET_LIST',
+       isLast: 'odmstatusreport/GET_ISLAST',
+       isSearch: 'search/Get_ISSEARCH'
      })
+   },
+   created(){
+     this.actionSearch();
+     this.setList([])
+     this.getOdmList()
+     window.addEventListener("scroll", this.handleScroll);
+   },
+   destroyed(){
+     window.removeEventListener("scroll", this.handleScroll);
    },
    methods:{
      ...mapMutations({
        increase_page: 'odmstatusreport/INCREASE_PAGE',
+       setList: 'odmstatusreport/SET_LIST',
      }),
      ...mapActions({
-       actiongetlist: 'odmstatusreport/actions_getList'
+       actiongetlist: 'odmstatusreport/action_getList',
+       actionSearch: 'search/action_change_page'
      }),
      getOdmList(){
-       this.loading = true
-       this.actiongetlist().then(() => {this.loading = false})
+       this.isLoading = true
+       this.actiongetlist().then(() => {
+         this.isLoading = false
+      })
+    },
+      downloadExport(){
+        if (this.isSearch) {
+          let searchText = this.$store.state.search.search_text;
+          getOdmExportSearchList(searchText);
+        }
+        else{
+          getOdmExportList();
+        }
      },
      handleScroll(){
         let bottomOfWindow =
@@ -72,9 +109,9 @@ export default {
           window.innerHeight ===
         document.documentElement.offsetHeight;
 
-      if (bottomOfWindow && !this.isLast  && !this.isSearch && !this.isLoading) {
+      if (bottomOfWindow && !this.isLast && !this.isLoading) {
         this.increase_page();
-        this.getOdmList();
+        this.getOdmList()
       }
      }
    }

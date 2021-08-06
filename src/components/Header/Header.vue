@@ -208,6 +208,9 @@ export default {
 
     getModule() {
       let moduleName = "";
+      let moduleNameVue = null;
+      let route = this.$route.name;
+      console.log(route)
       switch (this.$route.name) {
         case "SiteList":
           moduleName = "site";
@@ -224,22 +227,29 @@ export default {
         case "DatabasePortal":
           moduleName = "databaseportal";
           break;
+        case "ServerListODM":
+          moduleName = "report/odmstatusreport";
+          moduleNameVue = 'odmstatusreport';
+          break;
         default:
           break;
       }
-      return moduleName;
+      return {
+        moduleName: moduleName,
+        moduleNameVue:moduleNameVue
+        };
     },
     search() {
-      let moduleName = this.getModule();
+      let cModule = this.getModule();
       this.$store.dispatch("search/action_search", {
-        moduleName,
+        cModule,
         text: this.text,
       });
     },
     cancelSearch() {
       this.text = "";
-      let moduleName = this.getModule();
-      this.$store.dispatch("search/action_cancel", { moduleName });
+      let cModule = this.getModule();
+      this.$store.dispatch("search/action_cancel", { cModule });
     },
     logout() {
       this.$store.dispatch("user/action_logout").then(() => {

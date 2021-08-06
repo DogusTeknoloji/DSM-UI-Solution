@@ -74,18 +74,10 @@
           index="reports"
           :childrenLinks="[
           { header: 'Overall Disk Status', link: '/app/reports/overall-disk-status' },
-          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' }
+          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' },
+          { header: 'ODM Server List', link: '/app/reports/serverlistodm' }
         ]"
         />
-
-        <NavLink
-          header="Servers ODM"
-          link="/app/serverlistODM"
-          iconName="glyphicon glyphicon-tasks"
-          index="server"
-          isHeader
-        />
-        
       </ul>
     </nav>
   </b-collapse>

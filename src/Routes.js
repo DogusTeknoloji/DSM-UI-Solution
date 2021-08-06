@@ -16,7 +16,7 @@ import ComingSoonPage from "@/pages/ComingSoon/ComingSoon";
 import ErrorPage from "@/pages/Error/Error";
 import Server from "@/pages/Server/server";
 import ServerList from "@/pages/Server/serverList";
-import ServerListODM from "@/pages/Server/serverListODM";
+import ServerListODM from "@/pages/Reports/serverListODM";
 import Company from "@/pages/Company/company";
 import CompanyList from "@/pages/Company/companyList";
 import ServerOwnershipStatus from "@/pages/Reports/ServerOwnershipStatus";
@@ -109,11 +109,6 @@ export default new Router({
           component: ServerList,
         },
         {
-          path: "serverlistodm",
-          name: "ServerListODM",
-          component: ServerListODM,
-        },
-        {
           path: "company/:id",
           name: "Company",
           component: Company,
@@ -158,6 +153,11 @@ export default new Router({
           path: "reports/scheduled-job-status",
           name: "ScheduledJobStatus",
           component: ScheduledJobStatus,
+        },
+        {
+          path: "reports/serverlistodm",
+          name: "ServerListODM",
+          component: ServerListODM,
         },
       ],
     },

@@ -8,7 +8,7 @@ state: {
     isLast: false
 },
 getters: {
-    GET_PAGE(state){
+      GET_PAGE(state){
         return state.page;
       },
       GET_LIST(state){
@@ -33,7 +33,7 @@ mutations: {
     },
 },
 actions: {
-    actions_getList({commit,state}){
+    action_getList({commit,state}){
       return new Promise((resolve, reject) => {
           getOdmStatusList(state.page).then(res => {
               if(res.lenght==0)
