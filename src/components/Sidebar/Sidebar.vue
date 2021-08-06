@@ -77,6 +77,15 @@
           { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' }
         ]"
         />
+
+        <NavLink
+          header="Servers ODM"
+          link="/app/serverlistODM"
+          iconName="glyphicon glyphicon-tasks"
+          index="server"
+          isHeader
+        />
+        
       </ul>
     </nav>
   </b-collapse>
