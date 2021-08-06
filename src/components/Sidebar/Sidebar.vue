@@ -74,7 +74,8 @@
           index="reports"
           :childrenLinks="[
           { header: 'Overall Disk Status', link: '/app/reports/overall-disk-status' },
-          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' }
+          { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' },
+          { header: 'ODM Server List', link: '/app/reports/serverlistodm' }
         ]"
         />
       </ul>

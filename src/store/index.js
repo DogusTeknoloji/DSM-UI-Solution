@@ -16,6 +16,7 @@ import elasticSearchInventory from "./modules/elastic-search-inventory";
 
 import odsreport from "./modules/odsreport";
 import portal from "./modules/portal";
+import odmstatusreport from "./modules/odmstatusreport";
 
 Vue.use(Vuex);
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     azdevopsdepagents,
     odsreport,
     portal,
-    elasticSearchInventory
+    elasticSearchInventory,
+    odmstatusreport
   },
 });
