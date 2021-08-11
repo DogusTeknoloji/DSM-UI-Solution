@@ -238,8 +238,8 @@
           >
             <h4 class="fw-semi-bold">Sites</h4>
             <br />
-            <div class="col-md-12 table-card">
-              <table class="table table-responsive table-striped">
+            <div class="col-md-12 table-card table-striped">
+              <table class="table table-responsive-sm">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -403,12 +403,12 @@ export default {
   padding-top: 20px;
   min-height: 500px;
 }
-.table-card {
+.table-card {    
   background-color: rgba(255, 255, 255, 0.2);
   // padding-left: 50px;
   padding-top: 20px;
   padding-bottom: 20px;
-}
+ }
 .general-info-table {
   &-title {
     font-weight: 900;
