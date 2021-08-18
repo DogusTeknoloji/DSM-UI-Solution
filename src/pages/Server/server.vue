@@ -1,46 +1,65 @@
 <template>
   <div class="row">
     <b-col xs="12" md="12" style="height:100vh">
-      <div class="site-header">
-        <div style="display:flex">
-          <div>
-            <h1 class="page-title" style="margin:0">
-              {{ header.serverName }} &nbsp;
-            </h1>
+        <div class="site-header">
+            <div style="display:flex">
+                <div>
+                    <h1 class="page-title" style="margin:0">
+                        {{ header.serverName }} &nbsp;
+                    </h1>
 
-            <div style="display:inline">
-              <h5
-                style="cursor:pointer"
-                @click="$router.push('/app/company/' + header.companyId)"
-              >
-                {{ header.companyName }}
-              </h5>
+                    <div style="display:inline">
+                        <h5 style="cursor:pointer"
+                            @click="$router.push('/app/company/' + header.companyId)">
+                            {{ header.companyName }}
+                        </h5>
+                    </div>
+                </div>
+                <b-button class="badge badge-resize rdp-color" @click="downloadRDP()">
+                    <i class="fa fa-terminal" aria-hidden="true"></i> &nbsp;&nbsp;
+                    Connect with RDP
+                </b-button>
             </div>
-          </div>
-          <b-button class="badge badge-resize rdp-color" @click="downloadRDP()">
-            <i class="fa fa-terminal" aria-hidden="true"></i> &nbsp;&nbsp;
-            Connect with RDP</b-button
-          >
-        </div>
-        <div class="site-status status-running">
-          <div style="align-self: center;">
-            <img
-              src="../../assets/ok-128.png"
-              width="48px"
-              height="48px"
-              alt
-              srcset
-            />
-            <br />
-          </div>
+            <div v-if="header.availability === '1'">
+                <div class="site-status status-running">
+                    <div style="align-self: center;">
+                        <img src="../../assets/ok-128.png"
+                             width="48px"
+                             height="48px"
+                             alt
+                             srcset />
+                        <br />
+                    </div>
 
-          <div class="site-status-text">
-            <h4 style="font-family:Roboto; display:block;margin-top:12px">
-              {{ header.availability }}
-            </h4>
-          </div>
+                    <div class="site-status-text">
+                        <h4 style="font-family:Roboto; display:block;margin-top:12px">
+                            Available
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div v-else>
+                <div class="site-status status-running">
+                    <div style="align-self: center;">
+                        <img src="../../assets/warning.png"
+                             width="48px"
+                             height="48px"
+                             alt
+                             srcset />
+                        <br />
+                    </div>
+
+                    <div class="site-status-text">
+                        <h4 style="font-family: Roboto; display: block; margin-top: 12px; color: #FF0000">
+                            UnAvailable
+                        </h4>
+                        <h6 style="font-family: Roboto; display: block; margin-top: 12px; color: #FF0000">
+                            Server state is powered off.
+                        </h6>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
       <div class="col-md-12">
         <el-tabs v-model="activeName" @tab-click="handleTabClick()">
           <el-tab-pane label="General" name="general">
