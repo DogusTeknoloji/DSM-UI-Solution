@@ -75,7 +75,8 @@
           :childrenLinks="[
           { header: 'Overall Disk Status', link: '/app/reports/overall-disk-status' },
           { header: 'Scheduled Jobs', link: '/app/reports/scheduled-job-status' },
-          { header: 'ODM Server List', link: '/app/reports/serverlistodm' }
+          { header: 'ODM Server List', link: '/app/reports/serverlistodm' },
+          { header: 'Monthly KPI Status', link: '/app/reports/kpi-status' }
         ]"
         />
       </ul>

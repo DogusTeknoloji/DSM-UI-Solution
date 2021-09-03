@@ -17,6 +17,7 @@ import ErrorPage from "@/pages/Error/Error";
 import Server from "@/pages/Server/server";
 import ServerList from "@/pages/Server/serverList";
 import ServerListODM from "@/pages/Reports/serverListODM";
+import KpiStatus from "@/pages/Reports/KpiStatus";
 import Company from "@/pages/Company/company";
 import CompanyList from "@/pages/Company/companyList";
 import ServerOwnershipStatus from "@/pages/Reports/ServerOwnershipStatus";
@@ -158,6 +159,11 @@ export default new Router({
           path: "reports/serverlistodm",
           name: "ServerListODM",
           component: ServerListODM,
+          },
+        {
+           path: "reports/kpi-status",
+           name: "KpiStatus",
+           component: KpiStatus,
         },
       ],
     },
