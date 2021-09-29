@@ -50,7 +50,7 @@
                             <span class="mx-auto">Contact Card</span>
                         </b-button>
 
-                        <button type="button" @click="" 
+                        <button type="button"
                             class="btn btn-primary btn-sm d-flex text-nowrap mt-1 align-items-center justify-items-center" 
                             style="width:9rem;font-size:0.83rem;">
                             <i class="fa fa-file-text-o mr-1"></i>
@@ -117,17 +117,6 @@
             },
             gotoUrlWOLogin(url) {
                 window.open(url, "_blank");
-            },
-            clickModal(id){
-                this.$modal.show({
-                template: `
-                    <div>
-                    <p>Close using this button:</p>
-                    <button @click="$emit('close')">Close</button>
-                    </div>
-                `
-                })
-
             },
         }
     }
