@@ -27,6 +27,7 @@ import OverallDiskStatus from "@/pages/Reports/OverallDiskStatus";
 import ScheduledJobStatus from "@/pages/Reports/ScheduledJobs";
 import DatabasePortal from "@/pages/DBPortal/DatabasePortal";
 import DatabasePortalDetails from "@/pages/DBPortal/DatabasePortalDetails";
+import Alerts from "@/pages/Monitoring/Alerts";
 
 Vue.use(Router);
 
@@ -164,6 +165,11 @@ export default new Router({
            path: "reports/kpi-status",
            name: "KpiStatus",
            component: KpiStatus,
+          },
+        {
+            path: "monitoring/alerts",
+            name: "Alerts",
+            component: Alerts,
         },
       ],
     },
