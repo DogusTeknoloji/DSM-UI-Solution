@@ -18,6 +18,8 @@ import odsreport from "./modules/odsreport";
 import portal from "./modules/portal";
 import odmstatusreport from "./modules/odmstatusreport";
 
+import alerts from "./modules/alerts-monitoring";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -34,6 +36,7 @@ export default new Vuex.Store({
     odsreport,
     portal,
     elasticSearchInventory,
-    odmstatusreport
+    odmstatusreport,
+    alerts,
   },
 });

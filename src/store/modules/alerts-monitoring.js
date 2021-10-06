@@ -1,29 +1,43 @@
-import { getMonitoringItems } from '@/api/alerts-monitoring'
+import { getAlerts  } from '@/api/monitoring/alerts';
 export default {
     namespaced: true,
-    state: {
-        msg: ""
+    state:{
+      list: [],
+      isLast: false,
+      page: 1
     },
-    getters: {
-        GET_MSG(state) {
-            return state.msg;
+    getters:{
+        GET_LIST(state){
+            return state.list;
+        },
+        GET_ISLAST(state){
+            return state.isLast;
         }
     },
-    mutations: {
-        SET_MSG(state, data) {
-            state.msg = data;
+    mutations:{
+        SET_LIST(state,data){
+            state.list=data;
+        },
+        PUSH_LIST(state,data){
+            state.list.push.apply(state.list,data);
+        },
+        INCREASE_PAGE(state){
+            state.page = state.page + 1;
         },
     },
-    actions: {
-        action_getMsg({ commit }) {
-            return new Promise((resolve, reject) => {
-                getMonitoringItems().then(res => {
-                    commit("SET_MSG", res);
-                    resolve(res)
+    actions:{
+        action_getList({ commit, state}){
+            return new Promise((resolve,reject) => {
+                getAlerts(state.page).then( res => {
+                    if (res.length ==0){
+                        state.isLast = true
+                    }
+                    commit("PUSH_LIST",res);
+                    resolve(res);
                 }).catch(error => {
-                    reject(error)
+                    reject(error);
                 })
-            })
-        },
+            });
+        }
     }
-};
+}

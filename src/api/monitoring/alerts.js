@@ -1,8 +1,16 @@
 import request from '@/utils/request';
-const controllerName = "/monitoring/alerts/";
+const controllerName = "/monitoring/";
 
-export function getAlertsItems() {
-    let url = controllerName;
+export function getAlerts(data) {
+    let url = controllerName + 'alerts/' + data;
+    return request({
+        url,
+        method: 'get'
+    });
+}
+
+export function getContacts(data) {
+    let url = controllerName + 'contacts/' + data;
     return request({
         url,
         method: 'get'

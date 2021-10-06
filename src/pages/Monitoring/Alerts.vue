@@ -7,7 +7,7 @@
     </div>
     
     <div class="col-md-12">
-        <h4 class="fw-semi-bold">Alerts</h4>
+        <h4 class="fw-semi-bold">Alert Action/ Escalation Inventory </h4>
     </div>
 
     <br />
@@ -20,10 +20,10 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Alert Description</th>
-                    <th scope="col">Action 1</th>
+                    <!-- <th scope="col">Action 1</th>
                     <th scope="col">Action 2</th>
                     <th scope="col">Action 3</th>
-                    <th scope="col">Action 4</th>
+                    <th scope="col">Action 4</th> -->
                     <th scope="col">Alert Source</th>
                     <th scope="col">Domain</th>
                     <th scope="col">Notes</th>
@@ -31,23 +31,24 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(esi, i) in GET_LIST" :key="i">
+                <tr v-for="(alert, i) in GET_LIST" :key="i">
                     <th scope="row">{{i+1}}</th>
-                    <td>{{esi.AlertDescription}}</td>
-                    <td>{{esi.Action1}}</td>
-                    <td>{{esi.Action2}}</td>
-                    <td>{{esi.Action3}}</td>
-                    <td>{{esi.Action4}}</td>
-                    <td>{{esi.AlertSource}}</td>
-                    <td>{{esi.Domain}}</td>
-                    <td>{{esi.Notes}}</td>
+                    <td>{{alert.alertDescription}}</td>
+                    <!-- <td>{{alert.action1}}</td>
+                    <td>{{alert.action2}}</td>
+                    <td>{{alert.action3}}</td>
+                    <td>{{alert.action4}}</td> -->
+                    <td>{{alert.alertSource}}</td>
+                    <td>{{alert.domain}}</td>
+                    <td>{{alert.notes}}</td>
                     <td>
 
-                        <b-button v-b-modal.modal-contact
+                        <b-button
                             class="btn btn-primary btn-sm d-flex text-nowrap align-items-center justify-items-center"
-                            style="width:9rem;font-size:0.83rem;">
+                            style="width:9rem;font-size:0.83rem;"
+                            @click="onContactInfoClicked(alert.alertDescription, alert.alertId)">
                             <i class="fa fa-user mr-1"></i>
-                            <span class="mx-auto">Contact Card</span>
+                            <span class="mx-auto">Contact Info</span>
                         </b-button>
 
                         <button type="button"
@@ -60,64 +61,170 @@
                 </tr>
                 <tr>  <td v-if="GET_LIST.length <1 || GET_LIST==null" colspan="9" align="center"> <span>Record is empty!</span> </td> </tr>
             </tbody>
-
         </table>
     </div>
+    <div class="col-md-12 text-center" v-if="this.isLoading">
+      <img src="@/assets/svg/loading.svg" />
+    </div>
+    <b-modal
+      id="contactInfo-modal"
+      cancel-variant="outline-secondary"
+      ok-title="Ok"
+      size="lg"
+      centered
+      title="Contact Info">
+        <b-form>
+            <b-form-group>
+                <label for="alertMessage">Alert Message</label>
+                <b-form-input id="alertMessage" type="text" disabled v-model="contactModalItems.alertMsg"/>
+            </b-form-group>
+        </b-form>
+        <b-form>
+            <b-form-group>
+                <label for="priority">Contact Order</label>
+                <b-form-input 
+                    id="priority"
+                    type="text"
+                    disabled />
+            </b-form-group>
+            <b-form-group>
+                <label for="contactFullName">Full Name</label>
+                <b-form-input
+                    id="contactFullName" 
+                    type="text"
+                    disabled />
+            </b-form-group>
+            <b-form-group>
+                <label for="contactPhoneNumber1">Phone Number 1</label>
+                <b-form-input
+                    id="contactPhoneNumber1"
+                    type="text"
+                    disabled />
+            </b-form-group>
+            <b-form-group>
+                <label for="contactPhoneNumber2">Phone Number 2</label>
+                <b-form-input 
+                    id="contactPhoneNumber2"
+                    type="text"
+                    disabled />
+            </b-form-group>
+            <b-form-group>
+                <label for="contactEMail">E-Mail</label>
+                <b-form-input 
+                    id="contactEMail"
+                    type="text"
+                    disabled />
+            </b-form-group>
+        </b-form>
+        <template #modal-footer="{ prevContact,nextContact }">
+            <b-container fluid>
+                <b-row>
+                    <b-col align-self="start">
+                        <b-button class="ml-n3 px-3" size="sm" 
+                        v-show="contactModalItems.totalContactCount > 1 && contactModalItems.currentContactOrder != 1" 
+                        variant="primary" 
+                        @click="nextContact()">Previous Contact</b-button>
+                    </b-col>
+                    <b-col align-self="center">
+                        <p class="text-center align-items-center my-auto">
+                            Contact: [ {{ contactModalItems.currentContactOrder }} / {{ contactModalItems.totalContactCount }} ]
+                        </p>
+                    </b-col>
+                    <b-col align-self="end">
+                        <b-button class="mr-n3 px-3 pull-right" size="sm" 
+                        v-show="contactModalItems.currentContactOrder < contactModalItems.totalContactCount" 
+                        variant="primary"
+                        @click="prevContact()">Next Contact</b-button>
+                    </b-col>
+                </b-row>
+            </b-container>
+        </template>
+    </b-modal>
 </div>
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
-    import ESIModule from '@/store/modules/elastic-search-inventory';
+    import { mapActions, mapGetters, mapMutations } from 'vuex';
+    // import { getContacts } from '@/api/Monitoring/alerts.js';
     export default {
         name: "AlertsPage",
         data() {
             return {
+                defaultContactModalItems: {
+                    alertMsg: '',
+                    alertId: '',
+                    contactPriority: 0,
+                    contactFullName: '',
+                    contactPhone1: '',
+                    contactPhone2: '',
+                    contactEMail: '',
+                    currentContactOrder: 1,
+                    totalContactCount: 1,
+                },
+                contactModalItems: {},
+                isLoading: true,
                 forbidden_page: false
             };
         },
         computed: {
-            ...mapGetters('modules/esi', ['GET_LIST'])
+            ...mapGetters({
+                GET_LIST: 'alerts/GET_LIST',
+                isLast: "server/GET_ISLAST",
+            })
         },
         created() {
-            this.$store.registerModule("modules/esi", ESIModule);
-            this.$store.commit("modules/esi/SET_LIST", []);
+            this.SET_LIST([])
+            window.addEventListener("scroll", this.handleScroll)
+        },
+        destroyed(){
+            window.removeEventListener("scroll", this.handleScroll)
         },
         mounted() {
-            this.getItemList();
-        },
-        beforeDestroy() {
-            this.$store.unregisterModule("modules/esi");
+            this.getAlertList()
         },
         methods: {
-            ...mapActions("modules/esi", ["action_getList"]),
-            getItemList() {
-                this.action_getList().then(() => { }).catch(err => {
+            ...mapMutations({
+                SET_LIST: 'alerts/SET_LIST',
+                IncreasePage: "alerts/INCREASE_PAGE"
+            }),
+            ...mapActions({
+                FETCH_LIST: 'alerts/action_getList'
+            }),
+            handleScroll() {
+                let bottomOfWindow =
+                Math.max(
+                    window.pageYOffset,
+                    document.documentElement.scrollTop,
+                    document.body.scrollTop
+                ) +
+                    window.innerHeight ===
+                    document.documentElement.offsetHeight;
+
+                if (bottomOfWindow && !this.isLast  && !this.isSearch && !this.isLoading) {
+                    this.IncreasePage();
+                    this.getAlertList();
+                }
+            },
+            resetContact()
+            {
+                this.contactModalItems = { ...this.defaultContactModalItems };
+            },
+            getAlertList(){
+                this.isLoading = true
+                this.FETCH_LIST().then(()=> {
+                    this.isLoading = false
+                }).catch(err => {
                     if (err == 403) {
                         this.forbidden_page = true;
                     }
                 });
             },
-            gotoServer(srvId) {
-                this.$router.push("/app/server/" + srvId.toString());
-            },
-            gotoCompany(cmpId) {
-                this.$router.push("/app/company/" + cmpId.toString());
-            },
-            gotoLink(esi) {
-                var modifiedUrl = "";
-                if (esi.url.includes("https://")) {
-                    modifiedUrl = esi.url.replace("https://", "");
-                    window.open("https://" + esi.username + ":" + esi.password + "@" + modifiedUrl, "_blank");
-                }
-                else {
-                    modifiedUrl = esi.url.replace("http://", "");
-                    window.open("http://" + esi.username + ":" + esi.password + "@" + modifiedUrl, "_blank");
-                }
-            },
-            gotoUrlWOLogin(url) {
-                window.open(url, "_blank");
-            },
+            onContactInfoClicked(alertMsg, alertId){
+                this.resetContact();
+                this.contactModalItems.alertMsg = alertMsg
+                this.contactModalItems.alertId = alertId                
+                this.$bvModal.show('contactInfo-modal')
+            }
         }
     }
 </script>
