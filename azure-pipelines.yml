@@ -7,7 +7,7 @@ steps:
 - task: NodeTool@0
   displayName: 'Install Node.js'
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '14.x'
 
 - task: replacetokens@3
   displayName: 'Replace Tokens in Settings.json'
