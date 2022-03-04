@@ -43,7 +43,7 @@
     "line-awesome": "github:icons8/line-awesome",
     "messenger": "git+https://github.com/HubSpot/messenger.git#v1.4.2",
     "moment": "^2.29.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "normalize-package-data": "^2.5.0",
     "nvd3": "1.8.6",
     "popper.js": "1.14.4",
