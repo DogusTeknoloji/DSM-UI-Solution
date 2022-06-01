@@ -23,7 +23,7 @@
                         <th scope="col">Year</th>
                         <th scope="col">January</th>
                         <th scope="col">February </th>
-                        <th scope="col">March  </th>
+                        <th scope="col">March </th>
                         <th scope="col">April </th>
                         <th scope="col">May</th>
                         <th scope="col">June</th>
@@ -37,23 +37,27 @@
                 </thead>
                 <tbody>
                     <tr v-for="(s, i) in this.list" :key="i">
-                        <th scope="row">{{i+1}}</th>
-                        <td>{{s.application}}</td>
-                        <td>{{s.year}}</td>
-                        <td>{{s.ocak}}</td>
-                        <td>{{s.subat}}</td>
-                        <td>{{s.mart}}</td>
-                        <td>{{s.nisan}}</td>
-                        <td>{{s.mayis}}</td>
-                        <td>{{s.haziran}}</td>
-                        <td>{{s.temmuz}}</td>
-                        <td>{{s.agustos}}</td>
-                        <td>{{s.eylul}}</td>
-                        <td>{{s.ekim}}</td>
-                        <td>{{s.kasim}}</td>
-                        <td>{{s.aralik}}</td>
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{ s.application }}</td>
+                        <td>{{ s.year }}</td>
+                        <td>{{ s.ocak }}</td>
+                        <td>{{ s.subat }}</td>
+                        <td>{{ s.mart }}</td>
+                        <td>{{ s.nisan }}</td>
+                        <td>{{ s.mayis }}</td>
+                        <td>{{ s.haziran }}</td>
+                        <td>{{ s.temmuz }}</td>
+                        <td>{{ s.agustos }}</td>
+                        <td>{{ s.eylul }}</td>
+                        <td>{{ s.ekim }}</td>
+                        <td>{{ s.kasim }}</td>
+                        <td>{{ s.aralik }}</td>
                     </tr>
-                    <tr>  <td v-if="this.list.length <1 || this.list==null" colspan="15" align="center"> <span>Record is empty!</span> </td> </tr>
+                    <tr>
+                        <td v-if="this.list.length < 1 || this.list == null" colspan="15" align="center"> <span>Record
+                                is
+                                empty!</span> </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -63,89 +67,114 @@
     </div>
 </template>
 <script>
-    import { getKpiStatusList } from '@/api/reports/kpistatus';
-    export default {
-        data() {
-            return {
-                isLoading: true,
-                list: [],
-            }
-        },
-        created() {
-            this.getKpiList()
-        },
-        methods: {
-           
-            getKpiList() {
-                this.isLoading = true
-                debugger
-                getKpiStatusList(1).then(response => {
-                    this.list = response
-                    debugger
-                    this.isLoading = false
-                })
-            },
+import { getKpiStatusList } from '@/api/reports/kpistatus';
+    var pageCounter = 1
+export default {
+    
+    data() {
+        return {
+            isLoading: true,
+            list: [],
         }
+    },
+    created() {
+        this.getKpiList()
+        pageCounter = 1
+        window.addEventListener("scroll", this.handleScroll);
+    },
+    destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+    },
+    methods: {
+
+        getKpiList() {
+            this.isLoading = true
+            getKpiStatusList(pageCounter).then(response => {
+                this.list = this.list.concat(response)
+                if(response.length == 0){
+                    window.removeEventListener("scroll", this.handleScroll);
+                }else{
+                    pageCounter++;
+                }
+                this.isLoading = false
+            })
+        },
+        handleScroll() {
+      let bottomOfWindow =
+        Math.max(
+          window.pageYOffset,
+          document.documentElement.scrollTop,
+          document.body.scrollTop
+        ) +
+          window.innerHeight ===
+        document.documentElement.offsetHeight;
+      if (bottomOfWindow && !this.isLast && !this.isSearch && !this.isLoading) {
+        this.getKpiList();
+      }
+    },
     }
+}
 </script>
 
 
 <style lang="scss" scoped>
-    .page-letters {
-        display: flex;
+.page-letters {
+    display: flex;
+}
+
+tbody {
+    th {
+        background-color: transparent !important;
     }
 
-    tbody {
-        th {
-            background-color: transparent !important;
-           }
-        tr {
-            cursor: pointer;
-        }
+    tr {
+        cursor: pointer;
     }
+}
 
-    thead {
-        th{
-            position:sticky;
-            top:0;
-            z-index:1;
-        }
+thead {
+    th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
     }
-    .full-row {
-        margin-left: 20px;
-    }
+}
 
-    .excel-color {
-        background-color: #21a366;
-        color: #ffffff;
-    }
+.full-row {
+    margin-left: 20px;
+}
+
+.excel-color {
+    background-color: #21a366;
+    color: #ffffff;
+}
 
 /*    .excel-color:hover {
         background-color: #217346;
         color: #ffffff;
     }*/
 
-    .badge-resize {
-        height: 26px;
-    }
+.badge-resize {
+    height: 26px;
+}
 
-    .link {
-        color: #213773;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-weight: bold;
-        font-size: 9pt;
-    }
+.link {
+    color: #213773;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 9pt;
+}
 
-    .link-hidden {
-        visibility: hidden;
-    }
+.link-hidden {
+    visibility: hidden;
+}
 
-    .context-table {
-        position: relative,
-    }
+.context-table {
+    position: relative,
+}
 
-    .context-absolute {
-        position: absolute;
-        height: 100%;
-    }
+.context-absolute {
+    position: absolute;
+    height: 100%;
+}
 </style>
