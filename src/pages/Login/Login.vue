@@ -125,7 +125,8 @@ export default {
         { value:"@d-teknoloji.com.tr",text:"d-teknoloji.com.tr" },
         { value:"@vdfholding.com.tr",text:"vdfholding.com.tr" },
         { value:"@dohas.com.tr",text:"dohas.com.tr" },
-        { value:"@dturizm.com.tr",text:"dturizm.com.tr" }
+        { value:"@dturizm.com.tr",text:"dturizm.com.tr" },
+        { value:"@vdf.com.tr",text:"vdf.com.tr"}
       ]
     };
   }, 
