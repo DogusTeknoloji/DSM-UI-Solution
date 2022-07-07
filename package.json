@@ -42,7 +42,7 @@
     "js-cookie": "^2.2.1",
     "line-awesome": "github:icons8/line-awesome",
     "messenger": "git+https://github.com/HubSpot/messenger.git#v1.4.2",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "node-sass": "^4.14.1",
     "normalize-package-data": "^2.5.0",
     "nvd3": "1.8.6",
